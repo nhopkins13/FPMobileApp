@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.csci448.fpmobileapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.csci448.fpmobileapp"
