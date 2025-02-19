@@ -17,15 +17,19 @@ import androidx.compose.ui.tooling.preview.Preview
 /** Credential
  *  creates a TextField to enter username/email or password
  *
- *  pass a Boolean argument;
+ *  pass an Integer argument;
  *
- *  if true, field is a password;
- *      placeholder text is "password",
- *      entered text is visually transformed
  *
- *  if false, field is a username/email;
+ *  if 0, field is a username/email;
  *      placeholder text is username/email,
  *      entered text is not transformed
+ *  if 1, field is a password;
+ *       placeholder text is "password",
+ *       entered text is visually transformed
+ *   if 2, field is a password confirmation;
+ *      placeholder text is "confirm password",
+ *      entered text is visually transformed
+ *
  *
  *  entered text is saved in the inputCred mutable
  *
@@ -36,12 +40,10 @@ import androidx.compose.ui.tooling.preview.Preview
  *
  */
 @Composable
-fun Credential(isPwd: Boolean){
+fun Credential(entryType: Int, textPlaceHold: String = "username or email"){
     val inputCred: MutableState<String> = remember {mutableStateOf("")}
-    var placeHolder = "username or email"
     var thisTransform = VisualTransformation.None
-    if(isPwd){
-        placeHolder = "password"
+    if(entryType > 0){
         thisTransform = PasswordVisualTransformation()
     }
     Box(modifier = Modifier.fillMaxWidth(),
@@ -49,7 +51,7 @@ fun Credential(isPwd: Boolean){
         TextField(value = inputCred.value,
             onValueChange = fun(newVal: String){inputCred.value = newVal},
             modifier = Modifier,
-            placeholder = {Text(placeHolder)},
+            placeholder = {Text(textPlaceHold)},
             visualTransformation = thisTransform,
             singleLine = true
             )
@@ -59,10 +61,10 @@ fun Credential(isPwd: Boolean){
 @Preview
 @Composable
 private fun PreveiwCredential(){
-    Credential(false)
+    Credential(0)
 }
 @Preview
 @Composable
 private fun PreveiwCredential2(){
-    Credential(true)
+    Credential(0)
 }

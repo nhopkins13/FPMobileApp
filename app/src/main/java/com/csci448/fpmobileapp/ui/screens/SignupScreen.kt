@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.ui.components.Credential
 
-/** LoginScreen
+/** SignupScreen
  *  prompts the user to login with username/email and password
  *  using Credential components
  *
@@ -20,17 +20,26 @@ import com.csci448.fpmobileapp.ui.components.Credential
  *      add buttons (back, submit, etc.),
  *      send inputs to login server(s),
  *
- */
+ **/
 @Composable
-fun LoginScreen(){
+fun SignupScreen(){
     Column{
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.padding(vertical = 15.dp),
-            contentAlignment = Alignment.BottomCenter) {
-            Credential(0, "username or email")
+            contentAlignment = Alignment.Center) {
+            Credential(0, "Email")
         }
-        Box(modifier = Modifier.padding(vertical = 15.dp)) {
+        Box(modifier = Modifier.padding(vertical = 15.dp),
+            contentAlignment = Alignment.Center) {
+            Credential(0, "username")
+        }
+        Box(modifier = Modifier.padding(vertical = 15.dp),
+            contentAlignment = Alignment.Center) {
             Credential(1, "password")
+        }
+        Box(modifier = Modifier.padding(vertical = 15.dp),
+            contentAlignment = Alignment.Center) {
+            Credential(1, "confirm password")
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
@@ -38,6 +47,6 @@ fun LoginScreen(){
 
 @Preview
 @Composable
-private fun PreviewLoginScreen(){
-    LoginScreen()
+private fun PreviewSignupScreen(){
+    SignupScreen()
 }
