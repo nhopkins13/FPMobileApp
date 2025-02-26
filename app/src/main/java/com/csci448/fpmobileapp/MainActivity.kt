@@ -13,6 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.csci448.fpmobileapp.ui.theme.FPMobileAppTheme
 
+/**
+ * The main function that runs the app
+ *
+ * TODO:
+ *  place (temporarily) main screen into scaffold,
+ *  replace scaffold content with NavHost,
+ *  create viewmodel & viewmodel factory,
+ *  override functions for console logs
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

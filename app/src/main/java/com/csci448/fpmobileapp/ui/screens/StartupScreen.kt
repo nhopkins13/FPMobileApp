@@ -10,42 +10,40 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.csci448.fpmobileapp.ui.components.Credential
+import com.csci448.fpmobileapp.ui.components.NavButton
 
-/** SignupScreen
- *  prompts the user to login with username/email and password
- *  using Credential components
+/**
+ * The first screen to appear when the app opens
  *
- *  TODO:
- *      Improve formatting,
- *      connect to ViewModel,
- *      add buttons (back, submit, etc.),
- *      send inputs to login server(s),
- *
- **/
+ * TODO:
+ *  connect to viewmodel,
+ *  add lambdas to buttons to navigate between screens,
+ *  refine visuals,
+ *  move displayed text to strings.xml
+ */
 @Composable
-fun SignupScreen(){
+fun StartupScreen(){
     Column{
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
-            Text("Sign up")
+            Text("STUDYSAURUS")
         }
-        Box(modifier = Modifier.padding(vertical = 15.dp),
+        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            Credential(0, "Email")
+            Text("[logo/mascot goes here]")
         }
-        Box(modifier = Modifier.padding(vertical = 15.dp),
+        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            Credential(0, "username")
+            NavButton("Login")
         }
-        Box(modifier = Modifier.padding(vertical = 15.dp),
+        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            Credential(1, "password")
+            NavButton("Sign up")
         }
-        Box(modifier = Modifier.padding(vertical = 15.dp),
+        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            Credential(1, "confirm password")
+            NavButton("continue offline")
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
@@ -53,6 +51,6 @@ fun SignupScreen(){
 
 @Preview
 @Composable
-private fun PreviewSignupScreen(){
-    SignupScreen()
+private fun PreviewStartupScreen(){
+    StartupScreen()
 }
