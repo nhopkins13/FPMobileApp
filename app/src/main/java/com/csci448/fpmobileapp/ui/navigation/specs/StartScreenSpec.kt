@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import com.csci448.fpmobileapp.ui.screens.StartupScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
-object StartScreenspec : IScreenSpec {
+object StartScreenSpec : IScreenSpec {
     override val route: String
         get() = "StartupScreen"
 

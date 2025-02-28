@@ -23,6 +23,6 @@ sealed interface IScreenSpec {
     companion object{
         val allScreens = IScreenSpec::class.sealedSubclasses.map{ it.objectInstance }
         val root = "fpmobileapp"
-        val startDestination = StartScreenspec.route
+        val startDestination = StartScreenSpec.route
     }
 }
