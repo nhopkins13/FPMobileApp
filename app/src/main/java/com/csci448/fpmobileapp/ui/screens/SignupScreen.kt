@@ -37,15 +37,15 @@ fun SignupScreen(){
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(0, "username")
+            Credential(0, "Username")
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(1, "password")
+            Credential(1, "Password")
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(1, "confirm password")
+            Credential(1, "Confirm password")
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
