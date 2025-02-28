@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.Saurus
+import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -58,12 +59,5 @@ fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: ()
 @Preview
 @Composable
 private fun PreviewStartupScreen(){
-    StartupScreen(viewModel = StudySaurusVM(mySaurus = Saurus(
-        name = TODO(),
-        type = TODO(),
-        size = TODO(),
-        hat = TODO(),
-        color = TODO()
-    )
-    ), goToHome = {}, goToLogin = {}, goToSignup = {})
+    StartupScreen(viewModel = StudySaurusVM(mySaurus = SaurusRepo.mySaurus), goToHome = {}, goToLogin = {}, goToSignup = {})
 }
