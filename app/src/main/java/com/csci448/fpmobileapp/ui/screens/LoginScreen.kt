@@ -29,6 +29,7 @@ import com.csci448.fpmobileapp.ui.components.Credential
  *
  */
 @Composable
+//parameter actually needs to be viewmodel and transport home will be defined there as well
 fun LoginScreen(transportHome: () -> Unit){
     Column {
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
