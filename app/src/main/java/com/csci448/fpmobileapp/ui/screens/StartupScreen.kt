@@ -8,8 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.ui.components.NavButton
 
 /**
@@ -22,7 +24,7 @@ import com.csci448.fpmobileapp.ui.components.NavButton
  *  move displayed text to strings.xml
  */
 @Composable
-fun StartupScreen(){
+fun StartupScreen(goToLogin: () -> Unit, goToSignup: ()-> Unit, skip: ()-> Unit){
     Column{
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
@@ -35,15 +37,15 @@ fun StartupScreen(){
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("Login")
+            NavButton(stringResource(id = R.string.label_login), goToLogin)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("Sign up")
+            NavButton(stringResource(id = R.string.label_signup), goToSignup)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("continue offline")
+            NavButton(stringResource(id = R.string.label_offline), skip)
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
@@ -52,5 +54,5 @@ fun StartupScreen(){
 @Preview
 @Composable
 private fun PreviewStartupScreen(){
-    StartupScreen()
+    StartupScreen({}, {}, {})
 }

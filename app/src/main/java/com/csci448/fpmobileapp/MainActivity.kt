@@ -11,7 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
 import com.csci448.fpmobileapp.ui.theme.FPMobileAppTheme
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
  * The main function that runs the app
@@ -22,6 +26,7 @@ import com.csci448.fpmobileapp.ui.theme.FPMobileAppTheme
  *  create viewmodel & viewmodel factory,
  *  override functions for console logs
  */
+val viewModel = StudySaurusVM(SaurusRepo.mySaurus)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +34,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             FPMobileAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    val navController = rememberNavController()
+                    FPMANavHost(
+                        navController,
+                        viewModel,
+                        Modifier.padding(innerPadding)
                     )
+                //                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
                 }
             }
         }
