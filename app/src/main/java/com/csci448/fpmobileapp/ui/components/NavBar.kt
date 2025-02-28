@@ -19,16 +19,19 @@ fun NavBar(){
                         text = "Home"
                     )
                 },
-                selected = false, // TODO: set status on which screen is active 
+                selected = false, // TODO: set status on which screen is active
                 icon = {
                     /*
                     Icon(
-                        // TODO: fill in icon later
+                        // TODO: fill in icon
                     )
                      */
                 },
-                onClick = {}
+                onClick = {
+                    // TODO: navigate to screen represented by button
+                }
             )
+            // TODO: more BottomNavigationItems for each screen in menu
         }
     }
 }
