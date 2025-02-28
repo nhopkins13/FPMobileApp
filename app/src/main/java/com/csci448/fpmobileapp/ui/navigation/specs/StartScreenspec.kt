@@ -13,6 +13,7 @@ object StartScreenspec : IScreenSpec {
     @Composable
     override fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier) {
         StartupScreen(
+            viewModel,
             {navController.navigate(route = LoginScreenSpec.route)},
             {navController.navigate(route = SignupScreenSpec.route)},
             {})
