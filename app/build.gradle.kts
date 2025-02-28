@@ -37,6 +37,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
 }
 
 dependencies {
@@ -52,6 +56,7 @@ dependencies {
     implementation(libs.androidx.navigation)
     implementation(libs.kotlin.reflect)
     implementation(libs.androidx.navigation.runtime.android)
+    implementation("androidx.compose.material:material:1.7.8")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
