@@ -3,6 +3,7 @@ package com.csci448.fpmobileapp.ui.navigation.specs
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
  * Interface to make ScreenSpecs for our app's Screens
@@ -16,13 +17,13 @@ sealed interface IScreenSpec {
     val route: String
 
     @Composable
-    fun Content(navController: NavController, modifier: Modifier){
+    fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier){
 
     }
 
     companion object{
         val allScreens = IScreenSpec::class.sealedSubclasses.map{ it.objectInstance }
-        val root = "TODO? app name?"
+        val root = "studysaurus"
         val startDestination = "startup"
     }
 }
