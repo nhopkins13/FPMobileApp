@@ -12,6 +12,6 @@ object LoginScreenSpec : IScreenSpec {
 
     @Composable
     override fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier) {
-        LoginScreen()
+        LoginScreen(viewModel = viewModel, goToHome = {})
     }
 }
