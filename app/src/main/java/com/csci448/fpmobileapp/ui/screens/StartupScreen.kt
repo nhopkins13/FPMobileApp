@@ -8,8 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.ui.components.NavButton
 
 /**
@@ -35,15 +37,15 @@ fun StartupScreen(goToLogin: () -> Unit, goToSignup: ()-> Unit, skip: ()-> Unit)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("Login", goToLogin)
+            NavButton(stringResource(id = R.string.label_login), goToLogin)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("Sign up", goToSignup)
+            NavButton(stringResource(id = R.string.label_signup), goToSignup)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("continue offline", skip)
+            NavButton(stringResource(id = R.string.label_offline), skip)
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
