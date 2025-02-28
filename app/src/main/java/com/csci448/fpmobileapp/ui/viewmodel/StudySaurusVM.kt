@@ -11,7 +11,41 @@ import com.csci448.fpmobileapp.data.Saurus
  * TODO:
  *  the whole thing
  */
-data class StudySaurusVM(private val mySaurus: Saurus) : ViewModel(){
+class StudySaurusVM(private val mySaurus: Saurus) : ViewModel() {
     val currentSaurusState: State<Saurus>
-        get() = mutableStateOf( mySaurus )
+        get() = mutableStateOf(mySaurus)
+
+
+    fun goToLogin() {
+
+    }
+
+    fun goToSignUp() {
+
+    }
+
+    fun goToHome() {
+
+    }
+
+    fun goToWardrobe() {
+
+    }
+
+    fun goToTask() {
+
+    }
+
+    fun goToSocial() {
+
+    }
+
+    fun goToShop() {
+
+    }
+
+    fun goToSetting() {
+
+    }
 }
+

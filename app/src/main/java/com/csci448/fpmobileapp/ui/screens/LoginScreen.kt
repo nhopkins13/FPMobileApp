@@ -1,5 +1,6 @@
 package com.csci448.fpmobileapp.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.ui.components.Credential
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /** LoginScreen
  *  prompts the user to login with username/email and password
@@ -29,10 +32,8 @@ import com.csci448.fpmobileapp.ui.components.Credential
  *
  */
 @Composable
-//parameter actually needs to be viewmodel and transport home will be defined there as well
-fun LoginScreen(transportHome: () -> Unit){
+fun LoginScreen(viewModel : StudySaurusVM) {
     Column {
-        //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
@@ -49,15 +50,22 @@ fun LoginScreen(transportHome: () -> Unit){
             Credential(1, "Password")
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { transportHome() }) {
+            Button(onClick = { viewModel.goToHome() }) {
                 Text(text = stringResource(id = R.string.label_login))
             }
         }
     }
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview
 @Composable
 private fun PreviewLoginScreen(){
-    LoginScreen(transportHome = {})
+    LoginScreen(viewModel = StudySaurusVM(mySaurus = Saurus(
+        name = TODO(),
+        type = TODO(),
+        size = TODO(),
+        hat = TODO(),
+        color = TODO()
+    )))
 }

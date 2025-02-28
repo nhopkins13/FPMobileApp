@@ -1,5 +1,6 @@
 package com.csci448.fpmobileapp.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,7 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.ui.components.NavButton
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
  * The first screen to appear when the app opens
@@ -24,7 +27,7 @@ import com.csci448.fpmobileapp.ui.components.NavButton
  *  move displayed text to strings.xml
  */
 @Composable
-fun StartupScreen(goToLogin: () -> Unit, goToSignup: ()-> Unit, skip: ()-> Unit){
+fun StartupScreen(viewModel : StudySaurusVM){
     Column{
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
@@ -37,22 +40,30 @@ fun StartupScreen(goToLogin: () -> Unit, goToSignup: ()-> Unit, skip: ()-> Unit)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_login), goToLogin)
+            NavButton(stringResource(id = R.string.label_login), { viewModel.goToLogin() })
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_signup), goToSignup)
+            NavButton(stringResource(id = R.string.label_signup), { viewModel.goToSignUp() })
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_offline), skip)
+            NavButton(stringResource(id = R.string.label_offline), { viewModel.goToHome() })
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview
 @Composable
 private fun PreviewStartupScreen(){
-    StartupScreen({}, {}, {})
+    StartupScreen(viewModel = StudySaurusVM(mySaurus = Saurus(
+        name = TODO(),
+        type = TODO(),
+        size = TODO(),
+        hat = TODO(),
+        color = TODO()
+    )
+    ))
 }

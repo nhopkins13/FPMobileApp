@@ -15,7 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.ui.components.Credential
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /** SignupScreen
  *  prompts the user to login with username/email and password
@@ -29,7 +31,7 @@ import com.csci448.fpmobileapp.ui.components.Credential
  *
  **/
 @Composable
-fun SignupScreen(transportHome: () -> Unit){
+fun SignupScreen(viewModel : StudySaurusVM){
     Column{
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
@@ -53,7 +55,7 @@ fun SignupScreen(transportHome: () -> Unit){
             Credential(1, "Confirm password")
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { transportHome() }) {
+            Button(onClick = { viewModel.goToHome() }) {
                 Text(text = stringResource(id = R.string.label_signup))
             }
         }
@@ -63,5 +65,12 @@ fun SignupScreen(transportHome: () -> Unit){
 @Preview
 @Composable
 private fun PreviewSignupScreen(){
-    SignupScreen(transportHome = {})
+    SignupScreen(viewModel = StudySaurusVM(mySaurus = Saurus(
+        name = TODO(),
+        type = TODO(),
+        size = TODO(),
+        hat = TODO(),
+        color = TODO()
+    )
+    ))
 }
