@@ -22,7 +22,7 @@ import com.csci448.fpmobileapp.ui.components.NavButton
  *  move displayed text to strings.xml
  */
 @Composable
-fun StartupScreen(){
+fun StartupScreen(goToLogin: () -> Unit, goToSignup: ()-> Unit, skip: ()-> Unit){
     Column{
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
@@ -35,15 +35,15 @@ fun StartupScreen(){
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("Login")
+            NavButton("Login", goToLogin)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("Sign up")
+            NavButton("Sign up", goToSignup)
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton("continue offline")
+            NavButton("continue offline", skip)
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
@@ -52,5 +52,5 @@ fun StartupScreen(){
 @Preview
 @Composable
 private fun PreviewStartupScreen(){
-    StartupScreen()
+    StartupScreen({}, {}, {})
 }

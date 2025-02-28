@@ -16,14 +16,13 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 sealed interface IScreenSpec {
     val route: String
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
-    fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier){
-
-    }
+    fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier)
 
     companion object{
         val allScreens = IScreenSpec::class.sealedSubclasses.map{ it.objectInstance }
-        val root = "studysaurus"
-        val startDestination = "startup"
+        val root = "fpmobileapp"
+        val startDestination = StartScreenspec.route
     }
 }
