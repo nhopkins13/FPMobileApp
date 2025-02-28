@@ -32,7 +32,7 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *
  */
 @Composable
-fun LoginScreen(viewModel : StudySaurusVM) {
+fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit) {
     Column {
         Box(
             modifier = Modifier.fillMaxWidth(),
@@ -50,7 +50,7 @@ fun LoginScreen(viewModel : StudySaurusVM) {
             Credential(1, "Password")
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { viewModel.goToHome() }) {
+            Button(onClick = { goToHome() }) {
                 Text(text = stringResource(id = R.string.label_login))
             }
         }
@@ -67,5 +67,5 @@ private fun PreviewLoginScreen(){
         size = TODO(),
         hat = TODO(),
         color = TODO()
-    )))
+    )), goToHome = {})
 }

@@ -27,7 +27,7 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  move displayed text to strings.xml
  */
 @Composable
-fun StartupScreen(viewModel : StudySaurusVM){
+fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: () -> Unit, goToSignup: ()-> Unit){
     Column{
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
@@ -40,15 +40,15 @@ fun StartupScreen(viewModel : StudySaurusVM){
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_login), { viewModel.goToLogin() })
+            NavButton(stringResource(id = R.string.label_login), { goToLogin() })
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_signup), { viewModel.goToSignUp() })
+            NavButton(stringResource(id = R.string.label_signup), { goToSignup() })
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_offline), { viewModel.goToHome() })
+            NavButton(stringResource(id = R.string.label_offline), { goToHome() })
         }
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
     }
@@ -65,5 +65,5 @@ private fun PreviewStartupScreen(){
         hat = TODO(),
         color = TODO()
     )
-    ))
+    ), goToHome = {}, goToLogin = {}, goToSignup = {})
 }
