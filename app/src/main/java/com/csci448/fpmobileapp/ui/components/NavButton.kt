@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun NavButton(inPlaceText: String = "placeholder"){
-    Button(onClick = {}) {
+fun NavButton(inPlaceText: String = "placeholder", buttonAction: ()->Unit){
+    Button(onClick = buttonAction) {
         Text(inPlaceText)
     }
 }
@@ -15,5 +15,5 @@ fun NavButton(inPlaceText: String = "placeholder"){
 @Preview
 @Composable
 private fun PreviewNavButton(){
-    NavButton("Next")
+    NavButton("Next", {})
 }

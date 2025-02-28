@@ -20,7 +20,7 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 @Composable
 fun FPMANavHost(navController: NavHostController, viewModel: StudySaurusVM, modifier: Modifier){
     NavHost(navController = navController, startDestination = IScreenSpec.root){
-        navigation(startDestination = IScreenSpec.root, route = IScreenSpec.root){
+        navigation(startDestination = IScreenSpec.startDestination, route = IScreenSpec.root){
             IScreenSpec.allScreens.forEach{ screen ->
                 if(screen != null){
                     composable(route = screen.route){
