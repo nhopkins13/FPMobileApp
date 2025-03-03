@@ -14,8 +14,8 @@ object StartScreenSpec : IScreenSpec {
     override fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier) {
         StartupScreen(
             viewModel,
+            {navController.navigate(route = HomeScreenSpec.route)},
             {navController.navigate(route = LoginScreenSpec.route)},
-            {navController.navigate(route = SignupScreenSpec.route)},
-            {})
+            {navController.navigate(route = SignupScreenSpec.route)})
     }
 }
