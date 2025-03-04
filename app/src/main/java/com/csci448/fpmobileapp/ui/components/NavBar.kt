@@ -8,22 +8,27 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 @Composable
-fun NavBar(){
+fun NavBar(studySaurusVM: StudySaurusVM,
+           navController: NavHostController){
     // TODO: pass in view model with status on which icon is selected
     BottomAppBar {
         BottomNavigation {
             BottomNavigationItem(
                 label = {
-                    Text(text = "Home")
+                    Text(text = stringResource(R.string.label_home))
                 },
                 selected = false, // TODO: set status on which screen is active
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Home,
-                        contentDescription = "Home"
+                        contentDescription = stringResource(R.string.label_home)
                     )
                 },
                 onClick = {
@@ -32,13 +37,13 @@ fun NavBar(){
             )
             BottomNavigationItem(
                 label = {
-                    Text(text = "Shop")
+                    Text(text = stringResource(R.string.label_shop))
                 },
                 selected = false,
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.ShoppingCart,
-                        contentDescription = "Shop"
+                        contentDescription = stringResource(R.string.label_shop)
                     )
                 },
                 onClick = {
@@ -47,13 +52,13 @@ fun NavBar(){
             )
             BottomNavigationItem(
                 label = {
-                    Text(text = "Clothing")
+                    Text(text = stringResource(R.string.label_wardrobe))
                 },
                 selected = false,
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Star,
-                        contentDescription = "Clothing"
+                        contentDescription = stringResource(R.string.label_wardrobe)
                     )
                 },
                 onClick = {
@@ -62,13 +67,13 @@ fun NavBar(){
             )
             BottomNavigationItem(
                 label = {
-                    Text(text = "Tasks")
+                    Text(text = stringResource(R.string.label_tasks))
                 },
                 selected = false,
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
-                        contentDescription = "Tasks"
+                        contentDescription = stringResource(R.string.label_tasks)
                     )
                 },
                 onClick = {
@@ -77,20 +82,20 @@ fun NavBar(){
             )
             BottomNavigationItem(
                 label = {
-                    Text(text = "Settings")
+                    Text(text = stringResource(R.string.label_settings))
                 },
                 selected = false,
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Settings,
-                        contentDescription = "Settings"
+                        contentDescription = stringResource(R.string.label_settings)
                     )
                 },
                 onClick = {
 
                 }
             )
-            // TODO: more BottomNavigationItems for each screen in menu
+
         }
     }
 }
@@ -98,5 +103,5 @@ fun NavBar(){
 @Preview
 @Composable
 fun NavBarPreview(){
-    NavBar()
+    //NavBar()
 }
