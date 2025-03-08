@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(libs.androidx.navigation.runtime.android)
     implementation("androidx.compose.material:material:1.7.8")
+    implementation(libs.androidx.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
