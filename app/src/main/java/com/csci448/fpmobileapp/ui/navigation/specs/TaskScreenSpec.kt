@@ -16,6 +16,6 @@ object TaskScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
-        TaskScreen(viewModel = viewModel)
+        TaskScreen(viewModel = viewModel, modifier = modifier)
     }
 }

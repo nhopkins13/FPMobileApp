@@ -10,92 +10,105 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.SelectedScreen
+import com.csci448.fpmobileapp.ui.navigation.specs.HomeScreenSpec
+import com.csci448.fpmobileapp.ui.navigation.specs.SettingScreenSpec
+import com.csci448.fpmobileapp.ui.navigation.specs.ShopScreenSpec
+import com.csci448.fpmobileapp.ui.navigation.specs.TaskScreenSpec
+import com.csci448.fpmobileapp.ui.navigation.specs.WardrobeScreenSpec
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 @Composable
 fun NavBar(studySaurusVM: StudySaurusVM,
            navController: NavHostController){
-    // TODO: pass in view model with status on which icon is selected
-    BottomAppBar {
-        BottomNavigation {
-            BottomNavigationItem(
-                label = {
-                    Text(text = stringResource(R.string.label_home))
-                },
-                selected = false, // TODO: set status on which screen is active
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.Home,
-                        contentDescription = stringResource(R.string.label_home)
-                    )
-                },
-                onClick = {
-                    // TODO: navigate to screen represented by button
-                }
-            )
-            BottomNavigationItem(
-                label = {
-                    Text(text = stringResource(R.string.label_shop))
-                },
-                selected = false,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.ShoppingCart,
-                        contentDescription = stringResource(R.string.label_shop)
-                    )
-                },
-                onClick = {
-                    // TODO: navigate to shop
-                }
-            )
-            BottomNavigationItem(
-                label = {
-                    Text(text = stringResource(R.string.label_wardrobe))
-                },
-                selected = false,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.Star,
-                        contentDescription = stringResource(R.string.label_wardrobe)
-                    )
-                },
-                onClick = {
+    if(studySaurusVM.currentScreen.value != SelectedScreen.NONE) {
+        BottomAppBar {
+            BottomNavigation {
+                BottomNavigationItem(
+                    label = {
+                        Text(text = stringResource(R.string.label_home), fontSize = 14.sp)
+                    },
+                    selected = studySaurusVM.currentScreen.value == SelectedScreen.HOME,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Home,
+                            contentDescription = stringResource(R.string.label_home)
+                        )
+                    },
+                    onClick = {
+                        studySaurusVM.setCurrentScreen(SelectedScreen.HOME)
+                        navController.navigate(HomeScreenSpec.route)
+                    }
+                )
+                BottomNavigationItem(
+                    label = {
+                        Text(text = stringResource(R.string.label_shop), fontSize = 14.sp)
+                    },
+                    selected = studySaurusVM.currentScreen.value == SelectedScreen.SHOP,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.ShoppingCart,
+                            contentDescription = stringResource(R.string.label_shop)
+                        )
+                    },
+                    onClick = {
+                        studySaurusVM.setCurrentScreen(SelectedScreen.SHOP)
+                        navController.navigate(ShopScreenSpec.route)
+                    }
+                )
+                BottomNavigationItem(
+                    label = {
+                        Text(text = stringResource(R.string.label_wardrobe), fontSize = 12.sp)
+                    },
+                    selected = studySaurusVM.currentScreen.value == SelectedScreen.WARDROBE,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Star,
+                            contentDescription = stringResource(R.string.label_wardrobe)
+                        )
+                    },
+                    onClick = {
+                        studySaurusVM.setCurrentScreen(SelectedScreen.WARDROBE)
+                        navController.navigate(WardrobeScreenSpec.route)
+                    }
+                )
+                BottomNavigationItem(
+                    label = {
+                        Text(text = stringResource(R.string.label_tasks), fontSize = 14.sp)
+                    },
+                    selected = studySaurusVM.currentScreen.value == SelectedScreen.TASKS,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.DateRange,
+                            contentDescription = stringResource(R.string.label_tasks)
+                        )
+                    },
+                    onClick = {
+                        studySaurusVM.setCurrentScreen(SelectedScreen.TASKS)
+                        navController.navigate(TaskScreenSpec.route)
+                    }
+                )
+                BottomNavigationItem(
+                    label = {
+                        Text(text = stringResource(R.string.label_settings), fontSize = 14.sp)
+                    },
+                    selected = studySaurusVM.currentScreen.value == SelectedScreen.SETTINGS,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.label_settings)
+                        )
+                    },
+                    onClick = {
+                        studySaurusVM.setCurrentScreen(SelectedScreen.SETTINGS)
+                        navController.navigate(SettingScreenSpec.route)
+                    }
+                )
 
-                }
-            )
-            BottomNavigationItem(
-                label = {
-                    Text(text = stringResource(R.string.label_tasks))
-                },
-                selected = false,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.DateRange,
-                        contentDescription = stringResource(R.string.label_tasks)
-                    )
-                },
-                onClick = {
-
-                }
-            )
-            BottomNavigationItem(
-                label = {
-                    Text(text = stringResource(R.string.label_settings))
-                },
-                selected = false,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.Settings,
-                        contentDescription = stringResource(R.string.label_settings)
-                    )
-                },
-                onClick = {
-
-                }
-            )
-
+            }
         }
     }
 }

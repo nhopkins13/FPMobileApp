@@ -21,6 +21,7 @@ object HomeScreenSpec : IScreenSpec {
             {navController.navigate(route = WardrobeScreenSpec.route)},
             {navController.navigate(route = ShopScreenSpec.route)},
             {navController.navigate(route = TaskScreenSpec.route)},
-            {navController.navigate(route = SocialScreenSpec.route)},)
+            {navController.navigate(route = SocialScreenSpec.route)},
+            modifier = modifier)
     }
 }

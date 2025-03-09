@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
@@ -18,8 +19,8 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  actually implement shop
  */
 @Composable
-fun ShopScreen(viewModel : StudySaurusVM){
-    Column {
+fun ShopScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
+    Column(modifier = modifier) {
         Text("SHOP SCREEN")
         Text("nothing here")
         Text("hit back button in studio")

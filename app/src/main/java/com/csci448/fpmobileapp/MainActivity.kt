@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
 import com.csci448.fpmobileapp.ui.theme.FPMobileAppTheme
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
@@ -33,8 +34,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FPMobileAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val navController = rememberNavController()
+                val navController = rememberNavController()
+                Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {NavBar(viewModel, navController)}) { innerPadding ->
                     FPMANavHost(
                         navController,
                         viewModel,

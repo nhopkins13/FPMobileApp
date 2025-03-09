@@ -16,6 +16,6 @@ object WardrobeScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
-        WardrobeScreen(viewModel = viewModel)
+        WardrobeScreen(viewModel = viewModel, modifier = modifier)
     }
 }

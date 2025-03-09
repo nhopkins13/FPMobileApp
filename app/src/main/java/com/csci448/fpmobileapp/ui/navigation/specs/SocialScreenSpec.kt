@@ -17,6 +17,6 @@ object SocialScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
-        SocialScreen(viewModel = viewModel)
+        SocialScreen(viewModel = viewModel, modifier = modifier)
     }
 }

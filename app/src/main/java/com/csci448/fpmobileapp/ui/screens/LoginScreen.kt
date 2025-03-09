@@ -33,8 +33,8 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *
  */
 @Composable
-fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit) {
-    Column {
+fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center

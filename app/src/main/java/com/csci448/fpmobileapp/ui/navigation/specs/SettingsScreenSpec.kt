@@ -16,6 +16,6 @@ object SettingScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
-        SettingScreen(viewModel = viewModel)
+        SettingScreen(viewModel = viewModel, modifier = modifier)
     }
 }

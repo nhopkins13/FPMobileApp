@@ -28,8 +28,8 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  move displayed text to strings.xml
  */
 @Composable
-fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: () -> Unit, goToSignup: ()-> Unit){
-    Column{
+fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: () -> Unit, goToSignup: ()-> Unit, modifier: Modifier = Modifier){
+    Column(modifier = modifier){
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){

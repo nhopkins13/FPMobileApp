@@ -16,6 +16,6 @@ object ShopScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
-        ShopScreen(viewModel = viewModel)
+        ShopScreen(viewModel = viewModel, modifier = modifier)
     }
 }

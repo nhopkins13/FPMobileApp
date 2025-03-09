@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
@@ -17,8 +18,8 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  actually implement wardrobe & saurus customization
  */
 @Composable
-fun WardrobeScreen(viewModel : StudySaurusVM){
-    Column {
+fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
+    Column(modifier = modifier) {
         //remove/change once page has content
         Text("WARDROBE SCREEN")
         Text("nothing here")

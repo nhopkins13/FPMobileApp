@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
@@ -17,8 +18,8 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  actually implement settings
  */
 @Composable
-fun SettingScreen(viewModel : StudySaurusVM){
-Column {
+fun SettingScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
+Column(modifier = modifier) {
     //remove/change once page has content
     Text("SETTINGS SCREEN")
     Text("nothing here")

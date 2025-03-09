@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
@@ -18,8 +19,8 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  reorganize
  */
 @Composable
-fun SocialScreen(viewModel : StudySaurusVM){
-    Column{
+fun SocialScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
+    Column(modifier = modifier){
         //remove/change once page has content
         Text("SOCIAL SCREEN")
         Text("nothing here")
