@@ -22,38 +22,5 @@ class StudySaurusVM(private val mySaurus: Saurus) : ViewModel() {
     fun setCurrentScreen(screenSelection: SelectedScreen){
         currentScreen.value = screenSelection
     }
-
-
-    fun goToLogin() {
-
-    }
-
-    fun goToSignUp() {
-
-    }
-
-    fun goToHome() {
-
-    }
-
-    fun goToWardrobe() {
-
-    }
-
-    fun goToTask() {
-
-    }
-
-    fun goToSocial() {
-
-    }
-
-    fun goToShop() {
-
-    }
-
-    fun goToSetting() {
-
-    }
 }
 
