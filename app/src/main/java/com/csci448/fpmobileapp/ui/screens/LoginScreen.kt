@@ -39,16 +39,16 @@ fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modif
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            Text("Log in")
+            Text(stringResource(R.string.label_login))
         }
         Box(
             modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.BottomCenter
         ) {
-            Credential(0, "Username or Email")
+            Credential(0, stringResource(R.string.label_login_user))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp)) {
-            Credential(1, "Password")
+            Credential(1, stringResource(R.string.label_login_password))
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(onClick = { goToHome() }) {

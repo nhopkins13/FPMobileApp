@@ -33,7 +33,7 @@ fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: ()
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
-            Text("STUDYSAURUS")
+            Text(stringResource(R.string.label_app_name))
         }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {

@@ -1,5 +1,6 @@
 package com.csci448.fpmobileapp.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,23 +37,23 @@ fun SignupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modi
         //Box(modifier = Modifier.weight(0.7f).fillMaxSize()){}
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
-            Text("Sign up")
+            Text(stringResource(R.string.label_signup))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(0, "Email")
+            Credential(0, stringResource(R.string.label_signup_email))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(0, "Username")
+            Credential(0, stringResource(R.string.label_signup_username))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(1, "Password")
+            Credential(1, stringResource(R.string.label_signup_password))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(1, "Confirm password")
+            Credential(1, stringResource(R.string.label_signup_password_confirm))
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(onClick = { goToHome() }) {
@@ -62,6 +63,7 @@ fun SignupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modi
     }
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview
 @Composable
 private fun PreviewSignupScreen(){
