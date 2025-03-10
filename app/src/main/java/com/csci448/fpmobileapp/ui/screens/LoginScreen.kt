@@ -48,7 +48,7 @@ fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modif
             Credential(0, stringResource(R.string.label_login_user))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp)) {
-            Credential(1, stringResource(R.string.label_login_password))
+            Credential(1, stringResource(R.string.label_password))
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(onClick = { goToHome() }) {

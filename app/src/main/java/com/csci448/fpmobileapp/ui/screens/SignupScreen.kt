@@ -41,19 +41,19 @@ fun SignupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modi
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(0, stringResource(R.string.label_signup_email))
+            Credential(0, stringResource(R.string.label_email))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(0, stringResource(R.string.label_signup_username))
+            Credential(0, stringResource(R.string.label_username))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(1, stringResource(R.string.label_signup_password))
+            Credential(1, stringResource(R.string.label_password))
         }
         Box(modifier = Modifier.padding(vertical = 15.dp),
             contentAlignment = Alignment.Center) {
-            Credential(1, stringResource(R.string.label_signup_password_confirm))
+            Credential(1, stringResource(R.string.label_password_confirm))
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Button(onClick = { goToHome() }) {
