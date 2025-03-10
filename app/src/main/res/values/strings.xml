@@ -16,11 +16,14 @@
     <string name="label_signup_email">Email</string>
     <string name="label_signup_password">Password</string>
     <string name="label_signup_password_confirm">Confirm Password</string>
-
-
-
-
-
-
+    <string name="label_level">Level</string>
+    <string name="label_xp">XP</string>
+    <string name="label_background">Background</string>
+    <string name="label_hat">Hat</string>
+    <string name="label_glasses">Glasses</string>
+    <string name="label_necklace">Necklace</string>
+    <string name="label_shirt">Shirt</string>
+    <string name="label_pant">Pants</string>
+    <string name="label_shoe">Shoes</string>
 
 </resources>
