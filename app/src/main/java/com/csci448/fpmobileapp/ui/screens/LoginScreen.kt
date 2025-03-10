@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.Saurus
+import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.Credential
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -32,8 +33,8 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *
  */
 @Composable
-fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit) {
-    Column {
+fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
@@ -61,11 +62,5 @@ fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit) {
 @Preview
 @Composable
 private fun PreviewLoginScreen(){
-    LoginScreen(viewModel = StudySaurusVM(mySaurus = Saurus(
-        name = TODO(),
-        type = TODO(),
-        size = TODO(),
-        hat = TODO(),
-        color = TODO()
-    )), goToHome = {})
+    LoginScreen(viewModel = StudySaurusVM(SaurusRepo.mySaurus), goToHome = {})
 }
