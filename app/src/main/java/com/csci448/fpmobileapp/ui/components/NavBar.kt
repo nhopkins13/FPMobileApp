@@ -93,17 +93,17 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                 )
                 BottomNavigationItem(
                     label = {
-                        Text(text = stringResource(R.string.label_settings), fontSize = 14.sp)
+                        Text(text = stringResource(R.string.label_social), fontSize = 14.sp)
                     },
-                    selected = studySaurusVM.currentScreen.value == SelectedScreen.SETTINGS,
+                    selected = studySaurusVM.currentScreen.value == SelectedScreen.SOCIAL,
                     icon = {
                         Icon(
-                            imageVector = Icons.Filled.Settings,
-                            contentDescription = stringResource(R.string.label_settings)
+                            imageVector = Icons.Filled.AccountCircle,
+                            contentDescription = stringResource(R.string.label_social)
                         )
                     },
                     onClick = {
-                        studySaurusVM.setCurrentScreen(SelectedScreen.SETTINGS)
+                        studySaurusVM.setCurrentScreen(SelectedScreen.SOCIAL)
                         navController.navigate(SettingScreenSpec.route)
                     }
                 )
