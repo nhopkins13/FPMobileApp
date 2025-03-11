@@ -3,6 +3,7 @@ package com.csci448.fpmobileapp.ui.navigation.specs
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.screens.TaskScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -16,6 +17,7 @@ object TaskScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
+        viewModel.setCurrentScreen(SelectedScreen.TASKS)
         TaskScreen(viewModel = viewModel, modifier = modifier)
     }
 }

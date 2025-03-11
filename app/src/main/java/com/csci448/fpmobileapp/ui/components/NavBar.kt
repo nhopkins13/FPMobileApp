@@ -17,6 +17,7 @@ import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.navigation.specs.HomeScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.SettingScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.ShopScreenSpec
+import com.csci448.fpmobileapp.ui.navigation.specs.SocialScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.TaskScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.WardrobeScreenSpec
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
@@ -24,7 +25,14 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 @Composable
 fun NavBar(studySaurusVM: StudySaurusVM,
            navController: NavHostController){
-    if(studySaurusVM.currentScreen.value != SelectedScreen.NONE) {
+    val visibleScreens = listOf(
+        SelectedScreen.HOME,
+        SelectedScreen.SHOP,
+        SelectedScreen.WARDROBE,
+        SelectedScreen.TASKS,
+        SelectedScreen.SOCIAL
+    )
+    if (studySaurusVM.currentScreen.value in visibleScreens) {
         BottomAppBar {
             BottomNavigation {
                 BottomNavigationItem(
@@ -104,7 +112,7 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                     },
                     onClick = {
                         studySaurusVM.setCurrentScreen(SelectedScreen.SOCIAL)
-                        navController.navigate(SettingScreenSpec.route)
+                        navController.navigate(SocialScreenSpec.route)
                     }
                 )
 

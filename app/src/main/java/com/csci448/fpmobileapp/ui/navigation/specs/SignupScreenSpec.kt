@@ -13,10 +13,10 @@ object SignupScreenSpec : IScreenSpec {
 
     @Composable
     override fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier) {
+        viewModel.setCurrentScreen(SelectedScreen.SIGNUP)
         SignupScreen(
             viewModel = viewModel,
             goToHome = {
-                viewModel.setCurrentScreen(SelectedScreen.HOME)
                 navController.navigate(route = HomeScreenSpec.route)
             },
             modifier = modifier

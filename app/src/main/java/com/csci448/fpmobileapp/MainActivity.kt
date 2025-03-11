@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
 import com.csci448.fpmobileapp.ui.theme.FPMobileAppTheme
@@ -33,19 +34,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FPMobileAppTheme {
-                val navController = rememberNavController()
-                Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {NavBar(viewModel, navController)}) { innerPadding ->
-                    FPMANavHost(
-                        navController,
-                        viewModel,
-                        Modifier.padding(innerPadding)
-                    )
-                //                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
+            val navController = rememberNavController()
+
+            val visibleScreens = listOf(
+                SelectedScreen.HOME,
+                SelectedScreen.SHOP,
+                SelectedScreen.TASKS,
+                SelectedScreen.WARDROBE,
+                SelectedScreen.SOCIAL
+            )
+
+            Scaffold(
+                bottomBar = {
+                    if (viewModel.currentScreen.value in visibleScreens) {
+                        NavBar(viewModel, navController)
+                    }
                 }
+            ) { innerPadding ->
+                FPMANavHost(
+                    navController,
+                    viewModel,
+                    Modifier.padding(innerPadding)
+                )
             }
         }
     }
