@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.ui.components.DinosaurImage
 import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -77,16 +78,6 @@ fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: ()
             NavButton(stringResource(id = R.string.label_offline), { goToHome() })
         }
     }
-}
-
-@Composable
-fun DinosaurImage() {
-        Image(
-            painter = painterResource(id = R.drawable.dinodrawing),
-            contentDescription = "Dinosaur Drawing",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.size(600.dp)
-        )
 }
 
 @SuppressLint("ViewModelConstructorInComposable")
