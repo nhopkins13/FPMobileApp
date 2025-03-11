@@ -40,7 +40,8 @@ fun HomeScreen(
             contentAlignment = Alignment.Center) {
             DinosaurImage(600.dp)
         }
-        NavButton("MANUALCRASH") { throw RuntimeException("Test Crash")}
+        //uncomment to enable the manual crash button
+        //NavButton("MANUALCRASH") { throw RuntimeException("Test Crash")}
     }
 }
 
