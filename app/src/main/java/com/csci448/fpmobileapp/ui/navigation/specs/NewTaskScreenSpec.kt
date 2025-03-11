@@ -12,6 +12,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.screens.NewTaskScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -24,6 +25,7 @@ object NewTaskScreenSpec: IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
+        viewModel.setCurrentScreen(SelectedScreen.NEW_TASK)
         NewTaskScreen(viewModel = viewModel, modifier = modifier)
     }
 

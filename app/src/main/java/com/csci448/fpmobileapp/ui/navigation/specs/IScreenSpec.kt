@@ -16,6 +16,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -63,7 +64,7 @@ sealed interface IScreenSpec {
         context: Context
     ){
         TopAppBar(
-            navigationIcon = if(navController.previousBackStackEntry != null){
+            navigationIcon = if(navController.previousBackStackEntry != null && (viewModel.currentScreen.value == SelectedScreen.SETTINGS || viewModel.currentScreen.value == SelectedScreen.NEW_TASK)){
                 {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
