@@ -17,43 +17,10 @@ class StudySaurusVM(private val mySaurus: Saurus) : ViewModel() {
     val currentSaurusState: State<Saurus>
         get() = mutableStateOf(mySaurus)
 
-    val currentScreen: MutableState<SelectedScreen> = mutableStateOf(SelectedScreen.NONE)
+    val currentScreen: MutableState<SelectedScreen> = mutableStateOf(SelectedScreen.STARTUP)
 
     fun setCurrentScreen(screenSelection: SelectedScreen){
         currentScreen.value = screenSelection
-    }
-
-
-    fun goToLogin() {
-
-    }
-
-    fun goToSignUp() {
-
-    }
-
-    fun goToHome() {
-
-    }
-
-    fun goToWardrobe() {
-
-    }
-
-    fun goToTask() {
-
-    }
-
-    fun goToSocial() {
-
-    }
-
-    fun goToShop() {
-
-    }
-
-    fun goToSetting() {
-
     }
 }
 

@@ -33,20 +33,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FPMobileAppTheme {
-                val navController = rememberNavController()
-                Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {NavBar(viewModel, navController)}) { innerPadding ->
-                    FPMANavHost(
-                        navController,
-                        viewModel,
-                        Modifier.padding(innerPadding)
-                    )
+            val navController = rememberNavController()
 
-                //                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
+            val visibleScreens = listOf(
+                SelectedScreen.HOME,
+                SelectedScreen.SHOP,
+                SelectedScreen.TASKS,
+                SelectedScreen.WARDROBE,
+                SelectedScreen.SOCIAL
+            )
+
+            Scaffold(
+                bottomBar = {
+                    if (viewModel.currentScreen.value in visibleScreens) {
+                        NavBar(viewModel, navController)
+                    }
                 }
+            ) { innerPadding ->
+                FPMANavHost(
+                    navController,
+                    viewModel,
+                    Modifier.padding(innerPadding)
+                )
             }
         }
     }

@@ -3,13 +3,11 @@ package com.csci448.fpmobileapp.ui.navigation.specs
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.csci448.fpmobileapp.data.SelectedScreen
-import com.csci448.fpmobileapp.ui.screens.TaskScreen
+import com.csci448.fpmobileapp.ui.screens.NewTaskScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
-object TaskScreenSpec : IScreenSpec {
-    override val route: String
-        get() = "TaskScreen"
+object NewTaskScreenSpec: IScreenSpec {
+    override val route = "new_task"
 
     @Composable
     override fun Content(
@@ -17,7 +15,6 @@ object TaskScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
-        viewModel.setCurrentScreen(SelectedScreen.TASKS)
-        TaskScreen(viewModel = viewModel, modifier = modifier)
+        NewTaskScreen(viewModel = viewModel, modifier = modifier)
     }
 }

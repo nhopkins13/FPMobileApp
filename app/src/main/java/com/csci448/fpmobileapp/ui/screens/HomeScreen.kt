@@ -1,13 +1,18 @@
 package com.csci448.fpmobileapp.ui.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.data.SaurusRepo
-import com.csci448.fpmobileapp.ui.components.NavButton
+import com.csci448.fpmobileapp.ui.components.DinosaurImage
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -29,15 +34,10 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        //remove/change once page has content
         Text("HOME SCREEN")
-        NavButton ("Settings", toSettings)
-        NavButton ("Wardrobe", toWardrobe)
-        NavButton ("Shop", toShop)
-        NavButton ("Tasks", toTasks)
-        NavButton ("Social", toSocial)
-        NavButton ("Crash"){
-            throw RuntimeException("Test Crash")
+        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
+            contentAlignment = Alignment.Center) {
+            DinosaurImage(600.dp)
         }
     }
 }

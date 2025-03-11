@@ -3,6 +3,7 @@ package com.csci448.fpmobileapp.ui.navigation.specs
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.screens.WardrobeScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -16,6 +17,7 @@ object WardrobeScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
+        viewModel.setCurrentScreen(SelectedScreen.WARDROBE)
         WardrobeScreen(viewModel = viewModel, modifier = modifier)
     }
 }

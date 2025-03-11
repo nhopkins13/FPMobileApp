@@ -13,12 +13,14 @@ object StartScreenSpec : IScreenSpec {
 
     @Composable
     override fun Content(viewModel: StudySaurusVM, navController: NavController, modifier: Modifier) {
+        viewModel.setCurrentScreen(SelectedScreen.STARTUP)
         StartupScreen(
             viewModel = viewModel,
-            goToHome = {   viewModel.setCurrentScreen(SelectedScreen.HOME)
-                navController.navigate(route = HomeScreenSpec.route)},
-            goToLogin = {navController.navigate(route = LoginScreenSpec.route)},
-            goToSignup = {navController.navigate(route = SignupScreenSpec.route)},
+            goToHome = {navController.navigate(route = HomeScreenSpec.route)},
+            goToLogin = {
+                navController.navigate(route = LoginScreenSpec.route)},
+            goToSignup = {
+                navController.navigate(route = SignupScreenSpec.route)},
             modifier = modifier)
     }
 }

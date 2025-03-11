@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(libs.androidx.navigation.runtime.android)
     implementation("androidx.compose.material:material:1.7.8")
+    implementation(libs.androidx.runtime.android)
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
@@ -70,5 +71,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
 }
