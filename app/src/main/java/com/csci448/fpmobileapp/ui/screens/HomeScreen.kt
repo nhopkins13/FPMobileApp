@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.DinosaurImage
+import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -39,6 +40,7 @@ fun HomeScreen(
             contentAlignment = Alignment.Center) {
             DinosaurImage(600.dp)
         }
+        NavButton("MANUALCRASH") { throw RuntimeException("Test Crash")}
     }
 }
 
