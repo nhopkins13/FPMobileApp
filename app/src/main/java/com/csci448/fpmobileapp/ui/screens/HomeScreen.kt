@@ -9,12 +9,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SaurusRepo
-import com.csci448.fpmobileapp.ui.components.NavButton
+import com.csci448.fpmobileapp.ui.components.DinosaurImage
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -36,11 +34,10 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        //remove/change once page has content
         Text("HOME SCREEN")
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            androidx.compose.material3.Text("[logo/mascot goes here]")
+            DinosaurImage(600.dp)
         }
     }
 }

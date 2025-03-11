@@ -10,10 +10,10 @@ import androidx.compose.ui.unit.Dp
 import com.csci448.fpmobileapp.R
 
 @Composable
-fun DinosaurImage(size: Dp) {
+fun LogoImage(size: Dp) {
     Image(
-        painter = painterResource(id = R.drawable.dinodrawing),
-        contentDescription = "Dinosaur Drawing",
+        painter = painterResource(id = R.drawable.studysauruslogo),
+        contentDescription = "Logo Drawing",
         contentScale = ContentScale.Fit,
         modifier = Modifier.size(size)
     )
