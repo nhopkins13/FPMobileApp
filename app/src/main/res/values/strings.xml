@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FPMobileApp</string>
+    <string name="app_name">StudySaurus</string>
     <string name="label_app_name">STUDYSAURUS</string>
     <string name="label_home">Home</string>
     <string name="label_login">Login</string>
