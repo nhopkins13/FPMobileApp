@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.ui.components.Credential
+import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /** SignupScreen
@@ -56,9 +57,7 @@ fun SignupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modi
             Credential(1, stringResource(R.string.label_password_confirm))
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { goToHome() }) {
-                Text(text = stringResource(id = R.string.label_signup))
-            }
+            NavButton(stringResource(R.string.label_signup), { goToHome() })
         }
     }
 }

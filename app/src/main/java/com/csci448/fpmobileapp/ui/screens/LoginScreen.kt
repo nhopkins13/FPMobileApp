@@ -19,6 +19,7 @@ import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.Credential
+import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /** LoginScreen
@@ -51,9 +52,7 @@ fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modif
             Credential(1, stringResource(R.string.label_password))
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { goToHome() }) {
-                Text(text = stringResource(id = R.string.label_login))
-            }
+            NavButton(stringResource(R.string.label_login), { goToHome() })
         }
     }
 }
