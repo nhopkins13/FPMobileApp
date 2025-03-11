@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
+import com.csci448.fpmobileapp.ui.navigation.TopBar
 import com.csci448.fpmobileapp.ui.theme.FPMobileAppTheme
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -35,6 +38,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
+            val coroutineScope = rememberCoroutineScope()
 
             val visibleScreens = listOf(
                 SelectedScreen.HOME,
@@ -49,12 +53,21 @@ class MainActivity : ComponentActivity() {
                     if (viewModel.currentScreen.value in visibleScreens) {
                         NavBar(viewModel, navController)
                     }
+                },
+                topBar = {
+                    TopBar(
+                        viewModel = viewModel,
+                        navController = navController,
+                        context = LocalContext.current
+                    )
                 }
             ) { innerPadding ->
                 FPMANavHost(
-                    navController,
-                    viewModel,
-                    Modifier.padding(innerPadding)
+                    navController = navController,
+                    viewModel = viewModel,
+                    modifier = Modifier.padding(innerPadding),
+                    context = LocalContext.current,
+                    coroutineScope = coroutineScope
                 )
             }
         }
