@@ -36,6 +36,9 @@ fun HomeScreen(
         NavButton ("Shop", toShop)
         NavButton ("Tasks", toTasks)
         NavButton ("Social", toSocial)
+        NavButton ("Crash"){
+            throw RuntimeException("Test Crash")
+        }
     }
 }
 

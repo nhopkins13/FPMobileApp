@@ -41,6 +41,7 @@ class MainActivity : ComponentActivity() {
                         viewModel,
                         Modifier.padding(innerPadding)
                     )
+
                 //                    Greeting(
 //                        name = "Android",
 //                        modifier = Modifier.padding(innerPadding)

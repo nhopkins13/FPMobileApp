@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "682077093065",
+    "project_id": "fpmobileapp-caf84",
+    "storage_bucket": "fpmobileapp-caf84.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682077093065:android:c3dc70c475d4e658c5a118",
+        "android_client_info": {
+          "package_name": "com.csci448.fpmobileapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4A93Ivre-G-OSHVmofNdRtEFkL-pKdpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
