@@ -30,9 +30,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
             .fillMaxWidth()
             .height(600.dp)
     ){
-        drawRect(
-            color = Color.Gray
-        )
         val centerX = size.width/2
         val centerY = size.height/2
         val dinoBackColor = Color(0.25f, 0.5f, 0.25f)
@@ -324,7 +321,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
 
         // Tail
         val tailPath = Path()
-        tailPath.moveTo(centerX - size.width * 0.05f, centerY + size.height * 0.272f)
+        tailPath.moveTo(centerX - size.width * 0.05f, centerY + size.height * 0.275f)
         tailPath.lineTo(centerX + size.width * 0.25f, centerY + size.height * 0.3f)
         tailPath.lineTo(centerX + size.width * 0.35f, centerY + size.height * 0.28f)
         tailPath.lineTo(centerX + size.width * 0.4f, centerY + size.height * 0.25f)
@@ -337,7 +334,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
         drawPath(tailPath, dinoFrontColor)
 
         val tailLine = Path()
-        tailLine.moveTo(centerX - size.width * 0.05f, centerY + size.height * 0.272f)
+        tailLine.moveTo(centerX - size.width * 0.05f, centerY + size.height * 0.275f)
         tailLine.lineTo(centerX + size.width * 0.25f, centerY + size.height * 0.3f)
         tailLine.lineTo(centerX + size.width * 0.35f, centerY + size.height * 0.28f)
         tailLine.lineTo(centerX + size.width * 0.4f, centerY + size.height * 0.25f)
