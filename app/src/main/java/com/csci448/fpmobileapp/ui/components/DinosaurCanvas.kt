@@ -40,7 +40,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
         val dinoClawColor = Color(0.6f, 0.75f, 0.375f)
         val dinoLineColor= Color(0.05f, 0.25f, 0.05f)
         withTransform({
-            translate(left = -size.width/3)
+            translate(left = -size.width/3, top = size.height * 0.025f)
             rotate(degrees=-20f)
 
         }){
@@ -51,11 +51,11 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
             }
             val leftClawPath = Path() // path for left arm claws
             leftClawPath.moveTo(centerX - size.width*.075f, centerY - size.height*0.015f)
-            leftClawPath.lineTo(centerX - size.width*.1f, centerY - size.height*0.01f)
+            leftClawPath.lineTo(centerX - size.width*.1f, centerY - size.height*0.005f)
             leftClawPath.lineTo(centerX - size.width*.075f, centerY - size.height * 0.005f)
-            leftClawPath.lineTo(centerX - size.width*.1f, centerY)
+            leftClawPath.lineTo(centerX - size.width*.1f, centerY + size.height * 0.005f)
             leftClawPath.lineTo(centerX - size.width*.075f, centerY + size.height*0.005f)
-            leftClawPath.lineTo(centerX - size.width*.1f, centerY + size.height * 0.01f)
+            leftClawPath.lineTo(centerX - size.width*.1f, centerY + size.height * 0.015f)
             leftClawPath.lineTo(centerX - size.width*.075f, centerY + size.height*0.015f)
             leftClawPath.close()
             drawPath(leftClawPath, dinoClawColor)
@@ -63,18 +63,18 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
             val leftArmLine = Path() // outline on left arm
             leftArmLine.moveTo(centerX + size.width*0.075f, centerY - size.height*0.015f)
             leftArmLine.lineTo(centerX - size.width*0.075f, centerY-size.height*0.015f)
-            leftArmLine.lineTo(centerX - size.width*.1f, centerY-size.height*0.01f)
+            leftArmLine.lineTo(centerX - size.width*.1f, centerY-size.height*0.005f)
             leftArmLine.lineTo(centerX - size.width*0.075f, centerY-size.height*0.005f)
-            leftArmLine.lineTo(centerX - size.width*.1f, centerY)
+            leftArmLine.lineTo(centerX - size.width*.1f, centerY + size.height* 0.005f)
             leftArmLine.lineTo(centerX - size.width*0.075f, centerY + size.height*0.005f)
-            leftArmLine.lineTo(centerX - size.width*.1f, centerY + size.height*0.01f)
+            leftArmLine.lineTo(centerX - size.width*.1f, centerY + size.height*0.015f)
             leftArmLine.lineTo(centerX - size.width*0.075f, centerY + size.height*0.015f)
             leftArmLine.lineTo(centerX + size.width*0.075f, centerY + size.height*0.015f)
             drawPath(leftArmLine, dinoLineColor, style=Stroke(width=3f))
         }
 
         withTransform({
-            translate(left = -size.height/8, top = size.height / 4)
+            translate(left = -size.height * 0.125f, top = size.height * 0.2f)
             rotate(degrees=-20f)
         }){
             scale(scaleX = 0.2f, scaleY = 0.15f) {
@@ -125,11 +125,42 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
             drawPath(leftLegLine, dinoLineColor, style=Stroke(width=3f))
         }
 
-        // TODO: body, tail, other arm; teeth?
-        // Head outline being an arc instead of a circle should allow for the body to go under the head 
+        // Neck
+        val neckPath = Path()
+        neckPath.moveTo(centerX - size.width * 0.0625f, centerY)
+        neckPath.lineTo(centerX - size.width * 0.125f, centerY - size.height * 0.1875f)
+        neckPath.lineTo(centerX - size.width * 0.25f, centerY - size.height * 0.125f)
+        neckPath.lineTo(centerX - size.width * 0.3f, centerY)
+        drawPath(neckPath, dinoFrontColor)
 
+        val neckLine = Path()
+        neckLine.moveTo(centerX - size.width * 0.0625f, centerY)
+        neckLine.lineTo(centerX - size.width * 0.125f, centerY - size.height * 0.1875f)
+        neckLine.lineTo(centerX - size.width * 0.25f, centerY - size.height * 0.125f)
+        neckLine.lineTo(centerX - size.width * 0.3f, centerY)
+        drawPath(neckLine, dinoLineColor, style = Stroke(width = 3f))
+
+        // Body
+        translate(left = -size.width * 0.125f, top = size.height * 0.1f) {
+            rotate(degrees = -20f) {
+                scale(scaleX = 0.35f, scaleY = 0.55f) {
+                    drawCircle(color = dinoFrontColor)
+                    scale(scaleX = 1.0f, scaleY = size.width / size.height){
+                        drawArc(
+                            color = dinoLineColor,
+                            startAngle = -46f,
+                            sweepAngle = 288f,
+                            useCenter = false,
+                            style = Stroke(width = 6f)
+                        )
+                    }
+                }
+            }
+        }
+
+        // Head
         withTransform({
-            translate(left=-size.width/4, top=-size.height/4)
+            translate(left=-size.width/4, top=-size.height * 0.1875f)
         }) {
             scale(scaleX = 0.25f, scaleY = 0.25f) {
                 drawCircle(color = dinoFrontColor) // main head part
@@ -137,7 +168,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
                     drawArc(
                         color = dinoLineColor,
                         startAngle = 170f,
-                        sweepAngle = 200f,
+                        sweepAngle = 192f,
                         useCenter = false,
                         style = Stroke(width = 12f)
                     )
@@ -197,7 +228,129 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
             }
 
         }
+
+        // Right leg
+        withTransform({
+            translate(left = -size.height * 0.1f, top = size.height * 0.25f )
+            rotate(degrees=-20f)
+        }){
+            scale(scaleX = 0.2f, scaleY = 0.15f) {
+                drawCircle(
+                    color = dinoFrontColor
+                )
+                scale(scaleX = 1.0f, scaleY = size.width/size.height){
+                    drawArc(
+                        color = dinoLineColor,
+                        startAngle = 25f,
+                        sweepAngle = 250f,
+                        useCenter = false,
+                        style = Stroke(15f)
+                    )
+                }
+
+            }
+
+            val rightLegPath = Path()
+            rightLegPath.moveTo(centerX-size.width*0.1f, centerY) // start at thigh
+            rightLegPath.lineTo(centerX-size.width*0.075f, centerY+size.height*0.1f) // backwards knee
+            rightLegPath.lineTo(centerX-size.width*0.135f, centerY+size.height*0.135f) // front of ankle
+            rightLegPath.lineTo(centerX-size.width*0.165f, centerY+size.height*0.135f) // top of foot
+            rightLegPath.lineTo(centerX-size.width*0.16f, centerY+size.height*0.155f) // bottom of foot
+            rightLegPath.lineTo(centerX-size.width*0.11f, centerY+size.height*0.16f) // back of ankle
+            rightLegPath.lineTo(centerX-size.width*0.01f, centerY+size.height*0.11f) // back of backwards knee
+            rightLegPath.lineTo(centerX+size.width*0.0f, centerY+size.height*0.05f) // back to thigh
+            drawPath(rightLegPath, dinoFrontColor)
+
+            val rightTalonPath = Path() // left foot claws
+            rightTalonPath.moveTo(centerX-size.width*0.165f, centerY+size.height*0.135f)
+            rightTalonPath.lineTo(centerX-size.width*0.19f, centerY+size.height*0.138f)
+            rightTalonPath.lineTo(centerX-size.width*0.1633f, centerY+size.height*0.142f)
+            rightTalonPath.lineTo(centerX-size.width*0.19f, centerY+size.height*0.145f)
+            rightTalonPath.lineTo(centerX-size.width*0.1616f, centerY+size.height*0.148f)
+            rightTalonPath.lineTo(centerX-size.width*0.19f, centerY+size.height*0.152f)
+            rightTalonPath.lineTo(centerX-size.width*0.16f, centerY+size.height*0.155f)
+            drawPath(rightTalonPath, dinoClawColor)
+
+            val rightLegLine = Path() // left leg outline
+            rightLegLine.moveTo(centerX - size.width*0.1f, centerY)
+            rightLegLine.lineTo(centerX-size.width*0.075f, centerY+size.height*0.1f)
+            rightLegLine.lineTo(centerX-size.width*0.135f, centerY+size.height*0.135f)
+            rightLegLine.lineTo(centerX-size.width*0.165f, centerY+size.height*0.135f)
+            rightLegLine.lineTo(centerX-size.width*0.19f, centerY+size.height*0.138f)
+            rightLegLine.lineTo(centerX-size.width*0.1633f, centerY+size.height*0.142f)
+            rightLegLine.lineTo(centerX-size.width*0.19f, centerY+size.height*0.145f)
+            rightLegLine.lineTo(centerX-size.width*0.1616f, centerY+size.height*0.148f)
+            rightLegLine.lineTo(centerX-size.width*0.19f, centerY+size.height*0.152f)
+            rightLegLine.lineTo(centerX-size.width*0.16f, centerY+size.height*0.155f)
+            rightLegLine.lineTo(centerX-size.width*0.11f, centerY+size.height*0.16f)
+            rightLegLine.lineTo(centerX-size.width*0.01f, centerY+size.height*0.11f)
+            rightLegLine.lineTo(centerX+size.width*0.0f, centerY+size.height*0.05f)
+            drawPath(rightLegLine, dinoLineColor, style=Stroke(width=3f))
+        }
+
+        // Right arm
+        withTransform({
+            translate(left = -size.width * 0.25f, top = size.height * 0.05f)
+            rotate(degrees=-20f)
+        }){
+            scale(scaleX = .15f, scaleY = .03f) {
+                drawRect(
+                    color = dinoFrontColor
+                )
+            }
+            val rightClawPath = Path() // path for right arm claws
+            rightClawPath.moveTo(centerX - size.width*.075f, centerY - size.height*0.015f)
+            rightClawPath.lineTo(centerX - size.width*.1f, centerY - size.height*0.005f)
+            rightClawPath.lineTo(centerX - size.width*.075f, centerY - size.height * 0.005f)
+            rightClawPath.lineTo(centerX - size.width*.1f, centerY + size.height * 0.005f)
+            rightClawPath.lineTo(centerX - size.width*.075f, centerY + size.height*0.005f)
+            rightClawPath.lineTo(centerX - size.width*.1f, centerY + size.height * 0.015f)
+            rightClawPath.lineTo(centerX - size.width*.075f, centerY + size.height*0.015f)
+            rightClawPath.close()
+            drawPath(rightClawPath, dinoClawColor)
+
+            val rightArmLine = Path() // outline on right arm
+            rightArmLine.moveTo(centerX + size.width*0.075f, centerY - size.height*0.015f)
+            rightArmLine.lineTo(centerX - size.width*0.075f, centerY-size.height*0.015f)
+            rightArmLine.lineTo(centerX - size.width*.1f, centerY-size.height*0.005f)
+            rightArmLine.lineTo(centerX - size.width*0.075f, centerY-size.height*0.005f)
+            rightArmLine.lineTo(centerX - size.width*.1f, centerY + size.height* 0.005f)
+            rightArmLine.lineTo(centerX - size.width*0.075f, centerY + size.height*0.005f)
+            rightArmLine.lineTo(centerX - size.width*.1f, centerY + size.height*0.015f)
+            rightArmLine.lineTo(centerX - size.width*0.075f, centerY + size.height*0.015f)
+            rightArmLine.lineTo(centerX + size.width*0.075f, centerY + size.height*0.015f)
+            drawPath(rightArmLine, dinoLineColor, style=Stroke(width=3f))
+        }
+
+        // Tail
+        val tailPath = Path()
+        tailPath.moveTo(centerX - size.width * 0.05f, centerY + size.height * 0.272f)
+        tailPath.lineTo(centerX + size.width * 0.25f, centerY + size.height * 0.3f)
+        tailPath.lineTo(centerX + size.width * 0.35f, centerY + size.height * 0.28f)
+        tailPath.lineTo(centerX + size.width * 0.4f, centerY + size.height * 0.25f)
+        tailPath.lineTo(centerX + size.width * 0.41f, centerY + size.height * 0.225f)
+        tailPath.lineTo(centerX + size.width * 0.375f, centerY + size.height * 0.24f)
+        tailPath.lineTo(centerX + size.width * 0.325f, centerY + size.height * 0.25f)
+        tailPath.lineTo(centerX + size.width * 0.25f, centerY + size.height * 0.24f)
+        tailPath.lineTo(centerX + size.width * 0.12f, centerY + size.height * 0.2f)
+        tailPath.lineTo(centerX + size.width * 0.057f, centerY + size.height * 0.1f)
+        drawPath(tailPath, dinoFrontColor)
+
+        val tailLine = Path()
+        tailLine.moveTo(centerX - size.width * 0.05f, centerY + size.height * 0.272f)
+        tailLine.lineTo(centerX + size.width * 0.25f, centerY + size.height * 0.3f)
+        tailLine.lineTo(centerX + size.width * 0.35f, centerY + size.height * 0.28f)
+        tailLine.lineTo(centerX + size.width * 0.4f, centerY + size.height * 0.25f)
+        tailLine.lineTo(centerX + size.width * 0.41f, centerY + size.height * 0.225f)
+        tailLine.lineTo(centerX + size.width * 0.375f, centerY + size.height * 0.24f)
+        tailLine.lineTo(centerX + size.width * 0.325f, centerY + size.height * 0.25f)
+        tailLine.lineTo(centerX + size.width * 0.25f, centerY + size.height * 0.24f)
+        tailLine.lineTo(centerX + size.width * 0.12f, centerY + size.height * 0.2f)
+        tailLine.lineTo(centerX + size.width * 0.057f, centerY + size.height * 0.1f)
+        drawPath(tailLine, dinoLineColor, style = Stroke(width=3f))
     }
+
+
 
 }
 
