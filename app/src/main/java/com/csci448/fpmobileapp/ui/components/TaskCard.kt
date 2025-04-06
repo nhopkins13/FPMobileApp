@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.csci448.fpmobileapp.data.Task
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
@@ -39,7 +40,7 @@ fun TaskCard(task: Task){
                     fontSize = 28.sp
                 )
                 Text(
-                    text = task.timeDue.truncatedTo(ChronoUnit.MINUTES).toString()
+                    text = task.timeDue.toString()
                 )
             }
             Column(
@@ -60,5 +61,5 @@ fun TaskCard(task: Task){
 @Preview
 @Composable
 fun TaskCardPreview(){
-    TaskCard(Task(title="Homework", coins=10, timeDue= LocalDateTime.parse("2025-04-07"), completed = mutableStateOf(false)))
+    TaskCard(Task(title="Homework", coins=10, timeDue= LocalDate.parse("2025-04-07"), completed = mutableStateOf(false)))
 }

@@ -26,7 +26,7 @@ object NewTaskScreenSpec: IScreenSpec {
         modifier: Modifier
     ) {
         viewModel.setCurrentScreen(SelectedScreen.NEW_TASK)
-        NewTaskScreen(viewModel = viewModel, modifier = modifier)
+        NewTaskScreen(viewModel = viewModel, modifier = modifier, onButtonClick = {navController.navigate(TaskScreenSpec.route)})
     }
 
     @Composable
