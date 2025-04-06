@@ -2,11 +2,14 @@ package com.csci448.fpmobileapp.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.ui.components.TaskCard
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -25,6 +28,11 @@ fun TaskScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
         Text("TASK SCREEN")
         Text("nothing here")
         Text("hit back button in studio")
+    }
+    LazyColumn(modifier = modifier) {
+        items(viewModel.taskList){ task ->
+            TaskCard(task)
+        }
     }
 }
 

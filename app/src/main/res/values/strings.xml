@@ -28,6 +28,8 @@
     <string name="label_add_friends">Add Friends</string>
     <string name="label_new_task">New Task</string>
     <string name="dino_desc">Dinosaur</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
 
 
 
