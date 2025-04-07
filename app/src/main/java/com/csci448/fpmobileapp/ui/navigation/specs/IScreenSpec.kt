@@ -78,7 +78,7 @@ sealed interface IScreenSpec {
             },
             title = {
                 Text(
-                    text = stringResource(R.string.app_name)
+                    text = ""
                 )
             },
             actions = {
