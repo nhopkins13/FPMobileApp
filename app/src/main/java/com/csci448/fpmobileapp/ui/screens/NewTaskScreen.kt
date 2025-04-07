@@ -54,7 +54,7 @@ fun NewTaskScreen(
         OutlinedTextField(
             value = currentTitle.value,
             onValueChange = { currentTitle.value = it },
-            label = { Text("Title") },
+            label = { Text(text = stringResource(R.string.title)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -64,7 +64,7 @@ fun NewTaskScreen(
             OutlinedTextField(
                 value = selectedDate?.let { LocalDate.ofEpochDay(it / 86400000).toString() } ?: "",
                 onValueChange = {},
-                label = { Text("Due Date") },
+                label = { Text(stringResource(R.string.due_date)) },
                 readOnly = true,
                 trailingIcon = {
                     IconButton(onClick = { showDatePicker.value = !showDatePicker.value }) {
@@ -130,7 +130,7 @@ fun NewTaskScreen(
             },
             modifier = Modifier.padding(top = 16.dp)
         ) {
-            Text("Create Task")
+            Text(stringResource(R.string.create_task))
         }
     }
 }
