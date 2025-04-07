@@ -153,9 +153,9 @@ fun NewTaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier, onBut
 
         Button(
             onClick = {
-                val task = Task(title = currentTitle.value, timeDue = LocalDate.ofEpochDay((selectedDate?:0) / 864000), coins = coinWeight.value)
+                val task = Task(title = currentTitle.value, timeDue = LocalDate.ofEpochDay((selectedDate?:0) / 86400000), coins = coinWeight.value)
                 viewModel.addTask(task)
-                Log.d(LOG_TAG, "Task created and added")
+                Log.d(LOG_TAG, "Task created with date ${LocalDate.ofEpochDay((selectedDate?:0) / 86400000)}")
                 onButtonClick()
             }
         ){
