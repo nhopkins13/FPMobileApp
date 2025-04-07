@@ -65,12 +65,5 @@ fun SignupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modi
 @Preview
 @Composable
 private fun PreviewSignupScreen(){
-    SignupScreen(viewModel = StudySaurusVM(mySaurus = Saurus(
-        name = TODO(),
-        type = TODO(),
-        size = TODO(),
-        hat = TODO(),
-        color = TODO()
-    )
-    ), goToHome = {})
+
 }

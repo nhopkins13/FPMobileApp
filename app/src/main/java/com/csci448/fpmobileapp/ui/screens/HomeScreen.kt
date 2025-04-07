@@ -51,5 +51,4 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun PreviewHomeScreen(){
-    HomeScreen(viewModel = StudySaurusVM(SaurusRepo.mySaurus))
 }

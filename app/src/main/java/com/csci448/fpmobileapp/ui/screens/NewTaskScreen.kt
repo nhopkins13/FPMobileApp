@@ -170,6 +170,4 @@ fun NewTaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier, onBut
 @Preview
 @Composable
 fun NewTaskScreenPreview(){
-    val model = StudySaurusVM(SaurusRepo.mySaurus)
-    NewTaskScreen(viewModel = model, onButtonClick = {})
 }

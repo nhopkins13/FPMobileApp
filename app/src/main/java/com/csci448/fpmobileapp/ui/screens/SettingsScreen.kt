@@ -31,5 +31,4 @@ Column(modifier = modifier) {
 @Preview
 @Composable
 private fun PreviewSettingScreen(){
-    SettingScreen(viewModel = StudySaurusVM(SaurusRepo.mySaurus))
 }

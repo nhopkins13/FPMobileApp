@@ -14,13 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import androidx.room.Room
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
+import com.csci448.fpmobileapp.data.TaskDatabase
 import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
 import com.csci448.fpmobileapp.ui.navigation.TopBar
 import com.csci448.fpmobileapp.ui.theme.FPMobileAppTheme
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVMFactory
 
 /**
  * The main function that runs the app
@@ -31,15 +34,24 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  create viewmodel & viewmodel factory,
  *  override functions for console logs
  */
-val viewModel = StudySaurusVM(SaurusRepo.mySaurus)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val context = LocalContext.current.applicationContext
+
+            val db = Room.databaseBuilder(
+                context,
+                TaskDatabase::class.java,
+                "task-db"
+            ).build()
+
+            val factory = StudySaurusVMFactory(SaurusRepo.mySaurus, db.taskDao())
+            val viewModel: StudySaurusVM = androidx.lifecycle.viewmodel.compose.viewModel(factory = factory)
+
             val navController = rememberNavController()
             val coroutineScope = rememberCoroutineScope()
-
             val visibleScreens = listOf(
                 SelectedScreen.HOME,
                 SelectedScreen.SHOP,
