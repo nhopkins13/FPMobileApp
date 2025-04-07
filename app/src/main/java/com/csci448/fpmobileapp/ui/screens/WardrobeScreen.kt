@@ -31,5 +31,4 @@ fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
 @Preview
 @Composable
 private fun PreviewWardrobeScreen(){
-    WardrobeScreen(viewModel = StudySaurusVM(SaurusRepo.mySaurus))
 }

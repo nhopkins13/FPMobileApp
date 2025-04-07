@@ -76,5 +76,4 @@ fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: ()
 @Preview
 @Composable
 private fun PreviewStartupScreen(){
-    StartupScreen(viewModel = StudySaurusVM(mySaurus = SaurusRepo.mySaurus), goToHome = {}, goToLogin = {}, goToSignup = {})
 }

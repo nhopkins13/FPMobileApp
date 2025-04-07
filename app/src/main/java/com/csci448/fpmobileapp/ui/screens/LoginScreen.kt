@@ -61,5 +61,4 @@ fun LoginScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, modifier: Modif
 @Preview
 @Composable
 private fun PreviewLoginScreen(){
-    LoginScreen(viewModel = StudySaurusVM(SaurusRepo.mySaurus), goToHome = {})
 }

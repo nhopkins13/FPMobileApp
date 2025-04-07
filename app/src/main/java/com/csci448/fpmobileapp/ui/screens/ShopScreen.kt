@@ -31,5 +31,4 @@ fun ShopScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
 @Preview
 @Composable
 private fun PreviewShopScreen(){
-    ShopScreen(viewModel = StudySaurusVM(SaurusRepo.mySaurus))
 }

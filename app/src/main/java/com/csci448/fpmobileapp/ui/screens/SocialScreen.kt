@@ -40,5 +40,4 @@ fun SocialScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
 @Preview
 @Composable
 private fun PreviewSocialScreen(){
-    SocialScreen(viewModel = StudySaurusVM(SaurusRepo.mySaurus))
 }
