@@ -8,6 +8,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -33,7 +34,7 @@ fun NavBar(studySaurusVM: StudySaurusVM,
         SelectedScreen.SOCIAL
     )
     if (studySaurusVM.currentScreen.value in visibleScreens) {
-        BottomAppBar {
+        BottomAppBar (containerColor = Color(0.5f,0.6f,0.8f)){
             BottomNavigation {
                 BottomNavigationItem(
                     label = {
@@ -49,7 +50,9 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                     onClick = {
                         studySaurusVM.setCurrentScreen(SelectedScreen.HOME)
                         navController.navigate(HomeScreenSpec.route)
-                    }
+                    },
+                    selectedContentColor = Color(0f, 0f, 0f),
+                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -65,7 +68,9 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                     onClick = {
                         studySaurusVM.setCurrentScreen(SelectedScreen.SHOP)
                         navController.navigate(ShopScreenSpec.route)
-                    }
+                    },
+                    selectedContentColor = Color(0f, 0f, 0f),
+                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -81,7 +86,9 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                     onClick = {
                         studySaurusVM.setCurrentScreen(SelectedScreen.WARDROBE)
                         navController.navigate(WardrobeScreenSpec.route)
-                    }
+                    },
+                    selectedContentColor = Color(0f, 0f, 0f),
+                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -97,7 +104,9 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                     onClick = {
                         studySaurusVM.setCurrentScreen(SelectedScreen.TASKS)
                         navController.navigate(TaskScreenSpec.route)
-                    }
+                    },
+                    selectedContentColor = Color(0f, 0f, 0f),
+                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -113,7 +122,9 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                     onClick = {
                         studySaurusVM.setCurrentScreen(SelectedScreen.SOCIAL)
                         navController.navigate(SocialScreenSpec.route)
-                    }
+                    },
+                    selectedContentColor = Color(0f, 0f, 0f),
+                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
 
             }
