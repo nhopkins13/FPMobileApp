@@ -1,27 +1,23 @@
 package com.csci448.fpmobileapp.ui.components
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawOutline
-import androidx.compose.ui.graphics.drawscope.DrawStyle
-import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.draw
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
 
 @Composable
 fun DinosaurCanvas(modifier: Modifier = Modifier){
@@ -170,7 +166,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
                         style = Stroke(width = 12f)
                     )
                 }
-                //drawCircle(color = dinoLineColor, style=Stroke(width=12f))
             }
             translate(left = -size.width/20, top=size.height/24) {
                 scale(scaleX = 0.25f, scaleY = 0.15f) {
@@ -345,8 +340,13 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
         tailLine.lineTo(centerX + size.width * 0.12f, centerY + size.height * 0.2f)
         tailLine.lineTo(centerX + size.width * 0.057f, centerY + size.height * 0.1f)
         drawPath(tailLine, dinoLineColor, style = Stroke(width=3f))
-    }
 
+        withTransform({
+            translate(left=-size.width * 0.25f, top=-size.height * 0.25f)
+        }){
+            DinoHat(this, size)
+        }
+    }
 
 
 }
