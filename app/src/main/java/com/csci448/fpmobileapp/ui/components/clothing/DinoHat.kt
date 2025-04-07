@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.drawscope.withTransform
 fun DinoHat(drawScope: DrawScope, size: Size){
     drawScope.withTransform({
         translate(left = 0f, top = 0f)
-        scale(scaleX = 0.25f, scaleY = 0.25f)
     }){
         scale(scaleX = 1.0f, scaleY = 0.25f){
             drawCircle(

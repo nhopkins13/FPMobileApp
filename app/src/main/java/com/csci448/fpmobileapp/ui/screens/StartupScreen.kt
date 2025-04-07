@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.ui.components.DinosaurCanvas
 import com.csci448.fpmobileapp.ui.components.DinosaurImage
 import com.csci448.fpmobileapp.ui.components.LogoImage
 import com.csci448.fpmobileapp.ui.components.NavButton
@@ -53,7 +54,7 @@ fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: ()
                 .border(width = 3.dp, color = Color.Blue),
             contentAlignment = Alignment.Center
         ) {
-            DinosaurImage(size = 600.dp)
+            DinosaurCanvas(modifier, viewModel)
         }
         Spacer(modifier = Modifier.weight(1f))
 

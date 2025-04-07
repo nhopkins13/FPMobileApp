@@ -18,9 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
+import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 @Composable
-fun DinosaurCanvas(modifier: Modifier = Modifier){
+fun DinosaurCanvas(modifier: Modifier = Modifier, viewModel: StudySaurusVM){
     Canvas(
         modifier = modifier
             .fillMaxWidth()
@@ -341,18 +342,22 @@ fun DinosaurCanvas(modifier: Modifier = Modifier){
         tailLine.lineTo(centerX + size.width * 0.057f, centerY + size.height * 0.1f)
         drawPath(tailLine, dinoLineColor, style = Stroke(width=3f))
 
-        withTransform({
-            translate(left=-size.width * 0.25f, top=-size.height * 0.25f)
-        }){
-            DinoHat(this, size)
+        if(viewModel.currentSaurusState.value.hat == 1){
+            withTransform({
+                translate(left=-size.width * 0.25f, top=-size.height * 0.25f)
+                scale(scaleX = 0.25f, scaleY = 0.25f)
+            }){
+                DinoHat(this, size)
+            }
         }
     }
 
-
 }
 
+/*
 @Preview
 @Composable
 fun DinosaurCanvasPreview(){
     DinosaurCanvas()
 }
+ */
