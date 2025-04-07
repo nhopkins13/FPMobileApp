@@ -51,8 +51,8 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         studySaurusVM.setCurrentScreen(SelectedScreen.HOME)
                         navController.navigate(HomeScreenSpec.route)
                     },
-                    selectedContentColor = Color(0f, 0f, 0f),
-                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
+                    unselectedContentColor = Color(0f, 0f, 0f),
+                    selectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -69,8 +69,8 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         studySaurusVM.setCurrentScreen(SelectedScreen.SHOP)
                         navController.navigate(ShopScreenSpec.route)
                     },
-                    selectedContentColor = Color(0f, 0f, 0f),
-                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
+                    unselectedContentColor = Color(0f, 0f, 0f),
+                    selectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -87,8 +87,8 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         studySaurusVM.setCurrentScreen(SelectedScreen.WARDROBE)
                         navController.navigate(WardrobeScreenSpec.route)
                     },
-                    selectedContentColor = Color(0f, 0f, 0f),
-                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
+                    unselectedContentColor = Color(0f, 0f, 0f),
+                    selectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -105,8 +105,8 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         studySaurusVM.setCurrentScreen(SelectedScreen.TASKS)
                         navController.navigate(TaskScreenSpec.route)
                     },
-                    selectedContentColor = Color(0f, 0f, 0f),
-                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
+                    unselectedContentColor = Color(0f, 0f, 0f),
+                    selectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
                 BottomNavigationItem(
                     label = {
@@ -123,8 +123,8 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         studySaurusVM.setCurrentScreen(SelectedScreen.SOCIAL)
                         navController.navigate(SocialScreenSpec.route)
                     },
-                    selectedContentColor = Color(0f, 0f, 0f),
-                    unselectedContentColor = Color(0.2f, 0.25f, 0.5f)
+                    unselectedContentColor = Color(0f, 0f, 0f),
+                    selectedContentColor = Color(0.2f, 0.25f, 0.5f)
                 )
 
             }
