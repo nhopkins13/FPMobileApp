@@ -45,5 +45,12 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao) 
         }
     }
 
+    fun deleteCompletedTasks() {
+        viewModelScope.launch {
+            taskDao.deleteAllCompleted()
+        }
+    }
+
+
 }
 

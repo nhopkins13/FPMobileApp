@@ -37,131 +37,100 @@ import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewTaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier, onButtonClick: () -> Unit){
-    val LOG_TAG = "448.NewTaskScreen"
-    val currentTitle: MutableState<String> = remember {mutableStateOf("")}
-    val showDatePicker: MutableState<Boolean> = remember {mutableStateOf(false)}
-    val datePickerState = rememberDatePickerState(yearRange = IntRange(2025, 2050))
+fun NewTaskScreen(
+    viewModel: StudySaurusVM,
+    modifier: Modifier = Modifier,
+    onButtonClick: () -> Unit
+) {
+    val currentTitle = remember { mutableStateOf("") }
+    val showDatePicker = remember { mutableStateOf(false) }
+    val datePickerState = rememberDatePickerState(yearRange = 2025..2050)
     val selectedDate = datePickerState.selectedDateMillis
-    val coinWeight = remember {mutableStateOf(5)}
+    val coinWeight = remember { mutableStateOf(5) }
 
-    Column(modifier = modifier
-        .padding(8.dp)
-    ){
+    Column(modifier = modifier.padding(16.dp)) {
         // Title
-        Text(
-            text = stringResource(R.string.title),
-            fontSize = 20.sp
-        )
+        Text(text = stringResource(R.string.title), fontSize = 20.sp)
         OutlinedTextField(
             value = currentTitle.value,
-            onValueChange = {
-                currentTitle.value = it
-            }
+            onValueChange = { currentTitle.value = it },
+            label = { Text(text = stringResource(R.string.title)) },
+            modifier = Modifier.fillMaxWidth()
         )
+
         // Date
-        Text(
-            text = stringResource(R.string.date),
-            fontSize = 20.sp
-        )
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-        ){
+        Text(text = stringResource(R.string.date), fontSize = 20.sp, modifier = Modifier.padding(top = 16.dp))
+        Box(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
-                value = LocalDate.ofEpochDay((selectedDate?:0) / 86400000).toString(),
+                value = selectedDate?.let { LocalDate.ofEpochDay(it / 86400000).toString() } ?: "",
                 onValueChange = {},
-                label = {Text("")},
+                label = { Text(stringResource(R.string.due_date)) },
                 readOnly = true,
                 trailingIcon = {
-                    IconButton(onClick = {showDatePicker.value = !showDatePicker.value}){
-                        Icon(
-                            imageVector = Icons.Default.DateRange,
-                            contentDescription = "Select date"
-                        )
+                    IconButton(onClick = { showDatePicker.value = !showDatePicker.value }) {
+                        Icon(Icons.Default.DateRange, contentDescription = "Select date")
                     }
                 },
-                modifier = modifier
+                modifier = Modifier.fillMaxWidth()
             )
-            if(showDatePicker.value){
+            if (showDatePicker.value) {
                 Popup(
-                    onDismissRequest = {showDatePicker.value = false},
-                    alignment = Alignment.TopStart
+                    alignment = Alignment.TopStart,
+                    onDismissRequest = { showDatePicker.value = false }
                 ) {
-                    Box(
-                        modifier = modifier
-                    ){
-                        DatePicker(
-                            state = datePickerState,
-                            showModeToggle = false
-                        )
-                    }
+                    DatePicker(state = datePickerState, showModeToggle = false)
                 }
             }
         }
 
         // Coins
-        Text(
-            text = stringResource(R.string.coins),
-            fontSize = 20.sp
-        )
-        Row(
-            modifier = modifier
-        ){
-            RadioButton(
-                selected = coinWeight.value == 5,
-                onClick = {
-                    coinWeight.value = 5
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
-                }
-            )
-            Text(
-                text = "$5"
-            )
-            RadioButton(
-                selected = coinWeight.value == 10,
-                onClick = {
-                    coinWeight.value = 10
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
-                }
-            )
-            Text(
-                text = "$10"
-            )
-            RadioButton(
-                selected = coinWeight.value == 25,
-                onClick = {
-                    coinWeight.value = 25
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
-                }
-            )
-            Text(
-                text = "$25"
-            )
-            RadioButton(
-                selected = coinWeight.value == 50,
-                onClick = {
-                    coinWeight.value = 50
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
-                }
-            )
-            Text(
-                text = "$50"
-            )
-
+        Text(text = stringResource(R.string.coins), fontSize = 20.sp, modifier = Modifier.padding(top = 16.dp))
+        Column {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 5,
+                    onClick = { coinWeight.value = 5 }
+                )
+                Text(text = "$5")
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 10,
+                    onClick = { coinWeight.value = 10 }
+                )
+                Text(text = "$10")
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 25,
+                    onClick = { coinWeight.value = 25 }
+                )
+                Text(text = "$25")
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 50,
+                    onClick = { coinWeight.value = 50 }
+                )
+                Text(text = "$50")
+            }
         }
 
+        // Submit Button
         Button(
             onClick = {
-                val task = Task(title = currentTitle.value, timeDue = LocalDate.ofEpochDay((selectedDate?:0) / 86400000), coins = coinWeight.value)
+                val dueDate = selectedDate?.let { LocalDate.ofEpochDay(it / 86400000) } ?: LocalDate.now()
+                val task = Task(
+                    title = currentTitle.value,
+                    timeDue = dueDate,
+                    coins = coinWeight.value
+                )
                 viewModel.addTask(task)
-                Log.d(LOG_TAG, "Task created with date ${LocalDate.ofEpochDay((selectedDate?:0) / 86400000)}")
                 onButtonClick()
-            }
-        ){
-            Text(
-                text = "Create task"
-            )
+            },
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            Text(stringResource(R.string.create_task))
         }
     }
 }

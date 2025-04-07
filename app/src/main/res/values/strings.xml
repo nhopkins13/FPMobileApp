@@ -29,9 +29,12 @@
     <string name="label_new_task">New Task</string>
     <string name="dino_desc">Dinosaur</string>
     <string name="title">Title</string>
+    <string name="due_date">Due Date</string>
     <string name="date">Date</string>
+    <string name="create_task">Create Task</string>
     <string name="coins">Coin Weight</string>
-
+    <string name="remove_completed_tasks">Remove Completed Tasks</string>string>
+    <string name = "no_tasks_label">No tasks found! Add a new one to get started.</string>
 
 
 </resources>
