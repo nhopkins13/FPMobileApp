@@ -84,50 +84,36 @@ fun NewTaskScreen(
         }
 
         // Coins
-        Text(
-            text = stringResource(R.string.coins),
-            fontSize = 20.sp
-        )
-        Row(
-            modifier = modifier
-        ){
-            RadioButton(
-                selected = coinWeight.value == 5,
-                onClick = {
-                    coinWeight.value = 5
-                }
-            )
-            Text(
-                text = "$5"
-            )
-            RadioButton(
-                selected = coinWeight.value == 10,
-                onClick = {
-                    coinWeight.value = 10
-                }
-            )
-            Text(
-                text = "$10"
-            )
-            RadioButton(
-                selected = coinWeight.value == 25,
-                onClick = {
-                    coinWeight.value = 25
-                }
-            )
-            Text(
-                text = "$25"
-            )
-            RadioButton(
-                selected = coinWeight.value == 50,
-                onClick = {
-                    coinWeight.value = 50
-                }
-            )
-            Text(
-                text = "$50"
-            )
-
+        Text(text = stringResource(R.string.coins), fontSize = 20.sp, modifier = Modifier.padding(top = 16.dp))
+        Column {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 5,
+                    onClick = { coinWeight.value = 5 }
+                )
+                Text(text = "$5")
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 10,
+                    onClick = { coinWeight.value = 10 }
+                )
+                Text(text = "$10")
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 25,
+                    onClick = { coinWeight.value = 25 }
+                )
+                Text(text = "$25")
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = coinWeight.value == 50,
+                    onClick = { coinWeight.value = 50 }
+                )
+                Text(text = "$50")
+            }
         }
 
         // Submit Button
@@ -139,7 +125,6 @@ fun NewTaskScreen(
                     timeDue = dueDate,
                     coins = coinWeight.value
                 )
-
                 viewModel.addTask(task)
                 onButtonClick()
             },
