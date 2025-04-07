@@ -1,12 +1,16 @@
 package com.csci448.fpmobileapp.ui.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.data.ShopItem
+import com.csci448.fpmobileapp.ui.components.ClothingCard
+import com.csci448.fpmobileapp.ui.components.DinosaurCanvas
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -21,9 +25,13 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
     Column(modifier = modifier) {
         //remove/change once page has content
-        Text("WARDROBE SCREEN")
-        Text("nothing here")
-        Text("hit back button in studio")
+        DinosaurCanvas(viewModel = viewModel)
+        Box(
+            modifier = modifier
+        ){
+            ClothingCard(item = ShopItem(id = 0, name = "None", type = "Hat", imageId = 0, owned = true), viewModel = viewModel)
+            ClothingCard(item = ShopItem(id = 1, name = "Top Hat", type = "Hat", imageId = 1, owned = true), viewModel = viewModel)
+        }
     }
 }
 
