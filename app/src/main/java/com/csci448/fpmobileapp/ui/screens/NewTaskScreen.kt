@@ -95,7 +95,6 @@ fun NewTaskScreen(
                 selected = coinWeight.value == 5,
                 onClick = {
                     coinWeight.value = 5
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
@@ -105,7 +104,6 @@ fun NewTaskScreen(
                 selected = coinWeight.value == 10,
                 onClick = {
                     coinWeight.value = 10
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
@@ -115,7 +113,6 @@ fun NewTaskScreen(
                 selected = coinWeight.value == 25,
                 onClick = {
                     coinWeight.value = 25
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
@@ -125,7 +122,6 @@ fun NewTaskScreen(
                 selected = coinWeight.value == 50,
                 onClick = {
                     coinWeight.value = 50
-                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
@@ -145,7 +141,6 @@ fun NewTaskScreen(
                 )
 
                 viewModel.addTask(task)
-                Log.d(LOG_TAG, "Task created and added")
                 onButtonClick()
             },
             modifier = Modifier.padding(top = 16.dp)
