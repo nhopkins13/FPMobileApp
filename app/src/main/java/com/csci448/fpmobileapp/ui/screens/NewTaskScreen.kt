@@ -1,6 +1,7 @@
 package com.csci448.fpmobileapp.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,11 +38,12 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewTaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier, onButtonClick: () -> Unit){
+    val LOG_TAG = "448.NewTaskScreen"
     val currentTitle: MutableState<String> = remember {mutableStateOf("")}
     val showDatePicker: MutableState<Boolean> = remember {mutableStateOf(false)}
     val datePickerState = rememberDatePickerState(yearRange = IntRange(2025, 2050))
     val selectedDate = datePickerState.selectedDateMillis
-    var coinWeight = 5
+    val coinWeight = remember {mutableStateOf(5)}
 
     Column(modifier = modifier
         .padding(8.dp)
@@ -107,36 +109,40 @@ fun NewTaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier, onBut
             modifier = modifier
         ){
             RadioButton(
-                selected = coinWeight == 5,
+                selected = coinWeight.value == 5,
                 onClick = {
-                    coinWeight = 5
+                    coinWeight.value = 5
+                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
                 text = "$5"
             )
             RadioButton(
-                selected = coinWeight == 10,
+                selected = coinWeight.value == 10,
                 onClick = {
-                    coinWeight = 10
+                    coinWeight.value = 10
+                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
                 text = "$10"
             )
             RadioButton(
-                selected = coinWeight == 25,
+                selected = coinWeight.value == 25,
                 onClick = {
-                    coinWeight = 25
+                    coinWeight.value = 25
+                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
                 text = "$25"
             )
             RadioButton(
-                selected = coinWeight == 50,
+                selected = coinWeight.value == 50,
                 onClick = {
-                    coinWeight = 50
+                    coinWeight.value = 50
+                    Log.d(LOG_TAG, "Coins set to $coinWeight.value")
                 }
             )
             Text(
@@ -147,8 +153,9 @@ fun NewTaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier, onBut
 
         Button(
             onClick = {
-                val task = Task(title = currentTitle.value, timeDue = LocalDate.ofEpochDay((selectedDate?:0) / 864000), coins = coinWeight)
+                val task = Task(title = currentTitle.value, timeDue = LocalDate.ofEpochDay((selectedDate?:0) / 864000), coins = coinWeight.value)
                 viewModel.addTask(task)
+                Log.d(LOG_TAG, "Task created and added")
                 onButtonClick()
             }
         ){
