@@ -40,10 +40,9 @@ fun HomeScreen(
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
             //DinosaurImage(600.dp)
-            DinosaurCanvas()
+            DinosaurCanvas(viewModel = viewModel)
         }
-        //uncomment to enable the manual crash button
-        //NavButton("MANUALCRASH") { throw RuntimeException("Test Crash")}
+
     }
 }
 

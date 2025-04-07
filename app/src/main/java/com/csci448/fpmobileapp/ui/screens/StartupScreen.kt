@@ -44,7 +44,7 @@ fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: ()
             contentAlignment = Alignment.Center){
             LogoImage(500.dp)
         }
-        Spacer(modifier = Modifier.height((-300).dp))
+        Spacer(modifier = Modifier.weight(0.5f))
         Box(
             modifier = Modifier
                 .padding(vertical = 10.dp)
@@ -56,7 +56,7 @@ fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: ()
         ) {
             DinosaurCanvas(modifier, viewModel)
         }
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(0.5f))
 
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
