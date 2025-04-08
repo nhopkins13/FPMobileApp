@@ -67,7 +67,7 @@ fun ShopScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
 
         // If no items in DB, show "no items"
         if (clothingItems.isEmpty()) {
-            Text(text = stringResource(R.string.no_tasks_label), modifier = Modifier.padding(16.dp))
+            Text(text = stringResource(R.string.shop_empty), modifier = Modifier.padding(16.dp))
         } else {
             // Scrollable list
             LazyColumn(modifier = Modifier.weight(1f)) {
