@@ -17,32 +17,38 @@ import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 @Composable
-fun ClothingCard(item: ShopItem, viewModel: StudySaurusVM){
-    ElevatedCard (
-        modifier = Modifier
-            .fillMaxWidth(0.5f),
-        onClick = { viewModel.currentSaurusState.value.hat = item.id}
+fun ClothingCard(
+    item: ShopItem,
+    viewModel: StudySaurusVM,
+    onSelectItem: (ShopItem) -> Unit // <-- new callback
+) {
+    ElevatedCard(
+        modifier = Modifier.fillMaxWidth(0.5f),
+        onClick = {
+            // Set the dinosaur's hat in the VM
+            viewModel.currentSaurusState.value.hat = item.id
+            // Also notify "we selected this item" for purchase
+            onSelectItem(item)
+        }
     ) {
-        Text(
-            text = item.name
-        )
+        Text(text = item.name)
+
         Canvas(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         ) {
-            if(item.id == 1){
+            if (item.id == 1) {
                 withTransform({
                     translate(left = 0.0f, top = -size.height * 0.25f)
-                }){
+                }) {
                     DinoHat(this, size)
                 }
-            }else if(item.id == 0){
+            } else if (item.id == 0) {
                 drawCircle(color = Color.Gray)
-                scale(scaleX = 0.75f, scaleY = 0.75f){
+                scale(scaleX = 0.75f, scaleY = 0.75f) {
                     drawCircle(color = Color.White)
                 }
-                rotate(degrees = 45f){
-                    scale(scaleX = 0f, scaleY = 0.25f){
+                rotate(degrees = 45f) {
+                    scale(scaleX = 0f, scaleY = 0.25f) {
                         drawRect(color = Color.Gray)
                     }
                 }

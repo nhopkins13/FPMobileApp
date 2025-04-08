@@ -5,8 +5,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.csci448.fpmobileapp.data.ItemsDao
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.data.SelectedScreen
+import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.data.Task
 import com.csci448.fpmobileapp.data.TaskDao
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,7 +23,7 @@ import kotlinx.coroutines.launch
  * TODO:
  *  the whole thing
  */
-class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao) : ViewModel() {
+class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, private val itemsDao: ItemsDao) : ViewModel() {
     val currentSaurusState: State<Saurus>
         get() = mutableStateOf(mySaurus)
 
@@ -55,6 +57,35 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao) 
     fun deleteCompletedTasks() {
         viewModelScope.launch {
             taskDao.deleteAllCompleted()
+        }
+    }
+
+    val allItems: StateFlow<List<ShopItem>> = itemsDao.getAllItems()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    // Optionally, you can also define a flow for shop items only:
+    val shopItems: StateFlow<List<ShopItem>> = allItems
+        .map { list -> list.filter { !it.owned } }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    fun insertShopItem(item: ShopItem) {
+        viewModelScope.launch {
+            itemsDao.insertItem(item)
+        }
+    }
+
+    // Owned items flow:
+    val ownedItems: StateFlow<List<ShopItem>> = allItems
+        .map { list -> list.filter { it.owned } }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    // Purchase items => set "owned = true" and update DB
+    fun purchaseItems(itemsToBuy: List<ShopItem>) {
+        viewModelScope.launch {
+            itemsToBuy.forEach { item ->
+                // Mark the item as owned
+                itemsDao.updateItem(item.copy(owned = true))
+            }
         }
     }
 

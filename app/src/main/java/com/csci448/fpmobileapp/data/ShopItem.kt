@@ -12,6 +12,6 @@ data class ShopItem (
     val name: String,
     val type: String,
     val imageId: Int,
-    val coinCost: Int = 5,
+    val price: Int,
     val owned: Boolean = false
 )

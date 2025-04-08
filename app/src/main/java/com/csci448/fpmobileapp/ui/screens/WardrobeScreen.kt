@@ -24,19 +24,41 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 @Composable
 fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
     Column(modifier = modifier) {
-        //remove/change once page has content
+        // Dino canvas
         DinosaurCanvas(viewModel = viewModel)
-        Box(
-            modifier = modifier
-        ){
-            ClothingCard(item = ShopItem(id = 0, name = "None", type = "Hat", imageId = 0, owned = true), viewModel = viewModel)
-            ClothingCard(item = ShopItem(id = 1, name = "Top Hat", type = "Hat", imageId = 1, owned = true), viewModel = viewModel)
+
+        Box(modifier = modifier) {
+            // Card 1
+            ClothingCard(
+                item = ShopItem(
+                    id = 0,
+                    name = "None",
+                    type = "Hat",
+                    imageId = 0,
+                    owned = true,
+                    price = 5
+                ),
+                viewModel = viewModel,
+                onSelectItem = { selectedItem ->
+                    viewModel.currentSaurusState.value.hat = selectedItem.id
+                }
+            )
+
+            // Card 2
+            ClothingCard(
+                item = ShopItem(
+                    id = 1,
+                    name = "Top Hat",
+                    type = "Hat",
+                    imageId = 1,
+                    owned = true,
+                    price = 10
+                ),
+                viewModel = viewModel,
+                onSelectItem = { selectedItem ->
+                    viewModel.currentSaurusState.value.hat = selectedItem.id
+                }
+            )
         }
     }
-}
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-private fun PreviewWardrobeScreen(){
 }

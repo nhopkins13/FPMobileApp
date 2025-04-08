@@ -9,15 +9,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
+import com.csci448.fpmobileapp.data.AppDatabase
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
-import com.csci448.fpmobileapp.data.TaskDatabase
+import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
 import com.csci448.fpmobileapp.ui.navigation.TopBar
@@ -43,11 +45,19 @@ class MainActivity : ComponentActivity() {
 
             val db = Room.databaseBuilder(
                 context,
-                TaskDatabase::class.java,
-                "task-db"
-            ).build()
+                AppDatabase::class.java,
+                "my_app_db"
+            )
+                .fallbackToDestructiveMigration() // allow wiping old data
+                .build()
 
-            val factory = StudySaurusVMFactory(SaurusRepo.mySaurus, db.taskDao())
+
+            val factory = StudySaurusVMFactory(
+                mySaurus = SaurusRepo.mySaurus,
+                taskDao = db.taskDao(),
+                itemsDao = db.itemsDao() // <--- Must pass itemsDao here
+            )
+
             val viewModel: StudySaurusVM = androidx.lifecycle.viewmodel.compose.viewModel(factory = factory)
 
             val navController = rememberNavController()
@@ -59,6 +69,19 @@ class MainActivity : ComponentActivity() {
                 SelectedScreen.WARDROBE,
                 SelectedScreen.SOCIAL
             )
+
+            LaunchedEffect(Unit) {
+                viewModel.insertShopItem(
+                    ShopItem(
+                        name = "Test Hat",
+                        type = "Hat",
+                        imageId = R.drawable.some_icon,
+                        price = 10,
+                        owned = false
+                    )
+                )
+            }
+
 
             Scaffold(
                 bottomBar = {

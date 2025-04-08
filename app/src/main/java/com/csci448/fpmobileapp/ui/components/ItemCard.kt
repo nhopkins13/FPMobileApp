@@ -62,21 +62,11 @@ fun ItemCard(
             }
 
             Text(
-                text = "$${shopItem.coinCost}",
+                text = "$${shopItem.price}",
                 fontSize = 16.sp,
                 modifier = Modifier
                     .padding(start = 8.dp)
             )
         }
     }
-}
-@Preview
-@Composable
-private fun PreviewItemCard(){
-    val x = ShopItem(
-        name = "testnamehat",
-        type = "testtypehat",
-        imageId = 0
-    )
-    ItemCard(x)
 }
