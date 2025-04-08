@@ -11,6 +11,7 @@ import com.csci448.fpmobileapp.data.Task
 import com.csci448.fpmobileapp.data.TaskDao
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -32,6 +33,12 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao) 
 
     val taskList: StateFlow<List<Task>> = taskDao.getAllTasks()
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    val totalCoins: StateFlow<Int> = taskList
+        .map { tasks ->
+            tasks.filter { it.completed }.sumOf { it.coins }
+        }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
 
     fun addTask(task: Task) {
         viewModelScope.launch {

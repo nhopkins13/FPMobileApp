@@ -36,6 +36,9 @@
     <string name="remove_completed_tasks">Remove Completed Tasks</string>string>
     <string name = "no_tasks_label">No tasks found! Add a new one to get started.</string>
     <string name="shop_purchase">Purchase</string>
+    <string name="upcoming_label">Next Upcoming Task: </string>
+    <string name="coins_label">Coins: </string>
+
 
 
 </resources>

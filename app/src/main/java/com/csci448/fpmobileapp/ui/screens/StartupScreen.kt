@@ -37,44 +37,72 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  move displayed text to strings.xml
  */
 @Composable
-fun StartupScreen(viewModel : StudySaurusVM, goToHome: () -> Unit, goToLogin: () -> Unit, goToSignup: ()-> Unit, modifier: Modifier = Modifier){
-    Column(modifier = modifier.fillMaxSize().padding(horizontal = 16.dp)){
-        Box(modifier = Modifier.fillMaxWidth()
-            .height(100.dp).clipToBounds(),
-            contentAlignment = Alignment.Center){
-            LogoImage(500.dp)
-        }
-        Spacer(modifier = Modifier.weight(0.5f))
+fun StartupScreen(
+    viewModel: StudySaurusVM,
+    goToHome: () -> Unit,
+    goToLogin: () -> Unit,
+    goToSignup: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp)
+    ) {
+        // LOGO AT TOP, FIXED HEIGHT
         Box(
             modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)   // <-- FIXED HEIGHT
+                .clipToBounds(),
+            contentAlignment = Alignment.Center
+        ) {
+            // Keep 600.dp if you like the scale
+            // but the 100dp Box will clip it
+            LogoImage(size = 600.dp)
+        }
+
+        // DINOSAUR IN THE MIDDLE
+        Box(
+            modifier = Modifier
+                .weight(1f)             // Fills leftover vertical space
+                .fillMaxWidth()
                 .padding(vertical = 10.dp)
-                .widthIn(min = 500.dp, max = 900.dp)
-                .fillMaxHeight(.70f)
                 .background(Color(0xFFADD8E6))
                 .border(width = 3.dp, color = Color.Blue),
             contentAlignment = Alignment.Center
         ) {
-            DinosaurCanvas(modifier, viewModel)
+            DinosaurCanvas(
+                modifier = Modifier.fillMaxSize(),
+                viewModel = viewModel
+            )
         }
-        Spacer(modifier = Modifier.weight(0.5f))
 
-        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
-            contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_login), { goToLogin() })
+        // BUTTONS AT THE BOTTOM
+        Box(
+            modifier = Modifier
+                .padding(vertical = 5.dp)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            NavButton(stringResource(id = R.string.label_login)) { goToLogin() }
         }
-        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
-            contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_signup), { goToSignup() })
+        Box(
+            modifier = Modifier
+                .padding(vertical = 5.dp)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            NavButton(stringResource(id = R.string.label_signup)) { goToSignup() }
         }
-        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
-            contentAlignment = Alignment.Center) {
-            NavButton(stringResource(id = R.string.label_offline), { goToHome() })
+        Box(
+            modifier = Modifier
+                .padding(vertical = 5.dp)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            NavButton(stringResource(id = R.string.label_offline)) { goToHome() }
         }
     }
 }
 
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-private fun PreviewStartupScreen(){
-}

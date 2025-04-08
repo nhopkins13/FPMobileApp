@@ -7,14 +7,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.DinosaurCanvas
 import com.csci448.fpmobileapp.ui.components.DinosaurImage
 import com.csci448.fpmobileapp.ui.components.NavButton
+import com.csci448.fpmobileapp.ui.components.TaskCard
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -35,8 +40,19 @@ fun HomeScreen(
     toSocial: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val tasks by viewModel.taskList.collectAsState()
+    val earliestTask = tasks.minByOrNull { it.timeDue }
+
     Column(modifier = modifier) {
-        Text("HOME SCREEN")
+        earliestTask?.let { task ->
+            Text(stringResource(R.string.upcoming_label), modifier = Modifier.padding(8.dp))
+            TaskCard(
+                task = task,
+                onCheckedChange = { isChecked ->
+                    viewModel.updateTask(task.copy(completed = isChecked))
+                }
+            )
+        }
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
             //DinosaurImage(600.dp)

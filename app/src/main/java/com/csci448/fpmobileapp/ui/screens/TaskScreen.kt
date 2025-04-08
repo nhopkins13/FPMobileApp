@@ -34,7 +34,7 @@ fun TaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
 
     Column(modifier = modifier.fillMaxSize()) {
         if (tasks.isEmpty()) {
-            Text(text = stringResource(R.string.no_tasks_label))
+            Text(text = stringResource(R.string.no_tasks_label), modifier = Modifier.padding(16.dp))
         } else {
             LazyColumn(
                 modifier = Modifier.weight(1f)
