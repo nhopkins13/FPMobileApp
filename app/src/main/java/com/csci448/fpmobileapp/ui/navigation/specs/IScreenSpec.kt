@@ -43,14 +43,16 @@ sealed interface IScreenSpec {
             viewModel: StudySaurusVM,
             navController: NavHostController,
             navBackStackEntry: NavBackStackEntry?,
-            context: Context
+            context: Context,
+            screenName: String
         ){
             val route = navBackStackEntry?.destination?.route ?: ""
             allScreens[route]?.TopAppBarContent(
                 viewModel = viewModel,
                 navController = navController,
                 navBackStackEntry = navBackStackEntry,
-                context = context
+                context = context,
+                screenName = screenName
             )
         }
     }
@@ -61,7 +63,8 @@ sealed interface IScreenSpec {
         viewModel: StudySaurusVM,
         navController: NavHostController,
         navBackStackEntry: NavBackStackEntry?,
-        context: Context
+        context: Context,
+        screenName: String = ""
     ){
         TopAppBar(
             navigationIcon = if(navController.previousBackStackEntry != null && (viewModel.currentScreen.value == SelectedScreen.SETTINGS || viewModel.currentScreen.value == SelectedScreen.NEW_TASK)){
@@ -78,7 +81,7 @@ sealed interface IScreenSpec {
             },
             title = {
                 Text(
-                    text = ""
+                    text = screenName
                 )
             },
             actions = {
