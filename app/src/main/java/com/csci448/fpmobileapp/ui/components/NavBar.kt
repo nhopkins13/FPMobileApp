@@ -16,7 +16,6 @@ import androidx.navigation.NavHostController
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.navigation.specs.HomeScreenSpec
-import com.csci448.fpmobileapp.ui.navigation.specs.SettingScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.ShopScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.SocialScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.TaskScreenSpec
