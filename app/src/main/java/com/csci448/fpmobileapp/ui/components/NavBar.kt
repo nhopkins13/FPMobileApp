@@ -48,7 +48,6 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         )
                     },
                     onClick = {
-                        studySaurusVM.setCurrentScreen(SelectedScreen.HOME)
                         navController.navigate(HomeScreenSpec.route)
                     },
                     unselectedContentColor = Color(0f, 0f, 0f),
@@ -66,7 +65,6 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         )
                     },
                     onClick = {
-                        studySaurusVM.setCurrentScreen(SelectedScreen.SHOP)
                         navController.navigate(ShopScreenSpec.route)
                     },
                     unselectedContentColor = Color(0f, 0f, 0f),
@@ -84,7 +82,6 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         )
                     },
                     onClick = {
-                        studySaurusVM.setCurrentScreen(SelectedScreen.WARDROBE)
                         navController.navigate(WardrobeScreenSpec.route)
                     },
                     unselectedContentColor = Color(0f, 0f, 0f),
@@ -102,7 +99,6 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         )
                     },
                     onClick = {
-                        studySaurusVM.setCurrentScreen(SelectedScreen.TASKS)
                         navController.navigate(TaskScreenSpec.route)
                     },
                     unselectedContentColor = Color(0f, 0f, 0f),
@@ -120,7 +116,6 @@ fun NavBar(studySaurusVM: StudySaurusVM,
                         )
                     },
                     onClick = {
-                        studySaurusVM.setCurrentScreen(SelectedScreen.SOCIAL)
                         navController.navigate(SocialScreenSpec.route)
                     },
                     unselectedContentColor = Color(0f, 0f, 0f),

@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
+import kotlin.math.log
 
 /**
  * Interface to make ScreenSpecs for our app's Screens
@@ -44,9 +45,10 @@ sealed interface IScreenSpec {
             navController: NavHostController,
             navBackStackEntry: NavBackStackEntry?,
             context: Context,
-            screenName: String
+            screenName: String?
         ){
             val route = navBackStackEntry?.destination?.route ?: ""
+            Log.d(LOG_TAG, "TopBar: creating bar for $route")
             allScreens[route]?.TopAppBarContent(
                 viewModel = viewModel,
                 navController = navController,
@@ -64,7 +66,7 @@ sealed interface IScreenSpec {
         navController: NavHostController,
         navBackStackEntry: NavBackStackEntry?,
         context: Context,
-        screenName: String = ""
+        screenName: String?
     ){
         TopAppBar(
             navigationIcon = if(navController.previousBackStackEntry != null && (viewModel.currentScreen.value == SelectedScreen.SETTINGS || viewModel.currentScreen.value == SelectedScreen.NEW_TASK)){
@@ -81,7 +83,7 @@ sealed interface IScreenSpec {
             },
             title = {
                 Text(
-                    text = screenName
+                    text = screenName ?: ""
                 )
             },
             actions = {
