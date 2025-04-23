@@ -3,9 +3,9 @@ package com.csci448.fpmobileapp.data
 import androidx.annotation.StringRes
 import com.csci448.fpmobileapp.R
 
-enum class SelectedScreen(val stringRes: Int) {
+enum class SelectedScreen(val stringRes: Int?) {
     NONE(R.string.app_name),
-    STARTUP(R.string.label_app_name),
+    STARTUP(null),
     LOGIN(R.string.label_login),
     SIGNUP(R.string.label_signup),
     HOME(R.string.label_home),
