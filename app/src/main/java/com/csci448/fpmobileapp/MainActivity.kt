@@ -1,15 +1,16 @@
 package com.csci448.fpmobileapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,7 +21,6 @@ import com.csci448.fpmobileapp.data.AppDatabase
 import com.csci448.fpmobileapp.data.ItemRepo
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
-import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
 import com.csci448.fpmobileapp.ui.navigation.TopBar
@@ -38,6 +38,10 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVMFactory
  *  override functions for console logs
  */
 class MainActivity : ComponentActivity() {
+    companion object{
+        private val LOG_TAG = "448.FPMobileApp.MainActivity"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -71,11 +75,6 @@ class MainActivity : ComponentActivity() {
                 SelectedScreen.SOCIAL
             )
 
-            LaunchedEffect(Unit) {
-                if (!viewModel.allItems.value.contains(ItemRepo.testHat)) {
-                    viewModel.insertShopItem(item = ItemRepo.testHat)
-                }
-            }
 
 
             Scaffold(
@@ -99,7 +98,22 @@ class MainActivity : ComponentActivity() {
                     context = LocalContext.current,
                     coroutineScope = coroutineScope
                 )
+                LaunchedEffect(Unit) {
+                    var allItem = viewModel.allItems
+                    var shopItem = viewModel.allItems
+                    Log.d(LOG_TAG, "all items $allItem")
+                    Log.d(LOG_TAG, "shop items $shopItem")
+                    if (!viewModel.allItems.value.contains(ItemRepo.testHat)) {
+                        Log.d(LOG_TAG, "inserting testhat")
+                        viewModel.insertItem(item = ItemRepo.testHat)
+                    }
+                    allItem = viewModel.allItems
+                    shopItem = viewModel.allItems
+                    Log.d(LOG_TAG, "all items $allItem")
+                    Log.d(LOG_TAG, "shop items $shopItem")
+                }
             }
+
         }
     }
 }

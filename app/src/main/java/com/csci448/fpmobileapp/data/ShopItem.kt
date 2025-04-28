@@ -1,5 +1,6 @@
 package com.csci448.fpmobileapp.data
 
+import android.graphics.Canvas
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.room.Entity
@@ -13,5 +14,6 @@ data class ShopItem (
     val type: String,
     val imageId: Int,
     val price: Int,
-    val owned: Boolean = false
+    val owned: Boolean = false,
+    val imgCanvas: Canvas
 )

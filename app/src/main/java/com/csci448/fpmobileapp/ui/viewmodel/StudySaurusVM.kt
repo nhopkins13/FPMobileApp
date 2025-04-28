@@ -68,9 +68,11 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
         .map { list -> list.filter { !it.owned } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    fun insertShopItem(item: ShopItem) {
+    fun insertItem(item: ShopItem) {
         viewModelScope.launch {
-            itemsDao.insertItem(item)
+            if (!allItems.value.contains(item)){
+                itemsDao.insertItem(item)
+            }
         }
     }
 

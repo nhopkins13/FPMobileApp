@@ -1,9 +1,11 @@
 package com.csci448.fpmobileapp.ui.components
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import com.csci448.fpmobileapp.data.ShopItem
+import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
 
 @Composable
 fun ItemCard(
@@ -49,7 +52,21 @@ fun ItemCard(
                     onCheckedChange(shopItem)
                 }
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "$${shopItem.price}",
+                fontSize = 16.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp)
+            )
+            Spacer(modifier = Modifier.width(24.dp))
+            Canvas(
+                    modifier = Modifier.width(48.dp).height(48.dp)
+                    ){
+                DinoHat(drawScope = this,
+                        size = size
+                )
+            }
+            Spacer(modifier = Modifier.width(24.dp))
 
             Column(
                 modifier = Modifier.weight(1f)
@@ -59,16 +76,9 @@ fun ItemCard(
                     fontSize = 20.sp
                 )
                 Text(
-                    text = "Due: ${shopItem.type}"
+                    text = "Type: ${shopItem.type}"
                 )
             }
-
-            Text(
-                text = "$${shopItem.price}",
-                fontSize = 16.sp,
-                modifier = Modifier
-                    .padding(start = 8.dp)
-            )
         }
     }
 }
