@@ -27,7 +27,7 @@ fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
         // Dino canvas
         DinosaurCanvas(viewModel = viewModel)
 
-        Box(modifier = modifier) {
+        Box(modifier = Modifier) {
             // Card 1
             ClothingCard(
                 item = ShopItem(
@@ -38,7 +38,6 @@ fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
                     owned = true,
                     price = 5
                 ),
-                viewModel = viewModel,
                 onSelectItem = { selectedItem ->
                     viewModel.currentSaurusState.value.hat = selectedItem.id
                 }
@@ -54,7 +53,6 @@ fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
                     owned = true,
                     price = 10
                 ),
-                viewModel = viewModel,
                 onSelectItem = { selectedItem ->
                     viewModel.currentSaurusState.value.hat = selectedItem.id
                 }

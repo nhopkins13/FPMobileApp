@@ -3,6 +3,8 @@ package com.csci448.fpmobileapp.ui.components
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,7 +32,6 @@ import kotlin.reflect.jvm.internal.impl.types.TypeCheckerState.SupertypesPolicy.
 @Composable
 fun ClothingCard(
     item: ShopItem,
-    viewModel: StudySaurusVM,
     onSelectItem: (ShopItem) -> Unit // <-- new callback
 ) {
     ElevatedCard(
@@ -77,9 +78,9 @@ fun ClothingCardPreview(){
     val testItem = ShopItem(id=0, name="None", type="hat", imageId=0, price=0)
     Box(
         modifier = Modifier
-            .width(300.dp)
-            .height(300.dp)
+            .fillMaxWidth()
+            .fillMaxHeight()
     ){
-        ClothingCard(item=testItem, viewModel=TODO(), onSelectItem={})
+        ClothingCard(item=testItem, onSelectItem={})
     }
 }

@@ -74,7 +74,6 @@ fun ShopScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
                 items(clothingItems) { item ->
                     ClothingCard(
                         item = item,
-                        viewModel = viewModel,
                         onSelectItem = { clickedItem ->
                             // Toggle selection
                             if (selectedItems.contains(clickedItem)) {
