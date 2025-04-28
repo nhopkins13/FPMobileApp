@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.csci448.fpmobileapp.data.AppDatabase
+import com.csci448.fpmobileapp.data.ItemRepo
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.data.ShopItem
@@ -71,15 +72,9 @@ class MainActivity : ComponentActivity() {
             )
 
             LaunchedEffect(Unit) {
-                viewModel.insertShopItem(
-                    ShopItem(
-                        name = "Test Hat",
-                        type = "Hat",
-                        imageId = R.drawable.some_icon,
-                        price = 10,
-                        owned = false
-                    )
-                )
+                if (!viewModel.allItems.value.contains(ItemRepo.testHat)) {
+                    viewModel.insertShopItem(item = ItemRepo.testHat)
+                }
             }
 
 

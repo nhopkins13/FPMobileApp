@@ -19,12 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import com.csci448.fpmobileapp.data.ShopItem
 
 @Composable
 fun ItemCard(
     shopItem: ShopItem,
-    onCheckedChange: (Boolean) -> Unit = {},
+    viewModel: ViewModel,
+    onCheckedChange: (ShopItem) -> Unit = {},
     onPurchase: ()-> Unit = {}
 ){
 
@@ -44,7 +46,7 @@ fun ItemCard(
                 checked = isChecked,
                 onCheckedChange = {
                     isChecked = it
-                    onCheckedChange(it)
+                    onCheckedChange(shopItem)
                 }
             )
             Spacer(modifier = Modifier.width(8.dp))

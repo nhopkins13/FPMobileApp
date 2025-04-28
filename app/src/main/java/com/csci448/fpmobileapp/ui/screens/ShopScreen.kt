@@ -1,6 +1,7 @@
 package com.csci448.fpmobileapp.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,7 @@ import com.csci448.fpmobileapp.ui.components.ClothingCard
 import com.csci448.fpmobileapp.ui.components.ItemCard
 import com.csci448.fpmobileapp.ui.components.TaskCard
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
+private val LOG_TAG = "448.StudySaurus.ShopScreen"
 
 /**
  * the app's shop
@@ -63,19 +65,22 @@ fun ShopScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
                     .padding(start = 16.dp, top = 16.dp)
                     .align(Alignment.CenterVertically)
             )
+            Log.d(LOG_TAG, "Total Coins: $coins")
         }
 
         // If no items in DB, show "no items"
         if (clothingItems.isEmpty()) {
             Text(text = stringResource(R.string.shop_empty), modifier = Modifier.padding(16.dp))
+            Log.d(LOG_TAG, "Shop: empty!")
+
         } else {
             // Scrollable list
             LazyColumn(modifier = Modifier.weight(1f)) {
                 items(clothingItems) { item ->
-                    ClothingCard(
-                        item = item,
+                    ItemCard(
+                        shopItem = item,
                         viewModel = viewModel,
-                        onSelectItem = { clickedItem ->
+                        onCheckedChange = { clickedItem ->
                             // Toggle selection
                             if (selectedItems.contains(clickedItem)) {
                                 selectedItems.remove(clickedItem)
@@ -84,20 +89,26 @@ fun ShopScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
                             }
                         }
                     )
+                    Log.d(LOG_TAG, "Item added to shop: ${item.name}")
                 }
             }
 
             // PURCHASE BUTTON
-            androidx.compose.material3.Button(
+            Button(
                 onClick = {
                     val totalCost = selectedItems.sumOf { it.price }
                     if (coins < totalCost) {
                         // Not enough coins
                         showInsufficientCoinsDialog.value = true
+                        Log.d(LOG_TAG, "PURCHASE FAILED: not enough coins!")
                     } else {
                         // Enough "coins" => mark them owned in DB
                         viewModel.purchaseItems(selectedItems)
+                        Log.d(LOG_TAG, "PURCHASE SUCCESS!")
                         // Clear selected
+                        val tempList: MutableList<String?> = MutableList(0, { index -> null})
+                        selectedItems.forEach({tempList.add(it.name) })
+                        Log.d(LOG_TAG, "Purchased items: ${tempList}")
                         selectedItems.clear()
                     }
                 },
@@ -112,14 +123,14 @@ fun ShopScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
 
     // AlertDialog for insufficient coins
     if (showInsufficientCoinsDialog.value) {
-        androidx.compose.material3.AlertDialog(
+        AlertDialog(
             onDismissRequest = { showInsufficientCoinsDialog.value = false },
             title = { Text("Not Enough Coins") },
             text = {
                 Text("Looks like you don't have enough coins. Complete more tasks to collect more coins!")
             },
             confirmButton = {
-                androidx.compose.material3.Button(
+                Button(
                     onClick = { showInsufficientCoinsDialog.value = false }
                 ) {
                     Text("OK")
