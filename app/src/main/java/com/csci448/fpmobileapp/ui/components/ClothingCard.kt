@@ -32,7 +32,8 @@ import kotlin.reflect.jvm.internal.impl.types.TypeCheckerState.SupertypesPolicy.
 @Composable
 fun ClothingCard(
     item: ShopItem,
-    onSelectItem: (ShopItem) -> Unit // <-- new callback
+    isSelected: Boolean,
+    onSelectItem: (ShopItem)->Unit // <-- new callback
 ) {
     ElevatedCard(
         modifier = Modifier
@@ -81,6 +82,6 @@ fun ClothingCardPreview(){
             .fillMaxWidth()
             .fillMaxHeight()
     ){
-        ClothingCard(item=testItem, onSelectItem={})
+        ClothingCard(item=testItem, isSelected = false, onSelectItem={})
     }
 }

@@ -12,6 +12,8 @@ data class Saurus(
     val name: String,
     val type: String = "T-Rex",
     val size: Int = 1,
-    var hat: Int = 0,
-    val color: Int = 0,
+    val hat: Int = 0,
+    val neckWear: Int = 0,
+    val belt: Int = 0,
+    val color: Int = 0
 )

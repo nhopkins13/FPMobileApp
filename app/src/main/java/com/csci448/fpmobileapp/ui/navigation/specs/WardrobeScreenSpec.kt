@@ -27,7 +27,7 @@ object WardrobeScreenSpec : IScreenSpec {
         modifier: Modifier
     ) {
         viewModel.setCurrentScreen(SelectedScreen.WARDROBE)
-        WardrobeScreen(viewModel = viewModel, modifier = modifier)
+        WardrobeScreen(viewModel = viewModel)
     }
 
     @Composable

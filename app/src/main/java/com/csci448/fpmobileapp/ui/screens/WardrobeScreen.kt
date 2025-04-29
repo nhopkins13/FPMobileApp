@@ -3,10 +3,24 @@ package com.csci448.fpmobileapp.ui.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Text
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.ui.components.ClothingCard
@@ -22,41 +36,63 @@ import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
  *  actually implement wardrobe & saurus customization
  */
 @Composable
-fun WardrobeScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
-    Column(modifier = modifier) {
-        // Dino canvas
+fun WardrobeScreen(viewModel: StudySaurusVM) {
+    val saurus by viewModel.currentSaurusState
+    val ownedItems by viewModel.ownedItems.collectAsState()
+
+    // the three categories must match ShopItem.type exactly:
+    val categories = listOf("Hat", "Neckwear", "Belt")
+
+    // UI state for which tab is selected:
+    var selectedTabIndex by remember { mutableStateOf(0) }
+    val selectedCategory = categories[selectedTabIndex]
+
+    Column {
         DinosaurCanvas(viewModel = viewModel)
 
-        Box(modifier = Modifier) {
-            // Card 1
-            ClothingCard(
-                item = ShopItem(
-                    id = 0,
-                    name = "None",
-                    type = "Hat",
-                    imageId = 0,
-                    owned = true,
-                    price = 5
-                ),
-                onSelectItem = { selectedItem ->
-                    viewModel.currentSaurusState.value.hat = selectedItem.id
+        // 2) The TabRow:
+        TabRow(selectedTabIndex = selectedTabIndex) {
+            categories.forEachIndexed { index, title ->
+                Tab(
+                    selected = (index == selectedTabIndex),
+                    onClick = { selectedTabIndex = index }
+                ) {
+                    Text(text = title, modifier = Modifier.padding(16.dp))
                 }
-            )
+            }
+        }
 
-            // Card 2
-            ClothingCard(
-                item = ShopItem(
-                    id = 1,
-                    name = "Top Hat",
-                    type = "Hat",
-                    imageId = 1,
-                    owned = true,
-                    price = 10
-                ),
-                onSelectItem = { selectedItem ->
-                    viewModel.currentSaurusState.value.hat = selectedItem.id
+        // 3) The grid of items for that category:
+        val itemsForCategory = ownedItems
+            .filter { it.type.equals(selectedCategory, ignoreCase = true) }
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            contentPadding = PaddingValues(8.dp)
+        ) {
+            items(itemsForCategory) { item ->
+                val isSelected = when (selectedCategory) {
+                    "Hat"     -> saurus.hat     == item.id
+                    "Neckwear"-> saurus.neckWear== item.id
+                    "Belt"    -> saurus.belt    == item.id
+                    else      -> false
                 }
-            )
+
+                ClothingCard(
+                    item = item,
+                    isSelected = isSelected,
+                    onSelectItem = {
+                        when (selectedCategory) {
+                            "Hat"      -> viewModel.selectHat(it.id)
+                            "Neckwear" -> viewModel.selectNeckwear(it.id)
+                            "Belt"     -> viewModel.selectBelt(it.id)
+                        }
+                    }
+                )
+            }
         }
     }
 }

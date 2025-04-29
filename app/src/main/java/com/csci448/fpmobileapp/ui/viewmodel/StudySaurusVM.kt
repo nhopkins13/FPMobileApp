@@ -24,8 +24,19 @@ import kotlinx.coroutines.launch
  *  the whole thing
  */
 class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, private val itemsDao: ItemsDao) : ViewModel() {
-    val currentSaurusState: State<Saurus>
-        get() = mutableStateOf(mySaurus)
+    private val _currentSaurus = mutableStateOf(mySaurus.copy())
+    val currentSaurusState: State<Saurus> = _currentSaurus
+
+    fun selectHat(id: Int) {
+        _currentSaurus.value = _currentSaurus.value.copy(hat = id)
+    }
+    fun selectNeckwear(id: Int) {
+        _currentSaurus.value = _currentSaurus.value.copy(neckWear = id)
+    }
+    fun selectBelt(id: Int) {
+        _currentSaurus.value = _currentSaurus.value.copy(belt = id)
+    }
+
 
     val currentScreen: MutableState<SelectedScreen> = mutableStateOf(SelectedScreen.STARTUP)
 

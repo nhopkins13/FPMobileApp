@@ -73,7 +73,7 @@ fun ShopScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
             LazyColumn(modifier = Modifier.weight(1f)) {
                 items(clothingItems) { item ->
                     ClothingCard(
-                        item = item,
+                        item = item, isSelected = false,
                         onSelectItem = { clickedItem ->
                             // Toggle selection
                             if (selectedItems.contains(clickedItem)) {
