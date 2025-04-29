@@ -27,9 +27,23 @@ object SettingScreenSpec : IScreenSpec {
         modifier: Modifier
     ) {
         viewModel.setCurrentScreen(SelectedScreen.SETTINGS)
-        SettingScreen(viewModel = viewModel, modifier = modifier)
-    }
 
+        SettingScreen(
+            viewModel = viewModel,
+            onSignOut = {
+                navController.navigate(StartScreenSpec.route) {
+                    // clear all the way back to the start
+                    popUpTo(navController.graph.startDestinationId) {
+                        inclusive = true
+                    }
+                    // avoid multiple copies
+                    launchSingleTop = true
+                }
+            },
+            modifier = modifier
+        )
+
+    }
     @Composable
     override fun TopAppBarActions(
         viewModel: StudySaurusVM,

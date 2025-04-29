@@ -11,10 +11,13 @@ import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.data.Task
 import com.csci448.fpmobileapp.data.TaskDao
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -90,13 +93,22 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
         .map { list -> list.filter { it.owned } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    // Purchase items => set "owned = true" and update DB
+    //Shop Logic
+    private val _coinsSpent = MutableStateFlow(0)
+
+    val availableCoins = totalCoins
+        .combine(_coinsSpent) { earned, spent -> earned - spent }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
+
+
+
     fun purchaseItems(itemsToBuy: List<ShopItem>) {
         viewModelScope.launch {
             itemsToBuy.forEach { item ->
-                // Mark the item as owned
                 itemsDao.updateItem(item.copy(owned = true))
             }
+            val cost = itemsToBuy.sumOf { it.price }
+            _coinsSpent.update { it + cost }
         }
     }
 
