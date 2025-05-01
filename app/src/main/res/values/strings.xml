@@ -11,6 +11,7 @@
     <string name="label_tasks">Tasks</string>
     <string name="label_social">Social</string>
     <string name="label_wardrobe">Wardrobe</string>
+    <string name="label_back">Back</string>
 
     <string name="label_login_user">Username or Email</string>
     <string name="label_username">Username</string>
@@ -41,7 +42,10 @@
     <string name="remove_completed_tasks">Remove Completed Tasks</string>string>
     <string name="no_tasks_label">No tasks found! Add a new one to get started.</string>
     <string name="shop_purchase">Purchase</string>
+    <string name="label_archive">Archive</string>
     <string name="upcoming_label">Next Upcoming Task: </string>
+    <string name="archive_completed_tasks">Archive Completed Tasks</string>
+    <string name="no_archived_tasks">No archived tasks</string>
     <string name="coins_label">Coins: </string>
     <string name="shop_empty">Shop sold out! Check back later for more items. </string>
 

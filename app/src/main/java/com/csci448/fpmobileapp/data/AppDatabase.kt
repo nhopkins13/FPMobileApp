@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
         Task::class,
         ShopItem::class
     ],
-    version = 2
+    version = 3
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

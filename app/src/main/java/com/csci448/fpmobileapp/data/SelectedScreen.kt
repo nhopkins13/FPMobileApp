@@ -14,5 +14,6 @@ enum class SelectedScreen(val stringRes: Int?) {
     SOCIAL(R.string.label_social),
     WARDROBE(R.string.label_wardrobe),
     TASKS(R.string.label_tasks),
-    NEW_TASK(R.string.label_new_task)
+    NEW_TASK(R.string.label_new_task),
+    ARCHIVE(R.string.label_archive)
 }

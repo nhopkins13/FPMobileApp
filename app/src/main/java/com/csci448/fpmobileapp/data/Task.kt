@@ -12,5 +12,6 @@ data class Task (
     val title: String,
     val coins: Int = 5,
     val timeDue: LocalDate,
-    val completed: Boolean = false
+    val completed: Boolean = false,
+    val archived: Boolean = false
 )

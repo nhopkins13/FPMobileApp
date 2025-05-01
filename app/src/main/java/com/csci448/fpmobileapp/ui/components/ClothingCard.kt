@@ -2,22 +2,28 @@ package com.csci448.fpmobileapp.ui.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.data.ItemsDao
@@ -46,6 +52,29 @@ fun ClothingCard(
             onSelectItem(item)
         }
     ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            // 1) The actual image of the item:
+            Image(
+                painter = painterResource(id = item.imageId),
+                contentDescription = item.name,
+                modifier = Modifier
+                    .size(80.dp)
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            // 2) The name (and if you want, price here or leave it in ShopScreen)
+            Text(text = item.name)
+
+            // 3) (Optional) Show selection state:
+            if (isSelected) {
+                Text(text = "✓", modifier = Modifier.padding(top = 4.dp))
+            }
+        }
+
         Text(text = item.name)
 
         Canvas(
@@ -69,19 +98,5 @@ fun ClothingCard(
                 }
             }
         }
-    }
-}
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-fun ClothingCardPreview(){
-    val testItem = ShopItem(id=0, name="None", type="hat", imageId=0, price=0)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-    ){
-        ClothingCard(item=testItem, isSelected = false, onSelectItem={})
     }
 }

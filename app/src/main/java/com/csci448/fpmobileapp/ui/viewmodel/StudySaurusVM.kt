@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.csci448.fpmobileapp.data.ItemRepo
 import com.csci448.fpmobileapp.data.ItemsDao
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.data.SelectedScreen
@@ -30,6 +31,17 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
     private val _currentSaurus = mutableStateOf(mySaurus.copy())
     val currentSaurusState: State<Saurus> = _currentSaurus
 
+    init {
+        viewModelScope.launch {
+            // only insert if there are no items yet
+            val existing = itemsDao.getAllItemsOnce()
+            if (existing.isEmpty()) {
+                itemsDao.insertItem(ItemRepo.topHat)
+            }
+        }
+    }
+
+
     fun selectHat(id: Int) {
         _currentSaurus.value = _currentSaurus.value.copy(hat = id)
     }
@@ -47,14 +59,24 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
         currentScreen.value = screenSelection
     }
 
-    val taskList: StateFlow<List<Task>> = taskDao.getAllTasks()
+    val taskList: StateFlow<List<Task>> = taskDao
+        .getAllTasks()
+        .map { list -> list.filter { !it.archived } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     val totalCoins: StateFlow<Int> = taskList
-        .map { tasks ->
-            tasks.filter { it.completed }.sumOf { it.coins }
-        }
+        .map { tasks -> tasks.filter { it.completed }.sumOf { it.coins } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
+
+    val archivedTasks: StateFlow<List<Task>> = taskDao
+        .getArchivedTasks()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    fun archiveCompletedTasks() {
+        viewModelScope.launch {
+            taskDao.archiveCompletedTasks()
+        }
+    }
 
     fun addTask(task: Task) {
         viewModelScope.launch {
@@ -65,12 +87,6 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
     fun updateTask(task: Task) {
         viewModelScope.launch {
             taskDao.updateTask(task)
-        }
-    }
-
-    fun deleteCompletedTasks() {
-        viewModelScope.launch {
-            taskDao.deleteAllCompleted()
         }
     }
 

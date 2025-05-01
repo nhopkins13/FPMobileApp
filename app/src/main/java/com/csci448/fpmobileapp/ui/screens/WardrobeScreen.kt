@@ -25,6 +25,7 @@ import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.ui.components.ClothingCard
 import com.csci448.fpmobileapp.ui.components.DinosaurCanvas
+import com.csci448.fpmobileapp.ui.components.ItemCard
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 /**
@@ -75,15 +76,15 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
         ) {
             items(itemsForCategory) { item ->
                 val isSelected = when (selectedCategory) {
-                    "Hat"     -> saurus.hat     == item.id
-                    "Neckwear"-> saurus.neckWear== item.id
-                    "Belt"    -> saurus.belt    == item.id
-                    else      -> false
+                    "Hat"      -> saurus.hat      == item.id
+                    "Neckwear" -> saurus.neckWear == item.id
+                    "Belt"     -> saurus.belt     == item.id
+                    else       -> false
                 }
 
-                ClothingCard(
-                    item = item,
-                    isSelected = isSelected,
+                ItemCard(
+                    item        = item,
+                    isSelected  = isSelected,
                     onSelectItem = {
                         when (selectedCategory) {
                             "Hat"      -> viewModel.selectHat(it.id)
