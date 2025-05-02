@@ -22,6 +22,7 @@ import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.clothing.DinoBelt
 import com.csci448.fpmobileapp.ui.components.clothing.DinoCrown
 import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
+import com.csci448.fpmobileapp.ui.components.clothing.DinoPearls
 import com.csci448.fpmobileapp.ui.components.clothing.DinoSkirt
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
@@ -369,6 +370,15 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
                 DinoSkirt(this, size)
             }
         }
+
+        withTransform({
+            translate(left = -size.width * 0.18125f, top = -size.height * 0.075f)
+            rotate(degrees = -10f)
+        }){
+            if(saurus.neckWear == 1){
+                DinoPearls(this, size)
+            }
+        }
     }
 
 }
@@ -377,6 +387,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
 @Preview
 @Composable
 fun DinosaurCanvasPreview(){
-    val testSaurus = Saurus(name = "Saurus", hat = 2, belt=2)
+    val testSaurus = Saurus(name = "Saurus", hat=2, belt=2, neckWear=1)
     DinosaurCanvas(saurus = testSaurus)
 }
