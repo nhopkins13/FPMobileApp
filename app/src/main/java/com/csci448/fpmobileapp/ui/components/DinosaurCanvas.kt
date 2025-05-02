@@ -380,7 +380,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
             }
         }
     }
-
 }
 
 
