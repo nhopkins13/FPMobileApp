@@ -50,6 +50,7 @@ fun StartupScreen(
             .padding(horizontal = 16.dp)
     ) {
         // LOGO AT TOP, FIXED HEIGHT
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,7 +75,7 @@ fun StartupScreen(
         ) {
             DinosaurCanvas(
                 modifier = Modifier.fillMaxSize(),
-                viewModel = viewModel
+                saurus = viewModel.currentSaurusState.value
             )
         }
 
