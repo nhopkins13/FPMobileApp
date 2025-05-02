@@ -2,8 +2,8 @@ package com.csci448.fpmobileapp.ui.navigation.specs
 
 import android.content.Context
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -14,12 +14,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SelectedScreen
-import com.csci448.fpmobileapp.ui.screens.TaskScreen
+import com.csci448.fpmobileapp.ui.screens.ArchiveScreen
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
-object TaskScreenSpec : IScreenSpec {
-    override val route: String
-        get() = "TaskScreen"
+// com/csci448/fpmobileapp/ui/navigation/specs/ArchiveScreenSpec.kt
+
+object ArchiveScreenSpec : IScreenSpec {
+    override val route: String = "ArchiveScreen"
 
     @Composable
     override fun Content(
@@ -27,8 +28,8 @@ object TaskScreenSpec : IScreenSpec {
         navController: NavController,
         modifier: Modifier
     ) {
-        viewModel.setCurrentScreen(SelectedScreen.TASKS)
-        TaskScreen(viewModel = viewModel, modifier = modifier)
+        viewModel.setCurrentScreen(SelectedScreen.ARCHIVE)
+        ArchiveScreen(viewModel = viewModel, modifier = modifier)
     }
 
     @Composable
@@ -38,15 +39,12 @@ object TaskScreenSpec : IScreenSpec {
         navBackStackEntry: NavBackStackEntry?,
         context: Context
     ) {
-        // Archive icon (history) to the left of “add”
-        IconButton(onClick = { navController.navigate(ArchiveScreenSpec.route) }) {
+        IconButton(onClick = { navController.popBackStack() }) {
             Icon(
-                imageVector        = Icons.Filled.History,
-                contentDescription = stringResource(R.string.label_archive)
+                imageVector        = Icons.Filled.ArrowBack,
+                contentDescription = stringResource(R.string.label_back)
             )
         }
-
-        // “Add new task” icon
         IconButton(onClick = { navController.navigate(NewTaskScreenSpec.route) }) {
             Icon(
                 imageVector        = Icons.Filled.AddCircle,

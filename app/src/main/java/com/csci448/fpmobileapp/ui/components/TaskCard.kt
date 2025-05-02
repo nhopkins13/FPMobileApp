@@ -22,7 +22,8 @@ import androidx.compose.runtime.setValue
 @Composable
 fun TaskCard(
     task: Task,
-    onCheckedChange: (Boolean) -> Unit = {}
+    onCheckedChange: (Boolean) -> Unit = {},
+    enabled: Boolean = true
 ) {
     var isChecked by remember { mutableStateOf(task.completed) }
 
@@ -41,7 +42,8 @@ fun TaskCard(
                 onCheckedChange = {
                     isChecked = it
                     onCheckedChange(it)
-                }
+                },
+                enabled   = enabled
             )
             Spacer(modifier = Modifier.width(8.dp))
 

@@ -54,7 +54,7 @@ fun ShopScreen(
     modifier: Modifier = Modifier
 ) {
     // 1) Observe unowned items:
-    val clothingItems by viewModel.shopItems.collectAsState()
+    val clothingItems = remember { listOf(ItemRepo.topHat) }
 
     // 2) Observe available coins (earned – spent):
     val coins by viewModel.availableCoins.collectAsState()
@@ -102,26 +102,14 @@ fun ShopScreen(
                 .weight(1f)
         ) {
             items(itemsForCat) { item ->
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(4.dp)
-                ) {
-                    // show the item
-                    ClothingCard(
-                        item        = item,
-                        isSelected  = selectedItems.contains(item),
-                        onSelectItem = {
-                            if (selectedItems.contains(item)) selectedItems.remove(item)
-                            else                                selectedItems.add(item)
-                        }
-                    )
-
-                    // show its price under the image
-                    Text(
-                        text     = "$${item.price}",
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                }
+                ItemCard(
+                    item        = item,
+                    isSelected  = selectedItems.contains(item),
+                    onSelectItem = {
+                        if (selectedItems.contains(item)) selectedItems.remove(item)
+                        else                                selectedItems.add(item)
+                    }
+                )
             }
         }
 

@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.data.Task
 import com.csci448.fpmobileapp.ui.components.DinosaurCanvas
-import com.csci448.fpmobileapp.ui.components.DinosaurImage
 import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.components.TaskCard
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
@@ -41,11 +41,19 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     val tasks by viewModel.taskList.collectAsState()
-    val earliestTask = tasks.minByOrNull { it.timeDue }
+    val uncompleted = tasks.filter { !it.completed }
+    val nextTask = uncompleted
+        .minWithOrNull(
+            compareBy<Task> { it.timeDue }
+                .thenByDescending { it.coins }
+        )
 
     Column(modifier = modifier) {
-        earliestTask?.let { task ->
-            Text(stringResource(R.string.upcoming_label), modifier = Modifier.padding(8.dp))
+        nextTask?.let { task ->
+            Text(
+                text = stringResource(R.string.upcoming_label),
+                modifier = Modifier.padding(8.dp)
+            )
             TaskCard(
                 task = task,
                 onCheckedChange = { isChecked ->
@@ -53,6 +61,7 @@ fun HomeScreen(
                 }
             )
         }
+
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
             //DinosaurImage(600.dp)

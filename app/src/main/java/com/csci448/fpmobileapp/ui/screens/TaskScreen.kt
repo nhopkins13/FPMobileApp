@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,27 +36,29 @@ fun TaskScreen(viewModel: StudySaurusVM, modifier: Modifier = Modifier) {
 
     Column(modifier = modifier.fillMaxSize()) {
         if (tasks.isEmpty()) {
-            Text(text = stringResource(R.string.no_tasks_label), modifier = Modifier.padding(16.dp))
+            Text(
+                text = stringResource(R.string.no_tasks_label),
+                modifier = Modifier.padding(16.dp)
+            )
         } else {
-            LazyColumn(
-                modifier = Modifier.weight(1f)
-            ) {
+            LazyColumn(modifier = Modifier.weight(1f)) {
                 items(tasks) { task ->
-                    TaskCard(task = task, onCheckedChange = { checked ->
-                        viewModel.updateTask(task.copy(completed = checked))
-                    })
+                    TaskCard(
+                        task       = task,
+                        onCheckedChange = { checked ->
+                            viewModel.updateTask(task.copy(completed = checked))
+                        }
+                    )
                 }
             }
 
-            androidx.compose.material3.Button(
-                onClick = {
-                    viewModel.deleteCompletedTasks()
-                },
+            Button(
+                onClick = { viewModel.archiveCompletedTasks() },
                 modifier = Modifier
                     .padding(16.dp)
-                    .align(androidx.compose.ui.Alignment.CenterHorizontally)
+                    .align(Alignment.CenterHorizontally)
             ) {
-                Text(stringResource(R.string.remove_completed_tasks))
+                Text(stringResource(R.string.archive_completed_tasks))
             }
         }
     }

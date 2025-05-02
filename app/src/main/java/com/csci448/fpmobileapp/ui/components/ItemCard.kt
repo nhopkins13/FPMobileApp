@@ -1,21 +1,30 @@
 package com.csci448.fpmobileapp.ui.components
 
+import android.content.res.Resources
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,50 +32,54 @@ import com.csci448.fpmobileapp.data.ShopItem
 
 @Composable
 fun ItemCard(
-    shopItem: ShopItem,
-    onCheckedChange: (Boolean) -> Unit = {},
-    onPurchase: ()-> Unit = {}
-){
-
-    Card(
+    item: ShopItem,
+    isSelected: Boolean,
+    showPrice: Boolean = true,
+    onSelectItem: (ShopItem) -> Unit
+) {
+    val ctx = LocalContext.current
+    LaunchedEffect(item.imageId) {
+        try {
+            val name = ctx.resources.getResourceEntryName(item.imageId)
+            val type = ctx.resources.getResourceTypeName(item.imageId)
+            Log.d("ItemCard", "Attempting to load imageId=$item.imageId → $type/$name")
+        } catch (e: Resources.NotFoundException) {
+            Log.e("ItemCard", "Bad resource ID: ${item.imageId}")
+        }
+    }
+    ElevatedCard(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(8.dp)
-    ){
-
-        var isChecked by remember { mutableStateOf(shopItem.owned) }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(12.dp)
+            .width(100.dp),
+        onClick = { onSelectItem(item) }
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(8.dp)
         ) {
-            Checkbox(
-                checked = isChecked,
-                onCheckedChange = {
-                    isChecked = it
-                    onCheckedChange(it)
-                }
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = shopItem.name,
-                    fontSize = 20.sp
+            // Only load the PNG if imageId is nonzero (and thus hopefully valid)
+            if (item.imageId != 0) {
+                Image(
+                    painter = painterResource(id = item.imageId),
+                    contentDescription = item.name,
+                    modifier = Modifier.size(64.dp)
                 )
-                Text(
-                    text = "Due: ${shopItem.type}"
-                )
+                Spacer(Modifier.height(4.dp))
             }
 
-            Text(
-                text = "$${shopItem.price}",
-                fontSize = 16.sp,
-                modifier = Modifier
-                    .padding(start = 8.dp)
-            )
+            // Always show name
+            Text(text = item.name, maxLines = 1)
+
+            // And price, if requested
+            if (showPrice) {
+                Text(text = "$${item.price}", fontSize = 12.sp)
+            }
+
+            // Selection marker
+            if (isSelected) {
+                Text("✓", modifier = Modifier.padding(top = 2.dp))
+            }
         }
     }
 }
+

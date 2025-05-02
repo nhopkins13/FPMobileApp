@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.DinosaurCanvas
-import com.csci448.fpmobileapp.ui.components.DinosaurImage
+//import com.csci448.fpmobileapp.ui.components.DinosaurImage
 import com.csci448.fpmobileapp.ui.components.LogoImage
 import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
