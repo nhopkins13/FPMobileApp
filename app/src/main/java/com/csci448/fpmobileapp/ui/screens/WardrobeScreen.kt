@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.csci448.fpmobileapp.R
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.ui.components.ClothingCard
@@ -49,6 +50,10 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
     var selectedTabIndex by remember { mutableStateOf(0) }
     val selectedCategory = categories[selectedTabIndex]
 
+    val noneHatItem = remember { ShopItem(id = 0, name = "No Hat", type = "Hat", imageId = R.drawable.none, price = 0, owned = true) }
+    val noneNeckwearItem = remember { ShopItem(id = 0, name = "No Neckwear", type = "Neckwear", imageId = R.drawable.none, price = 0, owned = true) }
+    val noneBeltItem = remember { ShopItem(id = 0, name = "No Belt", type = "Belt", imageId = R.drawable.none, price = 0, owned = true) }
+
     Column {
         DinosaurCanvas(saurus = viewModel.currentSaurusState.value)
 
@@ -67,6 +72,18 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
         // 3) The grid of items for that category:
         val itemsForCategory = ownedItems
             .filter { it.type.equals(selectedCategory, ignoreCase = true) }
+
+        val relevantNoneItem = when (selectedCategory) {
+            "Hat" -> noneHatItem
+            "Neckwear" -> noneNeckwearItem
+            "Belt" -> noneBeltItem
+            else -> null
+        }
+
+        // Create the final list including the "None" option first
+        val displayItems = mutableListOf<ShopItem>()
+        relevantNoneItem?.let { displayItems.add(it) } // Add "None" item if found
+        displayItems.addAll(itemsForCategory)
 
         Log.d("DATA_FLOW_DEBUG", "----- Wardrobe Display -----")
         Log.d("DATA_FLOW_DEBUG", "Wardrobe: Selected Tab = $selectedCategory")

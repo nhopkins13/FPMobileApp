@@ -353,10 +353,10 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
             translate(left=-size.width * 0.25f, top=-size.height * 0.25f)
             scale(scaleX = 0.25f, scaleY = 0.25f)
         }){
-            if(saurus.hat == 1){
-                DinoHat(this, size)
-            }else if(saurus.hat == 2){
-                DinoCrown(this, size)
+            when (saurus.hat) {
+                1 -> DinoHat(this, size)
+                2 -> DinoCrown(this, size)
+                //more hats go here
             }
         }
 
@@ -364,10 +364,10 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
             rotate(degrees = -15f)
             translate(left = -size.width * 0.16f, top = size.height * 0.1f)
         }){
-            if(saurus.belt == 1){
-                DinoBelt(this, size)
-            }else if(saurus.belt == 2){
-                DinoSkirt(this, size)
+            when (saurus.belt) {
+                3 -> DinoBelt(this, size)
+                4 -> DinoSkirt(this, size)
+                // more belts here
             }
         }
 
@@ -375,8 +375,8 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
             translate(left = -size.width * 0.18125f, top = -size.height * 0.075f)
             rotate(degrees = -10f)
         }){
-            if(saurus.neckWear == 1){
-                DinoPearls(this, size)
+            when (saurus.neckWear) {
+                5 -> DinoPearls(this, size)
             }
         }
     }
@@ -386,6 +386,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
 @Preview
 @Composable
 fun DinosaurCanvasPreview(){
-    val testSaurus = Saurus(name = "Saurus", hat=2, belt=2, neckWear=1)
+    val testSaurus = Saurus(name = "Saurus", hat=2, belt=4, neckWear=5)
     DinosaurCanvas(saurus = testSaurus)
 }

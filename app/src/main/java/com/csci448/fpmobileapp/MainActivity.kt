@@ -70,19 +70,6 @@ class MainActivity : ComponentActivity() {
                 SelectedScreen.SOCIAL
             )
 
-            LaunchedEffect(Unit) {
-                viewModel.insertShopItem(
-                    ShopItem(
-                        name = "Test Hat",
-                        type = "Hat",
-                        imageId = R.drawable.some_icon,
-                        price = 10,
-                        owned = false
-                    )
-                )
-            }
-
-
             Scaffold(
                 bottomBar = {
                     if (viewModel.currentScreen.value in visibleScreens) {

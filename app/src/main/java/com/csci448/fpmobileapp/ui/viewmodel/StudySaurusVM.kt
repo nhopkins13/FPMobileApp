@@ -34,10 +34,18 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
 
     init {
         viewModelScope.launch {
-            // only insert if there are no items yet
             val existing = itemsDao.getAllItemsOnce()
             if (existing.isEmpty()) {
+                Log.d("VM_INIT", "Database empty, inserting initial items.")
+                // Add all items from ItemRepo
                 itemsDao.insertItem(ItemRepo.topHat)
+                itemsDao.insertItem(ItemRepo.crown)
+                itemsDao.insertItem(ItemRepo.belt)
+                itemsDao.insertItem(ItemRepo.skirt)
+                itemsDao.insertItem(ItemRepo.necklace)
+                // Add any other default items here
+            } else {
+                Log.d("VM_INIT", "Database already has items.")
             }
         }
     }

@@ -12,25 +12,25 @@ object ItemRepo {
     val crown = ShopItem(
         name = "Crown",
         type = "Hat",
-        imageId = 0,
+        imageId = R.drawable.crown,
         price = 30
     )
     val belt = ShopItem(
         name = "Belt",
         type = "Belt",
-        imageId = 0,
+        imageId = R.drawable.belt,
         price = 10
     )
     val skirt = ShopItem(
         name = "Skirt",
         type = "Belt",
-        imageId = 0,
+        imageId = R.drawable.skirt,
         price = 20
     )
     val necklace = ShopItem(
         name = "Pearl Necklace",
         type = "Neckwear",
-        imageId = 0,
+        imageId = R.drawable.pearls,
         price = 20 
     )
 }
