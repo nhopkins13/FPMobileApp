@@ -49,7 +49,7 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
     val selectedCategory = categories[selectedTabIndex]
 
     Column {
-        DinosaurCanvas(viewModel = viewModel)
+        DinosaurCanvas(saurus = viewModel.currentSaurusState.value)
 
         // 2) The TabRow:
         TabRow(selectedTabIndex = selectedTabIndex) {

@@ -64,8 +64,7 @@ fun HomeScreen(
 
         Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
             contentAlignment = Alignment.Center) {
-            //DinosaurImage(600.dp)
-            DinosaurCanvas(viewModel = viewModel)
+            DinosaurCanvas(saurus = viewModel.currentSaurusState.value)
         }
 
     }

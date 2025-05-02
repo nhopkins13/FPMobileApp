@@ -75,7 +75,7 @@ fun StartupScreen(
         ) {
             DinosaurCanvas(
                 modifier = Modifier.fillMaxSize(),
-                viewModel = viewModel
+                saurus = viewModel.currentSaurusState.value
             )
         }
 
