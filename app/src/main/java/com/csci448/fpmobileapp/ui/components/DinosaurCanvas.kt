@@ -20,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.clothing.DinoBelt
+import com.csci448.fpmobileapp.ui.components.clothing.DinoCrown
 import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
+import com.csci448.fpmobileapp.ui.components.clothing.DinoSkirt
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 @Composable
@@ -345,21 +347,26 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
         tailLine.lineTo(centerX + size.width * 0.057f, centerY + size.height * 0.1f)
         drawPath(tailLine, dinoLineColor, style = Stroke(width=3f))
 
-        if(saurus.hat == 1){
-            withTransform({
-                translate(left=-size.width * 0.25f, top=-size.height * 0.25f)
-                scale(scaleX = 0.25f, scaleY = 0.25f)
-            }){
+
+        withTransform({
+            translate(left=-size.width * 0.25f, top=-size.height * 0.25f)
+            scale(scaleX = 0.25f, scaleY = 0.25f)
+        }){
+            if(saurus.hat == 1){
                 DinoHat(this, size)
+            }else if(saurus.hat == 2){
+                DinoCrown(this, size)
             }
         }
 
-        if(saurus.hat == 1){
-            withTransform({
-                rotate(degrees = -20f)
-                translate(left = -size.width * 0.17f, top = size.height * 0.1f)
-            }){
+        withTransform({
+            rotate(degrees = -15f)
+            translate(left = -size.width * 0.16f, top = size.height * 0.1f)
+        }){
+            if(saurus.belt == 1){
                 DinoBelt(this, size)
+            }else if(saurus.belt == 2){
+                DinoSkirt(this, size)
             }
         }
     }
@@ -370,6 +377,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
 @Preview
 @Composable
 fun DinosaurCanvasPreview(){
-    val testSaurus = Saurus(name = "Saurus", hat = 1, belt=0)
+    val testSaurus = Saurus(name = "Saurus", hat = 2, belt=2)
     DinosaurCanvas(saurus = testSaurus)
 }
