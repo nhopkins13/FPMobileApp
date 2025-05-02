@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.csci448.fpmobileapp.data.ItemRepo
 import com.csci448.fpmobileapp.data.ItemsDao
 import com.csci448.fpmobileapp.data.Saurus
+import com.csci448.fpmobileapp.data.SaurusSettingsRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.data.Task
@@ -17,7 +18,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -28,7 +31,7 @@ import kotlinx.coroutines.launch
  * TODO:
  *  the whole thing
  */
-class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, private val itemsDao: ItemsDao) : ViewModel() {
+class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, private val itemsDao: ItemsDao, private val saurusSettingsRepository: SaurusSettingsRepo) : ViewModel() {
     private val _currentSaurus = mutableStateOf(mySaurus.copy())
     val currentSaurusState: State<Saurus> = _currentSaurus
 
@@ -48,18 +51,49 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
                 Log.d("VM_INIT", "Database already has items.")
             }
         }
+        saurusSettingsRepository.saurusPreferencesFlow
+            .onEach { preferences ->
+                Log.d("VM_SAURUS_LOAD", "DataStore emitted: Hat=${preferences.hatId}, Neck=${preferences.neckwearId}, Belt=${preferences.beltId}")
+                // Update the state with the loaded equipped item IDs
+                // Keep other Saurus properties (like name, type) from initialSaurus
+                _currentSaurus.value = _currentSaurus.value.copy(
+                    hat = preferences.hatId,
+                    neckWear = preferences.neckwearId,
+                    belt = preferences.beltId
+                )
+            }
+            .launchIn(viewModelScope)
     }
 
 
     fun selectHat(id: Int) {
-        _currentSaurus.value = _currentSaurus.value.copy(hat = id)
+        // Only update state and save if the value actually changed
+        if (_currentSaurus.value.hat != id) {
+            _currentSaurus.value = _currentSaurus.value.copy(hat = id)
+            viewModelScope.launch {
+                saurusSettingsRepository.updateHatId(id) // Save to DataStore
+            }
+        }
     }
+
     fun selectNeckwear(id: Int) {
-        _currentSaurus.value = _currentSaurus.value.copy(neckWear = id)
+        if (_currentSaurus.value.neckWear != id) {
+            _currentSaurus.value = _currentSaurus.value.copy(neckWear = id)
+            viewModelScope.launch {
+                saurusSettingsRepository.updateNeckwearId(id) // Save to DataStore
+            }
+        }
     }
+
     fun selectBelt(id: Int) {
-        _currentSaurus.value = _currentSaurus.value.copy(belt = id)
+        if (_currentSaurus.value.belt != id) {
+            _currentSaurus.value = _currentSaurus.value.copy(belt = id)
+            viewModelScope.launch {
+                saurusSettingsRepository.updateBeltId(id) // Save to DataStore
+            }
+        }
     }
+
 
 
     val currentScreen: MutableState<SelectedScreen> = mutableStateOf(SelectedScreen.STARTUP)

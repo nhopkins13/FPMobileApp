@@ -97,7 +97,7 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
                 .weight(1f),
             contentPadding = PaddingValues(8.dp)
         ) {
-            items(itemsForCategory) { item ->
+            items(displayItems, key = { item -> item.id }) { item ->
                 Log.d("DATA_FLOW_DEBUG", "Wardrobe: Displaying ItemCard for ${item.name}")
 
                 val isSelected = when (selectedCategory) {

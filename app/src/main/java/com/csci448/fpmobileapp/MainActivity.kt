@@ -18,8 +18,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.csci448.fpmobileapp.data.AppDatabase
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.data.SaurusSettingsRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.data.ShopItem
+import com.csci448.fpmobileapp.data.dataStore
 import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
 import com.csci448.fpmobileapp.ui.navigation.TopBar
@@ -51,11 +53,15 @@ class MainActivity : ComponentActivity() {
                 .fallbackToDestructiveMigration() // allow wiping old data
                 .build()
 
+            val dataStore = context.dataStore
+            // Create the repository instance
+            val saurusSettingsRepository = SaurusSettingsRepo(dataStore)
 
             val factory = StudySaurusVMFactory(
                 mySaurus = SaurusRepo.mySaurus,
                 taskDao = db.taskDao(),
-                itemsDao = db.itemsDao() // <--- Must pass itemsDao here
+                itemsDao = db.itemsDao(),
+                saurusSettingsRepository = saurusSettingsRepository
             )
 
             val viewModel: StudySaurusVM = androidx.lifecycle.viewmodel.compose.viewModel(factory = factory)
