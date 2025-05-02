@@ -1,6 +1,7 @@
 package com.csci448.fpmobileapp.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -67,6 +68,11 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
         val itemsForCategory = ownedItems
             .filter { it.type.equals(selectedCategory, ignoreCase = true) }
 
+        Log.d("DATA_FLOW_DEBUG", "----- Wardrobe Display -----")
+        Log.d("DATA_FLOW_DEBUG", "Wardrobe: Selected Tab = $selectedCategory")
+        Log.d("DATA_FLOW_DEBUG", "Wardrobe: ownedItems received (${ownedItems.size}) = ${ownedItems.joinToString { it.name + "(id=${it.id}, type=${it.type})" }}")
+        Log.d("DATA_FLOW_DEBUG", "Wardrobe: itemsForCategory after filtering (${itemsForCategory.size}) = ${itemsForCategory.joinToString { it.name }}")
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             modifier = Modifier
@@ -75,6 +81,8 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
             contentPadding = PaddingValues(8.dp)
         ) {
             items(itemsForCategory) { item ->
+                Log.d("DATA_FLOW_DEBUG", "Wardrobe: Displaying ItemCard for ${item.name}")
+
                 val isSelected = when (selectedCategory) {
                     "Hat"      -> saurus.hat      == item.id
                     "Neckwear" -> saurus.neckWear == item.id
@@ -85,6 +93,7 @@ fun WardrobeScreen(viewModel: StudySaurusVM) {
                 ItemCard(
                     item        = item,
                     isSelected  = isSelected,
+                    showPrice = false,
                     onSelectItem = {
                         when (selectedCategory) {
                             "Hat"      -> viewModel.selectHat(it.id)

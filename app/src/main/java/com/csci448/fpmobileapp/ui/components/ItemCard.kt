@@ -38,15 +38,22 @@ fun ItemCard(
     onSelectItem: (ShopItem) -> Unit
 ) {
     val ctx = LocalContext.current
-    LaunchedEffect(item.imageId) {
-        try {
-            val name = ctx.resources.getResourceEntryName(item.imageId)
-            val type = ctx.resources.getResourceTypeName(item.imageId)
-            Log.d("ItemCard", "Attempting to load imageId=$item.imageId → $type/$name")
-        } catch (e: Resources.NotFoundException) {
-            Log.e("ItemCard", "Bad resource ID: ${item.imageId}")
+
+    /* ---- step 1: runtime check, **no composables here** ------------------- */
+    val showImage = remember(item.imageId) {
+        if (item.imageId == 0) {
+            false                               // “no image” sentinel
+        } else {
+            /* Detect bad / unexpected resource types safely */
+            runCatching {
+                val type = ctx.resources.getResourceTypeName(item.imageId)
+                // painterResource is happy with "drawable" and "mipmap"
+                type == "drawable" || type == "mipmap"
+            }.getOrDefault(false)
         }
     }
+    /* ---------------------------------------------------------------------- */
+
     ElevatedCard(
         modifier = Modifier
             .padding(8.dp)
@@ -57,8 +64,9 @@ fun ItemCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(8.dp)
         ) {
-            // Only load the PNG if imageId is nonzero (and thus hopefully valid)
-            if (item.imageId != 0) {
+
+            /* ---- step 2: now it’s safe to call the composable -------------- */
+            if (showImage) {
                 Image(
                     painter = painterResource(id = item.imageId),
                     contentDescription = item.name,
@@ -66,20 +74,12 @@ fun ItemCard(
                 )
                 Spacer(Modifier.height(4.dp))
             }
+            /* ---------------------------------------------------------------- */
 
-            // Always show name
-            Text(text = item.name, maxLines = 1)
+            Text(item.name, maxLines = 1)
 
-            // And price, if requested
-            if (showPrice) {
-                Text(text = "$${item.price}", fontSize = 12.sp)
-            }
-
-            // Selection marker
-            if (isSelected) {
-                Text("✓", modifier = Modifier.padding(top = 2.dp))
-            }
+            if (showPrice)  Text("$${item.price}", fontSize = 12.sp)
+            if (isSelected) Text("✓", modifier = Modifier.padding(top = 2.dp))
         }
     }
 }
-

@@ -1,5 +1,6 @@
 package com.csci448.fpmobileapp.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -91,6 +92,11 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
     }
 
     val allItems: StateFlow<List<ShopItem>> = itemsDao.getAllItems()
+        .map { list ->
+            // Log the raw list from the DAO
+            Log.d("DATA_FLOW_DEBUG", "allItems Flow Emitted (Raw from DAO): ${list.size} items -> ${list.joinToString { it.name + "(id=${it.id}, owned=${it.owned})" }}")
+            list // return original list
+        }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     // Optionally, you can also define a flow for shop items only:
@@ -106,7 +112,16 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
 
     // Owned items flow:
     val ownedItems: StateFlow<List<ShopItem>> = allItems
-        .map { list -> list.filter { it.owned } }
+        .map { list ->
+            // Log before filtering for owned
+            Log.d("DATA_FLOW_DEBUG", "ownedItems Flow: Filtering ${list.size} items for owned status.")
+            list.filter { it.owned }
+        }
+        .map { ownedList ->
+            // Log the result after filtering
+            Log.d("DATA_FLOW_DEBUG", "ownedItems Flow Emitted (Filtered): ${ownedList.size} items -> ${ownedList.joinToString { it.name + "(id=${it.id})" }}")
+            ownedList
+        }
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     //Shop Logic
@@ -120,11 +135,23 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
 
     fun purchaseItems(itemsToBuy: List<ShopItem>) {
         viewModelScope.launch {
+            Log.d("DATA_FLOW_DEBUG", "----- Purchase Start -----")
+            Log.d(
+                "DATA_FLOW_DEBUG",
+                "Attempting to purchase: ${itemsToBuy.joinToString { it.name + "(id=${it.id})" }}"
+            )
             itemsToBuy.forEach { item ->
-                itemsDao.updateItem(item.copy(owned = true))
+                val itemToUpdate = item.copy(owned = true)
+                Log.d(
+                    "DATA_FLOW_DEBUG",
+                    "Calling itemsDao.updateItem for: ${itemToUpdate.name} (id=${itemToUpdate.id}, owned=${itemToUpdate.owned})"
+                )
+                itemsDao.updateItem(itemToUpdate) // Use the copied item
             }
             val cost = itemsToBuy.sumOf { it.price }
             _coinsSpent.update { it + cost }
+            Log.d("DATA_FLOW_DEBUG", "Purchase complete. Cost: $cost")
+            Log.d("DATA_FLOW_DEBUG", "----- Purchase End -----")
         }
     }
 

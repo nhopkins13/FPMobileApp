@@ -1,6 +1,7 @@
 package com.csci448.fpmobileapp.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -55,8 +56,9 @@ fun ShopScreen(
 ) {
     // 1) Observe unowned items:
     val clothingItems = remember { listOf(ItemRepo.topHat) }
+    val shopItems by viewModel.shopItems.collectAsState()
 
-    // 2) Observe available coins (earned – spent):
+    // 2) Observe available coins  (earned – spent):
     val coins by viewModel.availableCoins.collectAsState()
 
     // 3) UI state for category tabs:
@@ -90,7 +92,7 @@ fun ShopScreen(
         }
 
         // ─── Filter & grid ─────────────────────────────
-        val itemsForCat = clothingItems.filter {
+        val itemsForCat = shopItems.filter {
             it.type.equals(selectedCategory, ignoreCase = true)
         }
 
@@ -101,13 +103,23 @@ fun ShopScreen(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            items(itemsForCat) { item ->
-                ItemCard(
+            items(itemsForCat) { item -> // 'item' comes from viewModel.shopItems via filtering
+                // Log the item details *before* trying to display it
+                Log.d("ITEM_RENDER_DEBUG", "Attempting to render ItemCard for: ${item.name} (id=${item.id}, imageId=${item.imageId})")
+
+                ItemCard( // This call might crash if item.imageId is bad
                     item        = item,
                     isSelected  = selectedItems.contains(item),
-                    onSelectItem = {
-                        if (selectedItems.contains(item)) selectedItems.remove(item)
-                        else                                selectedItems.add(item)
+                    onSelectItem = { itemFromGrid ->
+                        Log.d("SHOP_SELECT_DEBUG", "ItemCard clicked for: ${itemFromGrid.name} (id=${itemFromGrid.id})") // Keep previous log
+                        if (selectedItems.contains(itemFromGrid)) {
+                            Log.d("SHOP_SELECT_DEBUG", "Removing from selection.") // Keep previous log
+                            selectedItems.remove(itemFromGrid)
+                        } else {
+                            Log.d("SHOP_SELECT_DEBUG", "Adding to selection: ${itemFromGrid.name} (id=${itemFromGrid.id})") // Keep previous log
+                            selectedItems.add(itemFromGrid)
+                            Log.d("SHOP_SELECT_DEBUG", "Item added. Current selection IDs: ${selectedItems.joinToString { it.id.toString() }}") // Keep previous log
+                        }
                     }
                 )
             }
