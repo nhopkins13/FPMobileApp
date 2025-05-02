@@ -50,6 +50,7 @@ fun StartupScreen(
             .padding(horizontal = 16.dp)
     ) {
         // LOGO AT TOP, FIXED HEIGHT
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
