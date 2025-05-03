@@ -7,18 +7,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.csci448.fpmobileapp.data.AuthRepo
-import com.csci448.fpmobileapp.data.ItemRepo
-import com.csci448.fpmobileapp.data.ItemsDao
+import com.csci448.fpmobileapp.data.repos.AuthRepo
+import com.csci448.fpmobileapp.data.repos.ItemRepo
+import com.csci448.fpmobileapp.data.daos.ItemsDao
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.data.SaurusPreferenceKeys
-import com.csci448.fpmobileapp.data.SaurusSettingsRepo
+import com.csci448.fpmobileapp.data.repos.SaurusSettingsRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.data.ShopItem
 import com.csci448.fpmobileapp.data.Task
-import com.csci448.fpmobileapp.data.TaskDao
+import com.csci448.fpmobileapp.data.daos.TaskDao
 import com.csci448.fpmobileapp.data.UserProfile
-import com.csci448.fpmobileapp.data.UserRepo
+import com.csci448.fpmobileapp.data.repos.UserRepo
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,7 +29,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**

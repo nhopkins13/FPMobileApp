@@ -1,6 +1,7 @@
-package com.csci448.fpmobileapp.data
+package com.csci448.fpmobileapp.data.daos
 
 import androidx.room.*
+import com.csci448.fpmobileapp.data.Task
 import kotlinx.coroutines.flow.Flow
 
 @Dao

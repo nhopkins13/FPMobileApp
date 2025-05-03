@@ -1,6 +1,7 @@
-package com.csci448.fpmobileapp.data
+package com.csci448.fpmobileapp.data.repos
 
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.ShopItem
 
 object ItemRepo {
     val topHat = ShopItem(

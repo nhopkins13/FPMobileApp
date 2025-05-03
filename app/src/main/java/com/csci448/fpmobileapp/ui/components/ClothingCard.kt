@@ -1,19 +1,14 @@
 package com.csci448.fpmobileapp.ui.components
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,16 +19,9 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.csci448.fpmobileapp.data.ItemsDao
-import com.csci448.fpmobileapp.data.Saurus
-import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.ShopItem
-import com.csci448.fpmobileapp.data.TaskDao
 import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
-import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
-import kotlin.reflect.jvm.internal.impl.types.TypeCheckerState.SupertypesPolicy.None
 
 @Composable
 fun ClothingCard(

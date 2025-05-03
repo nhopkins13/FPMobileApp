@@ -1,4 +1,6 @@
-package com.csci448.fpmobileapp.data
+package com.csci448.fpmobileapp.data.repos
+
+import com.csci448.fpmobileapp.data.Saurus
 
 /**
  * holds the users' Sauruses

@@ -1,6 +1,7 @@
-package com.csci448.fpmobileapp.data
+package com.csci448.fpmobileapp.data.repos
 
 import android.util.Log
+import com.csci448.fpmobileapp.data.UserProfile
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

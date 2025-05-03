@@ -1,4 +1,4 @@
-package com.csci448.fpmobileapp.data
+package com.csci448.fpmobileapp.data.repos
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth

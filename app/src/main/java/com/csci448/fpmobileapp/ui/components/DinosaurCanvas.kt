@@ -3,23 +3,17 @@ package com.csci448.fpmobileapp.ui.components
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.draw
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.data.Saurus
-import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.ui.components.clothing.Bowtie
 import com.csci448.fpmobileapp.ui.components.clothing.DinoBelt
 import com.csci448.fpmobileapp.ui.components.clothing.DinoCrown
@@ -27,7 +21,6 @@ import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
 import com.csci448.fpmobileapp.ui.components.clothing.DinoPearls
 import com.csci448.fpmobileapp.ui.components.clothing.DinoSkirt
 import com.csci448.fpmobileapp.ui.components.clothing.PartyHat
-import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 @Composable
 fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){

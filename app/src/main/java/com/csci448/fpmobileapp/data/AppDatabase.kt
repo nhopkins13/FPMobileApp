@@ -3,6 +3,8 @@ package com.csci448.fpmobileapp.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.csci448.fpmobileapp.data.daos.ItemsDao
+import com.csci448.fpmobileapp.data.daos.TaskDao
 
 @Database(
     entities = [
