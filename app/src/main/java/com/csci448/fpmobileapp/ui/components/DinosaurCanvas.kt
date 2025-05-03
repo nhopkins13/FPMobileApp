@@ -24,6 +24,7 @@ import com.csci448.fpmobileapp.ui.components.clothing.DinoCrown
 import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
 import com.csci448.fpmobileapp.ui.components.clothing.DinoPearls
 import com.csci448.fpmobileapp.ui.components.clothing.DinoSkirt
+import com.csci448.fpmobileapp.ui.components.clothing.PartyHat
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
 
 @Composable
@@ -356,6 +357,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
             when (saurus.hat) {
                 1 -> DinoHat(this, size)
                 2 -> DinoCrown(this, size)
+                3 -> PartyHat(this, size)
                 //more hats go here
             }
         }
@@ -386,6 +388,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
 @Preview
 @Composable
 fun DinosaurCanvasPreview(){
-    val testSaurus = Saurus(name = "Saurus", hat=2, belt=4, neckWear=5)
+    val testSaurus = Saurus(name = "Saurus", hat=3, belt=4, neckWear=5)
     DinosaurCanvas(saurus = testSaurus)
 }
