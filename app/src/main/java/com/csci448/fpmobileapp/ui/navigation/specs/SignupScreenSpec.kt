@@ -28,6 +28,9 @@ object SignupScreenSpec : IScreenSpec {
             goToHome = {
                 navController.navigate(route = HomeScreenSpec.route)
             },
+            goToLogin = {
+                navController.popBackStack()
+            },
             modifier = modifier
         )
     }

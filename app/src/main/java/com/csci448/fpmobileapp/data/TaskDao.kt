@@ -25,4 +25,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks WHERE archived = 1 ORDER BY timeDue DESC")
     fun getArchivedTasks(): Flow<List<Task>>
+
+    @Query("SELECT * FROM tasks WHERE id = :taskId LIMIT 1")
+    suspend fun getTaskById(taskId: Int): Task?
 }

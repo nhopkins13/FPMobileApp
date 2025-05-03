@@ -8,12 +8,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.csci448.fpmobileapp.R
+import com.csci448.fpmobileapp.data.SaurusPreferenceKeys
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.ui.navigation.specs.HomeScreenSpec
 import com.csci448.fpmobileapp.ui.navigation.specs.ShopScreenSpec
@@ -32,8 +36,19 @@ fun NavBar(studySaurusVM: StudySaurusVM,
         SelectedScreen.TASKS,
         SelectedScreen.SOCIAL
     )
+    val selectedColorKey by studySaurusVM.navBarColorKey.collectAsState()
+    val colorMap = studySaurusVM.selectableNavBarColors
+    val containerColor = remember(selectedColorKey) { // Recalculate when key changes
+        if (selectedColorKey == SaurusPreferenceKeys.DEFAULT_NAV_BAR_COLOR_KEY) {
+            Color.Unspecified
+        } else {
+            colorMap[selectedColorKey] ?: Color.Unspecified
+        }
+    }
+
+
     if (studySaurusVM.currentScreen.value in visibleScreens) {
-        BottomAppBar (containerColor = Color(0.5f,0.6f,0.8f)){
+        BottomAppBar (containerColor = containerColor){
             BottomNavigation(contentColor = Color(0.5f, 0.6f, 0.8f)) {
                 BottomNavigationItem(
                     label = {

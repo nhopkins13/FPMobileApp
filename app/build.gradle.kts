@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.appcompat.resources)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,5 +82,6 @@ dependencies {
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.datastore.preferences)
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
 
 }

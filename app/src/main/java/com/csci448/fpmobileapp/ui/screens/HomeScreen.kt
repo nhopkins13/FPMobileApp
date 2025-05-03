@@ -1,77 +1,98 @@
 package com.csci448.fpmobileapp.ui.screens
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.R
-import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.Task
 import com.csci448.fpmobileapp.ui.components.DinosaurCanvas
-import com.csci448.fpmobileapp.ui.components.NavButton
 import com.csci448.fpmobileapp.ui.components.TaskCard
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
+// import androidx.compose.foundation.layout.aspectRatio // Import no longer needed
 
-/**
- * The home screen of the app.
- * Displays the studysaurus, has notifications & related, as buttons to access other parts of app
- *
- * TODO:
- *  reorganize,
- *  add  more visuals
- */
 @Composable
 fun HomeScreen(
     viewModel : StudySaurusVM,
     toSettings: () -> Unit = {},
+
     toWardrobe: () -> Unit = {},
+
     toShop: () -> Unit = {},
+
     toTasks: () -> Unit = {},
+
     toSocial: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val tasks by viewModel.taskList.collectAsState()
+    val currentUserProfile by viewModel.userProfile.collectAsState()
+    val saurusState by viewModel.currentSaurusState
+
     val uncompleted = tasks.filter { !it.completed }
-    val nextTask = uncompleted
-        .minWithOrNull(
-            compareBy<Task> { it.timeDue }
-                .thenByDescending { it.coins }
+    val nextTask = uncompleted.minByOrNull { it.timeDue }
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp) // Horizontal padding for edges
+        // Apply vertical padding selectively below
+    ) {
+        // Welcome Message
+        Text(
+            text = "Welcome, ${currentUserProfile?.username ?: "User"}!",
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier
+                .padding(top = 16.dp, bottom = 16.dp) // Padding above and below Welcome
+                .align(Alignment.CenterHorizontally)
         )
 
-    Column(modifier = modifier) {
-        nextTask?.let { task ->
+        // Upcoming Task Section
+        Column(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) { // Add padding below task section
             Text(
                 text = stringResource(R.string.upcoming_label),
-                modifier = Modifier.padding(8.dp)
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
             )
-            TaskCard(
-                task = task,
-                onCheckedChange = { isChecked ->
-                    viewModel.updateTask(task.copy(completed = isChecked))
-                }
-            )
+            if (nextTask != null) {
+                TaskCard(
+                    task = nextTask,
+                    onCheckedChange = { /* No action */ },
+                    enabled = false
+                )
+            } else {
+                Text(
+                    text = stringResource(R.string.no_upcoming_tasks),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
 
-        Box(modifier = Modifier.padding(vertical = 5.dp).fillMaxWidth(),
-            contentAlignment = Alignment.Center) {
-            DinosaurCanvas(saurus = viewModel.currentSaurusState.value)
+        // Dinosaur Canvas Box - Fills remaining space, NO fixed aspect ratio
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f) // Takes all remaining vertical space
+                // .aspectRatio(1f) // REMOVED aspect ratio constraint
+                .padding(bottom = 8.dp), // Add padding below dino before nav bar might appear
+            contentAlignment = Alignment.Center
+        ) {
+            DinosaurCanvas(
+                modifier = Modifier.fillMaxSize(), // Canvas fills the available Box (now potentially rectangular)
+                saurus = saurusState
+            )
         }
-
     }
-}
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
-@Composable
-private fun PreviewHomeScreen(){
 }

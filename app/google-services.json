@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "682077093065",
-    "project_id": "fpmobileapp-caf84",
-    "storage_bucket": "fpmobileapp-caf84.firebasestorage.app"
+    "project_number": "902062375333",
+    "project_id": "studysaurus-ac31a",
+    "storage_bucket": "studysaurus-ac31a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:682077093065:android:c3dc70c475d4e658c5a118",
+        "mobilesdk_app_id": "1:902062375333:android:da4f7114a5baa9a668a84c",
         "android_client_info": {
           "package_name": "com.csci448.fpmobileapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA4A93Ivre-G-OSHVmofNdRtEFkL-pKdpg"
+          "current_key": "AIzaSyCaLnsVTkbmx5yTBl0nOuoInCqPVJtMqC0"
         }
       ],
       "services": {

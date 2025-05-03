@@ -4,12 +4,15 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -17,10 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.csci448.fpmobileapp.data.AppDatabase
+import com.csci448.fpmobileapp.data.AuthRepo
 import com.csci448.fpmobileapp.data.SaurusRepo
 import com.csci448.fpmobileapp.data.SaurusSettingsRepo
 import com.csci448.fpmobileapp.data.SelectedScreen
 import com.csci448.fpmobileapp.data.ShopItem
+import com.csci448.fpmobileapp.data.UserRepo
 import com.csci448.fpmobileapp.data.dataStore
 import com.csci448.fpmobileapp.ui.components.NavBar
 import com.csci448.fpmobileapp.ui.navigation.FPMANavHost
@@ -56,16 +61,26 @@ class MainActivity : ComponentActivity() {
             val dataStore = context.dataStore
             // Create the repository instance
             val saurusSettingsRepository = SaurusSettingsRepo(dataStore)
+            val authRepository = AuthRepo() // Simple instantiation
+            val userRepository = UserRepo()
 
             val factory = StudySaurusVMFactory(
                 mySaurus = SaurusRepo.mySaurus,
                 taskDao = db.taskDao(),
                 itemsDao = db.itemsDao(),
-                saurusSettingsRepository = saurusSettingsRepository
+                saurusSettingsRepository = saurusSettingsRepository,
+                authRepository = authRepository,
+                userRepository = userRepository
             )
 
             val viewModel: StudySaurusVM = androidx.lifecycle.viewmodel.compose.viewModel(factory = factory)
 
+            val themePref by viewModel.appThemeKey.collectAsState()
+            val useDarkTheme = when (themePref) {
+                "Dark" -> true
+                "Light" -> false
+                else -> isSystemInDarkTheme()
+            }
             val navController = rememberNavController()
             val coroutineScope = rememberCoroutineScope()
             val visibleScreens = listOf(
@@ -75,28 +90,31 @@ class MainActivity : ComponentActivity() {
                 SelectedScreen.WARDROBE,
                 SelectedScreen.SOCIAL
             )
-
-            Scaffold(
-                bottomBar = {
-                    if (viewModel.currentScreen.value in visibleScreens) {
-                        NavBar(viewModel, navController)
+            FPMobileAppTheme(
+                darkTheme = useDarkTheme
+            ) {
+                Scaffold(
+                    bottomBar = {
+                        if (viewModel.currentScreen.value in visibleScreens) {
+                            NavBar(viewModel, navController)
+                        }
+                    },
+                    topBar = {
+                        TopBar(
+                            viewModel = viewModel,
+                            navController = navController,
+                            context = LocalContext.current
+                        )
                     }
-                },
-                topBar = {
-                    TopBar(
-                        viewModel = viewModel,
+                ) { innerPadding ->
+                    FPMANavHost(
                         navController = navController,
-                        context = LocalContext.current
+                        viewModel = viewModel,
+                        modifier = Modifier.padding(innerPadding),
+                        context = LocalContext.current,
+                        coroutineScope = coroutineScope
                     )
                 }
-            ) { innerPadding ->
-                FPMANavHost(
-                    navController = navController,
-                    viewModel = viewModel,
-                    modifier = Modifier.padding(innerPadding),
-                    context = LocalContext.current,
-                    coroutineScope = coroutineScope
-                )
             }
         }
     }

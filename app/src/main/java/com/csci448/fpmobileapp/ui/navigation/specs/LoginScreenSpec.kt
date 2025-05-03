@@ -28,6 +28,9 @@ object LoginScreenSpec : IScreenSpec {
             goToHome = {
                 navController.navigate(route = HomeScreenSpec.route)
             },
+            goToSignup = {
+                navController.navigate(SignupScreenSpec.route)
+            },
             modifier = modifier
         )
     }
