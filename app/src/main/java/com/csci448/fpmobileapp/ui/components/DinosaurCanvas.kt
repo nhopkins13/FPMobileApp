@@ -1,6 +1,7 @@
 package com.csci448.fpmobileapp.ui.components
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -33,7 +34,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
     Canvas(
         modifier = modifier
             .fillMaxWidth()
-            .height(600.dp)
+            .aspectRatio(1.0f)
     ){
         val centerX = size.width/2
         val centerY = size.height/2

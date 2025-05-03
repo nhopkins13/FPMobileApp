@@ -28,11 +28,6 @@ object HomeScreenSpec : IScreenSpec {
     ) {
         viewModel.setCurrentScreen(SelectedScreen.HOME)
         HomeScreen(viewModel = viewModel,
-            {navController.navigate(route = SettingScreenSpec.route)},
-            {navController.navigate(route = WardrobeScreenSpec.route)},
-            {navController.navigate(route = ShopScreenSpec.route)},
-            {navController.navigate(route = TaskScreenSpec.route)},
-            {navController.navigate(route = SocialScreenSpec.route)},
             modifier = modifier)
     }
 
