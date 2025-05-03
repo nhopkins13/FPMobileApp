@@ -37,14 +37,14 @@ object ItemRepo {
     val partyHat = ShopItem(
         name = "Party Hat",
         type = "Hat",
-        imageId = 0,
+        imageId = R.drawable.party_hat,
         price = 10
     )
 
     val bowtie = ShopItem(
         name = "Bowtie",
         type = "Neckwear",
-        imageId = 0,
+        imageId = R.drawable.bowtie,
         price = 10
     )
 }

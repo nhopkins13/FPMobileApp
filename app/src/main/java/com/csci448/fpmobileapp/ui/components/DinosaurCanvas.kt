@@ -358,7 +358,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
             when (saurus.hat) {
                 1 -> DinoHat(this, size)
                 2 -> DinoCrown(this, size)
-                3 -> PartyHat(this, size)
+                7 -> PartyHat(this, size)
                 //more hats go here
             }
         }
