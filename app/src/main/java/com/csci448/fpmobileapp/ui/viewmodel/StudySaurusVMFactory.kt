@@ -1,5 +1,6 @@
 package com.csci448.fpmobileapp.ui.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.csci448.fpmobileapp.data.repos.AuthRepo
@@ -10,6 +11,7 @@ import com.csci448.fpmobileapp.data.repos.SaurusSettingsRepo
 import com.csci448.fpmobileapp.data.daos.TaskDao
 
 class StudySaurusVMFactory(
+    private val application: Application,
     private val mySaurus: Saurus,
     private val taskDao: TaskDao,
     private val itemsDao: ItemsDao,
@@ -18,7 +20,7 @@ class StudySaurusVMFactory(
     private val userRepository: UserRepo
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return StudySaurusVM(mySaurus, taskDao, itemsDao, saurusSettingsRepository, authRepository, userRepository) as T
+        return StudySaurusVM(application, mySaurus, taskDao, itemsDao, saurusSettingsRepository, authRepository, userRepository) as T
     }
 }
 

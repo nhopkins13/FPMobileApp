@@ -83,5 +83,6 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.datastore.preferences)
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
 }

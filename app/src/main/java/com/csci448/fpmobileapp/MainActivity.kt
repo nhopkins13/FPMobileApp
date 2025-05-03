@@ -1,20 +1,28 @@
 package com.csci448.fpmobileapp
 
+import android.content.pm.PackageManager
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.csci448.fpmobileapp.data.AppDatabase
@@ -46,7 +54,26 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val context = LocalContext.current.applicationContext
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val notificationPermissionLauncher = rememberLauncherForActivityResult(
+                    contract = ActivityResultContracts.RequestPermission(),
+                    onResult = { isGranted: Boolean ->
+                        if (isGranted) {
+                            Log.i("PERMISSION", "Notification permission GRANTED")
+                        } else {
+                            Log.w("PERMISSION", "Notification permission DENIED")
+                        }
+                    }
+                )
+                LaunchedEffect(Unit) { // Request permission when the composable enters composition
+                    val currentStatus = ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+                    if (currentStatus == PackageManager.PERMISSION_DENIED) {
+                        Log.d("PERMISSION", "Requesting notification permission...")
+                        notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        Log.d("PERMISSION", "Notification permission already granted.")
+                    }
+                }
             val db = Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
@@ -62,6 +89,7 @@ class MainActivity : ComponentActivity() {
             val userRepository = UserRepo()
 
             val factory = StudySaurusVMFactory(
+                application = application,
                 mySaurus = SaurusRepo.mySaurus,
                 taskDao = db.taskDao(),
                 itemsDao = db.itemsDao(),
@@ -71,8 +99,7 @@ class MainActivity : ComponentActivity() {
             )
 
             val viewModel: StudySaurusVM = androidx.lifecycle.viewmodel.compose.viewModel(factory = factory)
-
-            val themePref by viewModel.appThemeKey.collectAsState()
+                val themePref by viewModel.appThemeKey.collectAsState()
             val useDarkTheme = when (themePref) {
                 "Dark" -> true
                 "Light" -> false
@@ -115,20 +142,4 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello testing!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FPMobileAppTheme {
-        Greeting("Android")
-    }
-}
+}}

@@ -1,12 +1,18 @@
 package com.csci448.fpmobileapp.ui.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.csci448.fpmobileapp.data.repos.AuthRepo
 import com.csci448.fpmobileapp.data.repos.ItemRepo
 import com.csci448.fpmobileapp.data.daos.ItemsDao
@@ -19,6 +25,7 @@ import com.csci448.fpmobileapp.data.Task
 import com.csci448.fpmobileapp.data.daos.TaskDao
 import com.csci448.fpmobileapp.data.UserProfile
 import com.csci448.fpmobileapp.data.repos.UserRepo
+import com.csci448.fpmobileapp.workers.TaskDueWorker
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -30,18 +37,20 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-
+import java.time.LocalDateTime
+import java.time.Duration
 /**
  * the ViewModel for our app
  *
  * TODO:
  *  the whole thing
  */
-class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, private val itemsDao: ItemsDao, private val saurusSettingsRepository: SaurusSettingsRepo, private val authRepository: AuthRepo,
+class StudySaurusVM(application: Application, private val mySaurus: Saurus, private val taskDao: TaskDao, private val itemsDao: ItemsDao, private val saurusSettingsRepository: SaurusSettingsRepo, private val authRepository: AuthRepo,
                     private val userRepository: UserRepo
-) : ViewModel() {
+) : AndroidViewModel(application) {
     private val _currentSaurus = mutableStateOf(mySaurus.copy())
     val currentSaurusState: State<Saurus> = _currentSaurus
+    private val workManager = WorkManager.getInstance(application)
 
     // --- Authentication State ---
     private val _currentUser = MutableStateFlow<FirebaseUser?>(null)
@@ -278,7 +287,45 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
     fun addTask(task: Task) {
         viewModelScope.launch {
             taskDao.insertTask(task)
+            scheduleTaskReminder(task)
         }
+    }
+    private fun scheduleTaskReminder(task: Task) {
+        val dueDateTime = task.timeDue.atTime(12, 0) // Example: Noon
+        // -------------------------------------------------------
+
+        val now = LocalDateTime.now()
+        val delay = Duration.between(now, dueDateTime)
+
+        if (delay.isNegative || delay.isZero) {
+            Log.w("VM_WORK", "Task ${task.id} due date is in the past. Not scheduling.")
+            cancelTaskReminder(task.id)
+            return
+        }
+
+        val inputData = workDataOf(TaskDueWorker.KEY_TASK_ID to task.id)
+
+        val taskWorkRequest = OneTimeWorkRequestBuilder<TaskDueWorker>()
+            .setInitialDelay(delay)
+            .setInputData(inputData)
+            .addTag("task_${task.id}")
+            .build()
+
+        val uniqueWorkName = "task_reminder_${task.id}"
+        workManager.enqueueUniqueWork(
+            uniqueWorkName,
+            ExistingWorkPolicy.REPLACE, // Replace old reminder if due date changes
+            taskWorkRequest
+        )
+
+        Log.i("VM_WORK", "Scheduled reminder for task ${task.id} ('${task.title}') with delay $delay. Unique name: $uniqueWorkName")
+    }
+
+    private fun cancelTaskReminder(taskId: Int) {
+        val uniqueWorkName = "task_reminder_$taskId"
+        workManager.cancelUniqueWork(uniqueWorkName)
+        // You could also cancel by tag: workManager.cancelAllWorkByTag("task_$taskId")
+        Log.i("VM_WORK", "Cancelled reminder work for task $taskId (Unique name: $uniqueWorkName)")
     }
 
     fun updateTask(newTask: Task) {

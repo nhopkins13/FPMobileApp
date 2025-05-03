@@ -13,7 +13,8 @@
     <string name="label_wardrobe">Wardrobe</string>
     <string name="label_back">Back</string>
     <string name="no_upcoming_tasks">You have no upcoming tasks.</string>
-
+    <string name="task_reminder_channel_name">Task Reminders</string>
+    <string name="task_reminder_channel_description">Notifications for upcoming task deadlines</string>
     <string name="label_login_user">Username or Email</string>
     <string name="label_username">Username</string>
     <string name="label_email">Email</string>
