@@ -1,43 +1,92 @@
 package com.csci448.fpmobileapp.ui.screens
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.csci448.fpmobileapp.data.SaurusRepo
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.csci448.fpmobileapp.ui.viewmodel.StudySaurusVM
+import com.csci448.fpmobileapp.data.UserProfile
 
-/**
- * screen to find, view, and interact with friends
- *
- * TODO:
- *  implement search,
- *  keep track of users' friends,
- *  reorganize
- */
 @Composable
-fun SocialScreen(viewModel : StudySaurusVM, modifier: Modifier = Modifier){
-    Column(modifier = modifier){
-        //remove/change once page has content
-        Text("SOCIAL SCREEN")
-        Text("nothing here")
-        Text("hit back button in studio")
+fun SocialScreen(
+    viewModel : StudySaurusVM,
+    goToLogin: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    val userProfile by viewModel.userProfile.collectAsState()
 
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+        // Removed verticalArrangement = Arrangement.Center to place profile at top
+    ){
+        Spacer(modifier = Modifier.height(32.dp)) // Space from top
 
-        Row{
-            //search box to add new friends by user
+        // Profile Section
+        UserProfileIcon(username = userProfile?.username)
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = userProfile?.username ?: "Loading...",
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = userProfile?.email ?: "",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant // Subtler color
+        )
+
+        Spacer(modifier = Modifier.weight(1f)) // Push logout button to bottom
+
+        // Logout Button
+        Button(
+            onClick = {
+                viewModel.logoutUser()
+                goToLogin()
+            },
+            modifier = Modifier.fillMaxWidth(0.7f) // Match StartupScreen button width
+        ) {
+            Text("Logout")
         }
-        Row{
-            //current friends in a list here
-        }
+        Spacer(modifier = Modifier.height(16.dp)) // Space from bottom
     }
 }
 
-@SuppressLint("ViewModelConstructorInComposable")
-@Preview
 @Composable
-private fun PreviewSocialScreen(){
+fun UserProfileIcon(username: String?) {
+    val initial = username?.firstOrNull()?.uppercaseChar() ?: '?'
+    // Generate a simple color based on the initial (or use a fixed color)
+    val backgroundColor = remember(initial) {
+        if (initial == '?') Color.Gray else {
+            // Simple deterministic color generation
+            val hue = (initial.code * 30) % 360f
+            Color.hsl(hue, 0.5f, 0.7f)
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .size(100.dp)
+            .clip(CircleShape)
+            .background(backgroundColor),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = initial.toString(),
+            fontSize = 48.sp,
+            color = Color.White, // Or choose contrasting color
+            fontWeight = FontWeight.Bold
+        )
+    }
 }

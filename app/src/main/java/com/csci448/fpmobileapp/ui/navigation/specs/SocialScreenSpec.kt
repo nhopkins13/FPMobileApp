@@ -28,7 +28,15 @@ object SocialScreenSpec : IScreenSpec {
         modifier: Modifier
     ) {
         viewModel.setCurrentScreen(SelectedScreen.SOCIAL)
-        SocialScreen(viewModel = viewModel, modifier = modifier)
+        SocialScreen(viewModel = viewModel,
+            goToLogin = {
+                navController.navigate(LoginScreenSpec.route) {
+
+                    popUpTo(HomeScreenSpec.route) { inclusive = true }
+                    launchSingleTop = true
+                }
+            },
+            modifier = modifier)
     }
 
     @Composable

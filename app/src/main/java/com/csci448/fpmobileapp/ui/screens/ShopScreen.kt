@@ -129,18 +129,15 @@ fun ShopScreen(
         val totalCost = selectedItems.sumOf { it.price }
         Button(
             onClick = {
-                if (coins < totalCost) {
+                if (coins < totalCost.toLong()) { // Convert totalCost to Long for comparison
                     showTooFew.value = true
                 } else {
                     viewModel.purchaseItems(selectedItems.toList())
                     selectedItems.clear()
                 }
             },
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.CenterHorizontally)
         ) {
-            Text("Purchase ($$totalCost)")
+            androidx.compose.material3.Text("Purchase ($$totalCost)") // Display Int cost
         }
     }
 

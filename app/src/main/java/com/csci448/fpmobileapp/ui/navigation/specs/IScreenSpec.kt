@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -68,7 +69,7 @@ sealed interface IScreenSpec {
         context: Context,
         screenName: String?
     ){
-        TopAppBar(
+        CenterAlignedTopAppBar(
             navigationIcon = if(navController.previousBackStackEntry != null && (viewModel.currentScreen.value == SelectedScreen.SETTINGS || viewModel.currentScreen.value == SelectedScreen.NEW_TASK)){
                 {
                     IconButton(onClick = { navController.navigateUp() }) {

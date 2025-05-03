@@ -12,6 +12,7 @@
     <string name="label_social">Social</string>
     <string name="label_wardrobe">Wardrobe</string>
     <string name="label_back">Back</string>
+    <string name="no_upcoming_tasks">You have no upcoming tasks.</string>
 
     <string name="label_login_user">Username or Email</string>
     <string name="label_username">Username</string>
