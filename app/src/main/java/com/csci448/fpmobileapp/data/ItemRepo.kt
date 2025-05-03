@@ -33,4 +33,18 @@ object ItemRepo {
         imageId = R.drawable.pearls,
         price = 20 
     )
+
+    val partyHat = ShopItem(
+        name = "Party Hat",
+        type = "Hat",
+        imageId = 0,
+        price = 10
+    )
+
+    val bowtie = ShopItem(
+        name = "Bowtie",
+        type = "Neckwear",
+        imageId = 0,
+        price = 10
+    )
 }

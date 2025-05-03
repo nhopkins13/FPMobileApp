@@ -46,6 +46,8 @@ class StudySaurusVM(private val mySaurus: Saurus, private val taskDao: TaskDao, 
                 itemsDao.insertItem(ItemRepo.belt)
                 itemsDao.insertItem(ItemRepo.skirt)
                 itemsDao.insertItem(ItemRepo.necklace)
+                itemsDao.insertItem(ItemRepo.bowtie)
+                itemsDao.insertItem(ItemRepo.partyHat)
                 // Add any other default items here
             } else {
                 Log.d("VM_INIT", "Database already has items.")
