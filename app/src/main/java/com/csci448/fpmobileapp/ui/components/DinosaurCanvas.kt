@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.csci448.fpmobileapp.data.Saurus
 import com.csci448.fpmobileapp.data.SaurusRepo
+import com.csci448.fpmobileapp.ui.components.clothing.Bowtie
 import com.csci448.fpmobileapp.ui.components.clothing.DinoBelt
 import com.csci448.fpmobileapp.ui.components.clothing.DinoCrown
 import com.csci448.fpmobileapp.ui.components.clothing.DinoHat
@@ -379,6 +380,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
         }){
             when (saurus.neckWear) {
                 5 -> DinoPearls(this, size)
+                6 -> Bowtie(this, size)
             }
         }
     }
@@ -388,6 +390,6 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
 @Preview
 @Composable
 fun DinosaurCanvasPreview(){
-    val testSaurus = Saurus(name = "Saurus", hat=3, belt=4, neckWear=5)
+    val testSaurus = Saurus(name = "Saurus", hat=3, belt=4, neckWear=6)
     DinosaurCanvas(saurus = testSaurus)
 }
