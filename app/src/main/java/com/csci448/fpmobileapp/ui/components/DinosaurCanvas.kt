@@ -34,7 +34,7 @@ fun DinosaurCanvas(modifier: Modifier = Modifier, saurus: Saurus){
     Canvas(
         modifier = modifier
             .fillMaxWidth()
-            .aspectRatio(1.0f)
+            .aspectRatio(0.7f)
     ){
         val centerX = size.width/2
         val centerY = size.height/2

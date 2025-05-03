@@ -45,7 +45,7 @@ fun FPMANavHost(
                 composable(route = screen.route) { backStackEntry -> // Pass backStackEntry
                     Log.d("FPMANavHost", "Composing route: ${screen.route}")
                     // Pass arguments if needed in the future using backStackEntry.arguments
-                    screen.Content(viewModel, navController, modifier)
+                    screen.Content(viewModel, navController, modifier = Modifier)
                 }
             }
         }

@@ -44,9 +44,8 @@ fun WardrobeScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                // *** CHANGE HERE: Increase weight for Dino ***
-                .weight(2f) // Example: Give Dino 2 parts of the space
-            // .padding(bottom = 4.dp) // Optional padding above tabs
+                .weight(3f)
+            .padding(bottom = 4.dp)
             ,
             contentAlignment = Alignment.Center
         ) {
@@ -88,9 +87,7 @@ fun WardrobeScreen(
             columns = GridCells.Fixed(3),
             modifier = Modifier
                 .fillMaxWidth()
-                // *** CHANGE HERE: Keep weight at 1f (relative to Dino's 2f) ***
-                .weight(1f) // Example: Grid gets 1 part of the space
-            //.padding(top = 4.dp) // Optional padding below tabs
+                .weight(1f)
             ,
             contentPadding = PaddingValues(8.dp) // Padding inside the grid
         ) {
